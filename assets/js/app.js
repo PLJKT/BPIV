@@ -162,12 +162,23 @@
 
   function intercoDetailTable(list) {
     var rows = '<thead><tr><th></th><th class="num">' + t("dashboard.principalCol") + '</th><th class="num">' + t("dashboard.interestCol") + '</th><th class="num">' + t("dashboard.totalCol") + '</th><th>' + t("dashboard.dateCol") + '</th><th></th></tr></thead><tbody>';
+    var sumP = 0, sumI = 0;
     list.forEach(function (r) {
       var total = r.principal + (r.interest || 0);
+      sumP += r.principal; sumI += (r.interest || 0);
       var usd = r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ')</span>' : '';
       var wo = r.writtenOff ? ' <span class="danger">(' + t("company.writtenOff") + ')</span>' : '';
       rows += '<tr><td>' + tName(r.co) + wo + usd + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num"><strong>' + fmtIDR(total) + '</strong></td><td>' + (r.date || "—") + '</td><td class="muted" style="font-size:11px">' + (r.noteKey ? t("notes." + r.noteKey) : "") + '</td></tr>';
+      if (r.drawdowns && r.drawdowns.length) {
+        rows += '<tr class="dd-row"><td colspan="6"><div class="dd-block"><div class="dd-title">' + t("dashboard.drawdownTitle") + '</div><table class="data compact"><tbody>';
+        r.drawdowns.forEach(function (d) {
+          rows += '<tr><td>' + d.year + (d.note ? ' <span class="muted">(' + d.note + ')</span>' : '') + '</td><td class="num">' + fmtIDR(d.amount) + '</td></tr>';
+        });
+        rows += '<tr class="dd-total"><td><strong>' + t("dashboard.totalRow") + '</strong></td><td class="num"><strong>' + fmtIDR(r.principal) + '</strong></td></tr>';
+        rows += '</tbody></table></div></td></tr>';
+      }
     });
+    rows += '<tr class="grand-total"><td><strong>' + t("dashboard.totalRow") + '</strong></td><td class="num"><strong>' + fmtIDR(sumP) + '</strong></td><td class="num"><strong>' + fmtIDR(sumI) + '</strong></td><td class="num"><strong>' + fmtIDR(sumP + sumI) + '</strong></td><td colspan="2"></td></tr>';
     return '<table class="data">' + rows + '</tbody></table>';
   }
 
@@ -271,26 +282,28 @@
   }
 
   function structureSVG() {
+    var W = 1180, H = 680;
+    var CX = W / 2;
     var nodes = {
-      mtpl: { x: 30, y: 10, w: 280, h: 78, label: "MTPL", sub: t("dashboard.nodeMtpl"), color: "#FDF2E9", stroke: "#D35400" },
-      ysx: { x: 870, y: 10, w: 280, h: 78, label: "YSX", sub: t("dashboard.nodeYsx"), color: "#EAF2FB", stroke: "#2E6DA4" },
-      psi: { x: 450, y: 10, w: 280, h: 78, label: "PSI (BVI)", sub: t("dashboard.nodePsi"), color: "#FDEBD0", stroke: "#E67E22" },
-      prosho: { x: 390, y: 118, w: 400, h: 58, label: "Prosindo", sub: "Rp 2.5 bn · 50/50", color: "#EAF2FB", stroke: "#2E6DA4" },
-      wintek: { x: 390, y: 200, w: 400, h: 58, label: "Wintek (Rajapay)", sub: "99.9% → BPIV · Rp0.98bn loan", color: "#EAF2FB", stroke: "#2E6DA4" },
-      bpiv: { x: 290, y: 290, w: 600, h: 80, label: "BPIV", sub: "Net equity −11.0bn (Dec-25)", color: "#FDF2E9", stroke: "#D35400" },
-      mvp: { x: 20, y: 430, w: 150, h: 90, label: "MVP", sub: "BPIV 70% (64.71% post-val)", color: "#EAF2FB", stroke: "#2E6DA4" },
-      bvi: { x: 190, y: 430, w: 150, h: 90, label: "BVI (B-Startup)", sub: "99.9% · active", color: "#EAF2FB", stroke: "#2E6DA4" },
-      tmn: { x: 360, y: 430, w: 150, h: 90, label: "TMN", sub: "70% (TSN 30%)", color: "#EAF2FB", stroke: "#2E6DA4" },
-      primtek: { x: 530, y: 430, w: 150, h: 90, label: "Primtek", sub: "Seri A 100% · Seri B 51/49", color: "#EAF2FB", stroke: "#2E6DA4" },
-      rajapremi: { x: 700, y: 430, w: 150, h: 90, label: "Rajapremi", sub: "via MVP 99.99%", color: "#EAF2FB", stroke: "#2E6DA4" },
-      mcash: { x: 870, y: 430, w: 150, h: 90, label: "Mcash", sub: "CB investment", color: "#EAF2FB", stroke: "#2E6DA4" }
+      ysx:    { x: 250, y: 20,  w: 240, h: 70, label: "YSX", sub: t("dashboard.nodeYsx"), color: "#EAF2FB", stroke: "#2E6DA4" },
+      psi:    { x: 690, y: 20,  w: 240, h: 70, label: "PSI (BVI)", sub: t("dashboard.nodePsi"), color: "#FDEBD0", stroke: "#E67E22" },
+      mtpl:   { x: 1020, y: 180, w: 150, h: 64, label: "MTPL", sub: t("dashboard.nodeMtpl"), color: "#FDF2E9", stroke: "#D35400" },
+      prosho: { x: 440, y: 130, w: 300, h: 56, label: "Prosindo", sub: "Rp 2.5 bn · 50/50", color: "#EAF2FB", stroke: "#2E6DA4" },
+      wintek: { x: 440, y: 220, w: 300, h: 56, label: "Wintek (Rajapay)", sub: "99.9% → BPIV", color: "#EAF2FB", stroke: "#2E6DA4" },
+      bpiv:   { x: 340, y: 310, w: 500, h: 76, label: "BPIV", sub: "Net equity −11.0bn (Dec-25)", color: "#FDF2E9", stroke: "#D35400" },
+      mvp:     { x: 30,  y: 460, w: 170, h: 92, label: "MVP", sub: "70% (64.71% post-val)", color: "#EAF2FB", stroke: "#2E6DA4" },
+      bvi:     { x: 220, y: 460, w: 170, h: 92, label: "BVI (B-Startup)", sub: "99.9% · active", color: "#EAF2FB", stroke: "#2E6DA4" },
+      tmn:     { x: 410, y: 460, w: 170, h: 92, label: "TMN", sub: "70% (TSN 30%)", color: "#EAF2FB", stroke: "#2E6DA4" },
+      primtek: { x: 600, y: 460, w: 170, h: 92, label: "Primtek", sub: "Seri A 100% · Seri B 51/49", color: "#EAF2FB", stroke: "#2E6DA4" },
+      rajapremi:{ x: 790, y: 460, w: 170, h: 92, label: "Rajapremi", sub: "via MVP 99.99%", color: "#EAF2FB", stroke: "#2E6DA4" },
+      mcash:   { x: 980, y: 460, w: 170, h: 92, label: "Mcash", sub: "CB investment", color: "#EAF2FB", stroke: "#2E6DA4" }
     };
     var s = '<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#666"/></marker></defs>';
     Object.keys(nodes).forEach(function (k) {
       var n = nodes[k];
       s += '<rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="6" fill="' + n.color + '" stroke="' + n.stroke + '" stroke-width="1.5"/>';
-      s += '<text x="' + (n.x + n.w / 2) + '" y="' + (n.y + 24) + '" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">' + n.label + '</text>';
-      s += '<text x="' + (n.x + n.w / 2) + '" y="' + (n.y + 44) + '" text-anchor="middle" font-size="10.5" fill="#555">' + n.sub + '</text>';
+      s += '<text x="' + (n.x + n.w / 2) + '" y="' + (n.y + 22) + '" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">' + n.label + '</text>';
+      s += '<text x="' + (n.x + n.w / 2) + '" y="' + (n.y + 40) + '" text-anchor="middle" font-size="10.5" fill="#555">' + n.sub + '</text>';
     });
     function cx(n) { return n.x + n.w / 2; }
     function line(x1, y1, x2, y2, dash, label, lx, ly) {
@@ -298,17 +311,22 @@
       s += '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#666" stroke-width="1.5"' + d + ' marker-end="url(#arr)"/>';
       if (label) s += '<text x="' + lx + '" y="' + ly + '" font-size="10.5" fill="#444">' + label + '</text>';
     }
-    line(cx(nodes.psi), nodes.psi.y + 78, cx(nodes.prosho), nodes.prosho.y, false, "50%", cx(nodes.psi) + 4, 105);
-    line(cx(nodes.ysx), nodes.ysx.y + 78, cx(nodes.prosho) + 100, nodes.prosho.y, false, "50%", cx(nodes.ysx) - 40, 105);
-    line(cx(nodes.prosho), nodes.prosho.y + 58, cx(nodes.wintek), nodes.wintek.y, false, "99.9%", cx(nodes.prosho) + 6, 186);
-    line(cx(nodes.wintek), nodes.wintek.y + 58, cx(nodes.bpiv), nodes.bpiv.y, false, "99%", cx(nodes.wintek) + 6, 276);
-    line(200, nodes.mtpl.y + 78, 320, nodes.bpiv.y, true, "loan", 210, 235);
-    line(790, nodes.wintek.y + 58, 870, nodes.bpiv.y, true, "0.98bn", 790, 260);
+    // shareholders -> Prosindo
+    line(cx(nodes.ysx), nodes.ysx.y + nodes.ysx.h, 500, nodes.prosho.y, false, "50%", 380, 115);
+    line(cx(nodes.psi), nodes.psi.y + nodes.psi.h, 680, nodes.prosho.y, false, "50%", 730, 115);
+    // Prosindo -> Wintek -> BPIV
+    line(cx(nodes.prosho), nodes.prosho.y + nodes.prosho.h, cx(nodes.wintek), nodes.wintek.y, false, "99.9%", cx(nodes.prosho) + 6, 206);
+    line(cx(nodes.wintek), nodes.wintek.y + nodes.wintek.h, cx(nodes.bpiv), nodes.bpiv.y, false, "99%", cx(nodes.wintek) + 6, 296);
+    // MTPL -> BPIV (dashed loan)
+    line(nodes.mtpl.x, nodes.mtpl.y + 20, nodes.bpiv.x + nodes.bpiv.w, nodes.bpiv.y + 30, true, "loan Rp14.76bn", 950, 250);
+    // Wintek on-lent loan to BPIV (dashed, short)
+    line(nodes.wintek.x + nodes.wintek.w, nodes.wintek.y + 28, nodes.bpiv.x + nodes.bpiv.w - 20, nodes.bpiv.y + 20, true, "Rp0.98bn", 760, 275);
+    // BPIV -> portfolio
     var portKeys = ["mvp", "bvi", "tmn", "primtek", "rajapremi", "mcash"];
     var labels = { mvp: "2.8bn", bvi: "0.1bn", tmn: "1.05bn", primtek: "0.9bn", rajapremi: "loan", mcash: "CB" };
     portKeys.forEach(function (k) {
       var n = nodes[k];
-      line(cx(n), nodes.bpiv.y + 80, cx(n), n.y, k === "rajapremi" || k === "mcash", labels[k], cx(n) - 10, (nodes.bpiv.y + 80 + n.y) / 2 + 4);
+      line(cx(n), nodes.bpiv.y + nodes.bpiv.h, cx(n), n.y, k === "rajapremi" || k === "mcash", labels[k], cx(n) - 18, (nodes.bpiv.y + nodes.bpiv.h + n.y) / 2 + 4);
     });
     return s;
   }

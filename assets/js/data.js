@@ -40,16 +40,52 @@ window.BPIV_DATA = {
         { co: "bvi", amount: 99900000, date: "2015", noteKey: "bviInvNote" }
       ],
       receivables: [
-        { co: "rajapremi", principal: 1833706306, interest: 0, date: "2017", noteKey: "rajapremiLoanNote" },
-        { co: "bvi", principal: 1505194160, interest: 574555788, date: "2017", noteKey: "bviLoanNote" },
-        { co: "mcash", principal: 1463011566, interest: 0, usd: 61818, date: "2017", noteKey: "mcashLoanNote" },
-        { co: "tmn", principal: 970500000, interest: 250781055, date: "2016", noteKey: "tmnLoanNote" },
-        { co: "wellgrow", principal: 974919660, interest: 0, date: "2015", writtenOff: true, noteKey: "wellgrowNote" },
-        { co: "primtek", principal: 342442014, interest: 0, date: "2017", noteKey: "primtekLoanNote" }
+        { co: "rajapremi", principal: 1833706306, interest: 0, date: "2018", noteKey: "rajapremiLoanNote",
+          drawdowns: [
+            { year: 2018, amount: 165851978 }, { year: 2019, amount: 353500000 },
+            { year: 2020, amount: 383600000 }, { year: 2021, amount: 423254328 },
+            { year: 2022, amount: 194000000 }, { year: 2023, amount: 143000000 },
+            { year: 2024, amount: 101700000 }, { year: 2025, amount: 68800000 }
+          ] },
+        { co: "bvi", principal: 1505194160, interest: 574555788, date: "2015", noteKey: "bviLoanNote",
+          drawdowns: [
+            { year: 2015, amount: 128642000 }, { year: 2016, amount: 594747160 },
+            { year: 2017, amount: 299500000 }, { year: 2018, amount: 122100000 },
+            { year: 2019, amount: 138200000 }, { year: 2023, amount: 145000000 },
+            { year: 2024, amount: -80000000 }, { year: 2025, amount: 157005000 }
+          ] },
+        { co: "mcash", principal: 1463011566, interest: 0, usd: 61818, date: "2017", noteKey: "mcashLoanNote",
+          drawdowns: [
+            { year: 2024, amount: 1431237114, note: "incl. USD 61,818 from former NST channel" }
+          ] },
+        { co: "tmn", principal: 970500000, interest: 250781055, date: "2016", noteKey: "tmnLoanNote",
+          drawdowns: [
+            { year: 2016, amount: 600000000 }, { year: 2017, amount: 370500000 }
+          ] },
+        { co: "wellgrow", principal: 974919660, interest: 0, date: "2015", writtenOff: true, noteKey: "wellgrowNote",
+          drawdowns: [
+            { year: 2024, amount: 974919660 }
+          ] },
+        { co: "primtek", principal: 342442014, interest: 0, date: "2017", noteKey: "primtekLoanNote",
+          drawdowns: [
+            { year: 2024, amount: 342442014 }
+          ] }
       ],
       payables: [
-        { co: "mtpl", principal: 14763000000, interest: 3637273993, date: "2015", noteKey: "mtplLoanNote" },
-        { co: "wintek", principal: 980677392, interest: 149030232, date: "2016", noteKey: "wintekLoanNote" }
+        { co: "mtpl", principal: 14763000000, interest: 3637273993, date: "2015", noteKey: "mtplLoanNote",
+          drawdowns: [
+            { year: 2015, amount: 4635234438 }, { year: 2016, amount: 1584000000 },
+            { year: 2017, amount: 1890000000 }, { year: 2018, amount: 538000000 },
+            { year: 2019, amount: 950000000 }, { year: 2020, amount: 450000000 },
+            { year: 2021, amount: 996000000 }, { year: 2022, amount: 660000000 },
+            { year: 2023, amount: -8000000 }, { year: 2024, amount: 3067765562 }
+          ] },
+        { co: "wintek", principal: 980677392, interest: 149030232, date: "2016", noteKey: "wintekLoanNote",
+          drawdowns: [
+            { year: 2014, amount: 20000000 }, { year: 2015, amount: 311324139 },
+            { year: 2018, amount: 80000000 }, { year: 2023, amount: 73925293 },
+            { year: 2024, amount: 285427960 }, { year: 2025, amount: 210000000 }
+          ] }
       ],
       risk: {
         debtToEquity: -1.77,

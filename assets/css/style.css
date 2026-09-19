@@ -258,3 +258,13 @@ footer.foot {
 .admin-msg { font-size: 12px; margin-top: 8px; }
 table.data.compact td, table.data.compact th { padding: 5px 10px; font-size: 13px; }
 table.data td.neg-val { color: var(--danger); font-weight: 600; }
+
+/* v4: drawdown sub-tables & totals */
+.dd-row td { background: #f7f9fb !important; padding: 6px 10px !important; }
+.dd-block { margin: 4px 0 4px 12px; }
+.dd-title { font-size: 11px; color: var(--primary-light); font-weight: 600; margin-bottom: 4px; }
+.dd-block table.data { margin-top: 2px; }
+.dd-block table.data td { padding: 3px 10px !important; font-size: 12px; }
+.dd-total td { border-top: 1px solid var(--border); }
+tr.grand-total td { background: #eef2f7 !important; border-top: 2px solid var(--primary); font-size: 13px; }
+table.data td.neg-val { color: var(--danger); font-weight: 600; }

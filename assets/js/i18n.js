@@ -66,6 +66,8 @@ window.BPIV_I18N = {
       interestCol: "Accrued Interest",
       totalCol: "Total",
       amountCol: "Amount",
+      drawdownTitle: "Drawdown Schedule",
+      totalRow: "Total",
       nodeMtpl: "LP · direct lender to BPIV",
       nodeYsx: "Co-founder · 50%",
       nodePsi: "50% · main funder · interest-free"
@@ -253,6 +255,8 @@ window.BPIV_I18N = {
       interestCol: "应计利息",
       totalCol: "合计",
       amountCol: "金额",
+      drawdownTitle: "拨付时间表",
+      totalRow: "合计",
       nodeMtpl: "资方 · 直接向 BPIV 放贷",
       nodeYsx: "联合创始人 · 50%",
       nodePsi: "50% · 主要出资方 · 无息"
@@ -440,6 +444,8 @@ window.BPIV_I18N = {
       interestCol: "Bunga Akrual",
       totalCol: "Total",
       amountCol: "Jumlah",
+      drawdownTitle: "Jadwal Penarikan",
+      totalRow: "Total",
       nodeMtpl: "LP · pemberi pinjaman langsung ke BPIV",
       nodeYsx: "Co-founder · 50%",
       nodePsi: "50% · pendana utama · tanpa bunga"
