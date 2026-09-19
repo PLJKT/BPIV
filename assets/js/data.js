@@ -2,7 +2,7 @@
 // Source: Financial Report 2013-2025 - Oktober 2025.xlsx; LK 2025 PDFs (BPIV/Prosidno/Wintek)
 window.BPIV_DATA = {
   meta: {
-    asOf: "2025-10-31",
+    asOf: "2025-12-31",
     annualAsOf: "2025-12-31",
     currency: "IDR",
     projectionUntil: "2026-12-31"
@@ -30,8 +30,8 @@ window.BPIV_DATA = {
         equity: -11039192825,
         netIncome: -3740827661
       },
-      cash: 3637731,
-      workingCapital: -7714694632,
+      cash: 4502520,
+      workingCapital: -11039192825,
       writeOff2025: 3376656774,
       equityInvestments: [
         { co: "mvp", amount: 2800000000, date: "2015", noteKey: "mvpInvNote" },
@@ -80,7 +80,7 @@ window.BPIV_DATA = {
             { year: 2021, amount: 996000000 }, { year: 2022, amount: 660000000 },
             { year: 2023, amount: -8000000 }, { year: 2024, amount: 3067765562 }
           ] },
-        { co: "wintek", principal: 980677392, interest: 149030232, date: "2016", noteKey: "wintekLoanNote",
+        { co: "wintek", principal: 985677392, interest: 198036440, date: "2016", noteKey: "wintekLoanNote",
           drawdowns: [
             { year: 2014, amount: 20000000 }, { year: 2015, amount: 311324139 },
             { year: 2018, amount: 80000000 }, { year: 2023, amount: 73925293 },
@@ -121,7 +121,7 @@ window.BPIV_DATA = {
       keyItems: [
         { labelKey: "investInSubs", amount: 99900000, note: "Wintek" },
         { labelKey: "dueFromRelated", amount: 1500000000 },
-        { labelKey: "landBuilding", amount: 537800000 }
+        { labelKey: "landBuilding", amount: 537795000 }
       ],
       investsIn: [
         { co: "wintek", pct: 0.999, amount: 99900000 }

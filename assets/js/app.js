@@ -229,11 +229,11 @@
     chart.setOption({
       tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return "Rp " + v + " m"; } },
       legend: { top: 0 },
-      grid: { left: 12, right: 20, top: 30, bottom: 20, containLabel: true },
-      xAxis: { type: "category", data: bpiv.payables.map(function (r) { return tName(r.co); }) },
-      yAxis: { type: "value", name: "Rp m" },
+      grid: { left: 12, right: 50, top: 30, bottom: 20, containLabel: true },
+      xAxis: { type: "value", name: "Rp m" },
+      yAxis: { type: "category", data: bpiv.payables.map(function (r) { return tName(r.co); }) },
       series: [
-        { name: t("dashboard.principalCol"), type: "bar", stack: "debt", data: bpiv.payables.map(function (r) { return Math.round(r.principal / 1e6); }) },
+        { name: t("dashboard.principalCol"), type: "bar", stack: "debt", data: bpiv.payables.map(function (r) { return Math.round(r.principal / 1e6); })},
         { name: t("dashboard.interestCol"), type: "bar", stack: "debt", data: bpiv.payables.map(function (r) { return Math.round((r.interest || 0) / 1e6); }) }
       ]
     });
