@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BPIV Group Information System</title>
+  <link rel="stylesheet" href="assets/css/style.css?v=3">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="title" id="app-title">BPIV Group Information System</span>
+      <span class="subtitle" id="app-subtitle"></span>
+    </div>
+    <div class="lang-switch">
+      <button class="lang-btn" id="lang-en">English</button>
+      <button class="lang-btn" id="lang-zh">中文</button>
+      <button class="lang-btn" id="lang-id">Bahasa Indonesia</button>
+    </div>
+  </header>
+  <nav class="tabs">
+    <a id="nav-dashboard" href="#/">Dashboard</a>
+    <a id="nav-companies" href="#/">Companies</a>
+  </nav>
+  <main id="main"></main>
+  <footer class="foot">
+    <div id="foot-source"></div>
+    <div id="foot-disclaimer"></div>
+  </footer>
+  <script src="assets/js/data.js?v=3"></script>
+  <script src="assets/js/i18n.js?v=3"></script>
+  <script src="assets/js/app.js?v=3"></script>
+</body>
+</html>
