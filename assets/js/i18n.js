@@ -99,6 +99,10 @@ window.BPIV_I18N = {
       investsIn: "Investment in",
       pctHeld: "Holding",
       description: "Description",
+      bsTitle: "Balance Sheet",
+      isTitle: "Income Statement",
+      bsSection: { assets: "ASSETS", liabilities: "LIABILITIES", equity: "EQUITY" },
+      isSection: { revenue: "REVENUE", expenses: "EXPENSES", other: "OTHER INCOME/(EXPENSES)", note: "NOTE" },
       backToDashboard: "← Back to Dashboard",
       legalName: "Legal Name"
     },
@@ -288,6 +292,10 @@ window.BPIV_I18N = {
       investsIn: "对外投资",
       pctHeld: "持股比例",
       description: "公司简介",
+      bsTitle: "资产负债表",
+      isTitle: "利润表",
+      bsSection: { assets: "资产", liabilities: "负债", equity: "权益" },
+      isSection: { revenue: "收入", expenses: "费用", other: "其他收入/(费用)", note: "说明" },
       backToDashboard: "← 返回仪表盘",
       legalName: "法定名称"
     },
@@ -477,6 +485,10 @@ window.BPIV_I18N = {
       investsIn: "Investasi pada",
       pctHeld: "Kepemilikan",
       description: "Deskripsi",
+      bsTitle: "Neraca",
+      isTitle: "Laba Rugi",
+      bsSection: { assets: "AKTIVA", liabilities: "KEWAJIBAN", equity: "EKUITAS" },
+      isSection: { revenue: "PENDAPATAN", expenses: "BEBAN", other: "PENGHASILAN/(BEBAN) LAIN", note: "CATATAN" },
       backToDashboard: "← Kembali ke Dashboard",
       legalName: "Nama Hukum"
     },

@@ -1,5 +1,5 @@
 // BPIV Group — Financial data (as of 31 Oct 2025; annual BS as of 31 Dec 2025)
-// Source: Financial Report 2013-2025 - Oktober 2025.xlsx; LK 2025 PDFs (BPIV/Prosidno/Wintek)
+// Source: Financial Report 2013-2025 - Oktober 2025.xlsx; LK 2025 PDFs (BPIV/Prosindo/Wintek)
 window.BPIV_DATA = {
   meta: {
     asOf: "2025-12-31",
@@ -30,6 +30,36 @@ window.BPIV_DATA = {
         equity: -11039192825,
         netIncome: -3740827661
       },
+      bsDetail: [
+        { section: "assets" },
+        { label: "Cash and cash equivalents", amount: 4502520 },
+        { label: "Related party receivables", amount: 3686642480 },
+        { label: "Investment in subsidiaries", amount: 4849900000 },
+        { label: "Fixed assets, net", amount: 3750000 },
+        { label: "TOTAL ASSETS", amount: 8544795000, total: true },
+        { section: "liabilities" },
+        { label: "Interest payable", amount: 3835310433 },
+        { label: "Related party payables", amount: 15748677392 },
+        { label: "TOTAL LIABILITIES", amount: 19583987825, total: true },
+        { section: "equity" },
+        { label: "Share capital", amount: 100000000 },
+        { label: "Accumulated deficit", amount: -11139192825 },
+        { label: "TOTAL EQUITY", amount: -11039192825, total: true }
+      ],
+      isDetail: [
+        { section: "revenue" },
+        { label: "Revenue", amount: 70000000 },
+        { section: "expenses" },
+        { label: "Salaries and benefits", amount: 117872910 },
+        { label: "General and administrative", amount: 7338232 },
+        { label: "Operating loss", amount: -55211142, subtotal: true },
+        { section: "other" },
+        { label: "Interest income", amount: 50515 },
+        { label: "Other income", amount: 4700000 },
+        { label: "Interest expense", amount: -313710260 },
+        { label: "Receivable write-off", amount: -3376656774 },
+        { label: "NET LOSS", amount: -3740827661, total: true }
+      ],
       cash: 4502520,
       workingCapital: -11039192825,
       writeOff2025: 3376656774,
@@ -103,7 +133,7 @@ window.BPIV_DATA = {
         zh: "PT Prosindo Manajemen",
         id: "PT Prosindo Manajemen"
       },
-      shortName: "Prosinido",
+      shortName: "Prosindo",
       shortNameOrig: "Prosindo",
       typeKey: "managementCo",
       status: "holding",
@@ -118,6 +148,23 @@ window.BPIV_DATA = {
         equity: 2152092216,
         netIncome: null
       },
+      bsDetail: [
+        { section: "assets" },
+        { label: "Cash and cash equivalents", amount: 14397216 },
+        { label: "Land and building", amount: 537795000 },
+        { label: "Related party receivables", amount: 1500000000 },
+        { label: "Other receivables", amount: 424195451 },
+        { label: "Investment in subsidiary (Wintek)", amount: 99900000 },
+        { label: "TOTAL ASSETS", amount: 2576287667, total: true },
+        { section: "liabilities" },
+        { label: "Other payables", amount: 424195451 },
+        { label: "TOTAL LIABILITIES", amount: 424195451, total: true },
+        { section: "equity" },
+        { label: "Share capital (2,500 shares @ Rp1m)", amount: 2500000000 },
+        { label: "Retained earnings / (loss)", amount: -347907784 },
+        { label: "TOTAL EQUITY", amount: 2152092216, total: true }
+      ],
+      isDetail: null,
       keyItems: [
         { labelKey: "investInSubs", amount: 99900000, note: "Wintek" },
         { labelKey: "dueFromRelated", amount: 1500000000 },
@@ -150,6 +197,22 @@ window.BPIV_DATA = {
         equity: 699925756,
         netIncome: -67473740
       },
+      bsDetail: [
+        { section: "assets" },
+        { label: "Cash and cash equivalents", amount: 12694668 },
+        { label: "Related party receivables (principal)", amount: 995747391 },
+        { label: "Interest receivable from BPIV", amount: 152107107 },
+        { label: "Investment in subsidiary (BPIV)", amount: 99000000 },
+        { label: "TOTAL ASSETS", amount: 1259549167, total: true },
+        { section: "liabilities" },
+        { label: "Related party payables", amount: 559623411 },
+        { label: "TOTAL LIABILITIES", amount: 559623411, total: true },
+        { section: "equity" },
+        { label: "Share capital", amount: 100000000 },
+        { label: "Retained earnings", amount: 599925756 },
+        { label: "TOTAL EQUITY", amount: 699925756, total: true }
+      ],
+      isDetail: null,
       investsIn: [
         { co: "bpiv", pct: 0.99, amount: 99000000 }
       ],
@@ -175,6 +238,32 @@ window.BPIV_DATA = {
       ],
       ownershipNoteKey: "mvpOwnershipNote",
       shareCapital: 3126700000,
+      bsDetail: [
+        { section: "assets" },
+        { label: "Investment in Rajapremi", amount: 1999900000 },
+        { label: "Receivables from Rajapremi", amount: 11070348 },
+        { label: "TOTAL ASSETS", amount: 2010970348, total: true },
+        { section: "liabilities" },
+        { label: "TOTAL LIABILITIES", amount: 0, total: true },
+        { section: "equity" },
+        { label: "Share capital", amount: 3126700000 },
+        { label: "Additional paid-in capital", amount: 3070593000 },
+        { label: "Accumulated deficit", amount: -4186322652 },
+        { label: "TOTAL EQUITY", amount: 2010970348, total: true }
+      ],
+      isDetail: [
+        { section: "revenue" },
+        { label: "Management fee (cumulative)", amount: 160000000 },
+        { label: "Interest income (cumulative)", amount: 142385858 },
+        { label: "Miscellaneous income (cumulative)", amount: 39500000 },
+        { section: "expenses" },
+        { label: "Salaries (cumulative)", amount: 2481369860 },
+        { label: "Marketing (cumulative)", amount: 411031995 },
+        { label: "Adm & general (cumulative)", amount: 1241174351 },
+        { label: "Management fee to BPIV (cumulative)", amount: 153500000 },
+        { label: "Building rent (cumulative)", amount: 49500000 },
+        { label: "NET DEFICIT (cumulative)", amount: -4186322652, total: true }
+      ],
       investsIn: [
         { co: "rajapremi", pct: 0.9999, amount: 1999900000 }
       ],
@@ -199,6 +288,30 @@ window.BPIV_DATA = {
         { holder: "yn_nominee", pct: 0.001, noteKey: "nomineeStake" }
       ],
       shareCapital: 100000000,
+      bsDetail: [
+        { section: "assets" },
+        { label: "Cash and cash equivalents", amount: 3132084 },
+        { label: "Receivables", amount: 793400000 },
+        { label: "Office equipment, net", amount: 16726000 },
+        { label: "TOTAL ASSETS", amount: 813258084, total: true },
+        { section: "liabilities" },
+        { label: "Due to BPIV (principal + interest)", amount: 2079749948 },
+        { label: "TOTAL LIABILITIES", amount: 2079749948, total: true },
+        { section: "equity" },
+        { label: "Share capital", amount: 100000000 },
+        { label: "Accumulated deficit", amount: -1366491864 },
+        { label: "TOTAL EQUITY", amount: -1266491864, total: true }
+      ],
+      isDetail: [
+        { section: "revenue" },
+        { label: "Management fee (YTD Oct-25)", amount: 114800000 },
+        { label: "Interest income (YTD Oct-25)", amount: 38952 },
+        { section: "expenses" },
+        { label: "Salaries (YTD Oct-25)", amount: 28643389 },
+        { label: "Building management fee (YTD Oct-25)", amount: 78111000 },
+        { label: "Adm & general (YTD Oct-25)", amount: 16749983 },
+        { label: "NET INCOME (YTD Oct-25)", amount: -870420, total: true }
+      ],
       receivables: [
         { co: "rajapremi", principal: 764000000, interest: 0, date: "2019" },
         { co: "greenland", principal: 29400000, interest: 0, date: "2020" }
@@ -224,6 +337,34 @@ window.BPIV_DATA = {
         { holder: "yn_nominee", pct: 0.0001, noteKey: "nomineeStake" }
       ],
       shareCapital: 2000000000,
+      bsDetail: [
+        { section: "assets" },
+        { label: "Cash and cash equivalents", amount: 10803015 },
+        { label: "Receivables from insurance", amount: 8655051 },
+        { label: "Office equipment, net", amount: 22441900 },
+        { label: "TOTAL ASSETS", amount: 41899966, total: true },
+        { section: "liabilities" },
+        { label: "Due to BPIV", amount: 1833706306 },
+        { label: "Due to BVI (rental)", amount: 754668952 },
+        { label: "Due to BVI (management fee)", amount: 764000000 },
+        { label: "Due to MVP", amount: 11070349 },
+        { label: "TOTAL LIABILITIES", amount: 3363445607, total: true },
+        { section: "equity" },
+        { label: "Share capital", amount: 2000000000 },
+        { label: "Accumulated deficit", amount: -5321545641 },
+        { label: "TOTAL EQUITY", amount: -3321545641, total: true }
+      ],
+      isDetail: [
+        { section: "revenue" },
+        { label: "Commission (YTD Oct-25)", amount: 23051991 },
+        { label: "Interest income (YTD Oct-25)", amount: 11870 },
+        { section: "expenses" },
+        { label: "Salaries (YTD Oct-25)", amount: 49056760 },
+        { label: "Email/web maintenance (YTD Oct-25)", amount: 24312495 },
+        { label: "Management fee to BVI (YTD Oct-25)", amount: 70000000 },
+        { label: "Adm & general (YTD Oct-25)", amount: 16775354 },
+        { label: "NET LOSS (YTD Oct-25)", amount: -137101748, total: true }
+      ],
       payables: [
         { co: "bpiv", principal: 1833706306, interest: 0, date: "2017" },
         { co: "bvi", principal: 764000000, interest: 0, date: "2019" },

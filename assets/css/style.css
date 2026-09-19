@@ -268,3 +268,9 @@ table.data td.neg-val { color: var(--danger); font-weight: 600; }
 .dd-total td { border-top: 1px solid var(--border); }
 tr.grand-total td { background: #eef2f7 !important; border-top: 2px solid var(--primary); font-size: 13px; }
 table.data td.neg-val { color: var(--danger); font-weight: 600; }
+
+.bs-row td { border-bottom: 1px solid #e5e9ef; }
+tr.section-row td { background: #f0f4f8; padding: 8px 12px; font-size: 12px; letter-spacing: 0.5px; }
+tr.total-row td { border-top: 2px solid var(--primary); font-weight: 700; background: #f7f9fc; }
+tr.subtotal-row td { border-top: 1px solid var(--border); font-weight: 600; }
+table.data td.num { text-align: right; font-variant-numeric: tabular-nums; }

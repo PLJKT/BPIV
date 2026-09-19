@@ -341,7 +341,7 @@
       '<div><span class="status-badge st-' + c.status + '">' + t("dashboard.status." + c.status) + "</span></div></div>" +
       '<div class="panel"><h3>' + t("company.description") + '</h3><p class="risk-desc">' + t("desc." + c.descriptionKey) + "</p></div>" +
       '<div class="two-col">' + financialsPanel(c) + ownershipPanel(c) + "</div>" +
-      intercoPanel(c) + revenuePanel(c);
+      intercoPanel(c) + bsPanel(c) + revenuePanel(c);
     document.getElementById("back-btn").addEventListener("click", function () { location.hash = "#/"; });
     renderCompanyCharts(c);
   }
@@ -362,6 +362,33 @@
     return '<div class="panel"><h3>' + t("company.financials") + '</h3><table class="data"><tbody>' + rows + '</tbody></table><div class="panel-note">' + t("annualAsOf") + "</div></div>";
   }
   function row(label, val) { return '<tr><td>' + label + '</td><td class="num">' + val + "</td></tr>"; }
+
+  function bsPanel(c) {
+    if (!c.bsDetail) return "";
+    var h = '<div class="panel"><h3>' + t("company.bsTitle") + '</h3><table class="data"><tbody>';
+    c.bsDetail.forEach(function (item) {
+      if (item.section) {
+        h += '<tr class="section-row"><td colspan="2"><strong>' + t("company.bsSection." + item.section) + '</strong></td></tr>';
+      } else {
+        var cls = item.total ? ' class="total-row"' : (item.subtotal ? ' class="subtotal-row"' : '');
+        h += '<tr' + cls + '><td>' + item.label + '</td><td class="num">' + fmtIDR(item.amount) + '</td></tr>';
+      }
+    });
+    h += '</tbody></table></div>';
+    if (c.isDetail) {
+      h += '<div class="panel"><h3>' + t("company.isTitle") + '</h3><table class="data"><tbody>';
+      c.isDetail.forEach(function (item) {
+        if (item.section) {
+          h += '<tr class="section-row"><td colspan="2"><strong>' + t("company.isSection." + item.section) + '</strong></td></tr>';
+        } else {
+          var cls = item.total ? ' class="total-row"' : (item.subtotal ? ' class="subtotal-row"' : '');
+          h += '<tr' + cls + '><td>' + item.label + '</td><td class="num">' + fmtIDR(item.amount) + '</td></tr>';
+        }
+      });
+      h += '</tbody></table></div>';
+    }
+    return h;
+  }
 
   function ownershipPanel(c) {
     if (!c.ownership) return '<div class="panel"></div>';
