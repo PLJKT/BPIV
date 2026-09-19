@@ -188,3 +188,64 @@ footer.foot {
   margin-top: 40px;
 }
 .structure-svg { width: 100%; height: auto; }
+
+/* Login screen */
+.login-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: linear-gradient(135deg, #1a3a6b 0%, #2e6da4 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.login-box {
+  background: #fff; border-radius: 12px; padding: 40px 36px;
+  width: 360px; max-width: 90vw; text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+.login-logo {
+  font-size: 36px; font-weight: 800; color: var(--primary);
+  letter-spacing: 2px; margin-bottom: 4px;
+}
+.login-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+.login-box input {
+  width: 100%; padding: 11px 14px; margin: 6px 0;
+  border: 1px solid var(--border); border-radius: 6px; font-size: 14px;
+  box-sizing: border-box;
+}
+.login-box input:focus { outline: none; border-color: var(--primary-light); }
+.login-box button {
+  width: 100%; padding: 11px; margin-top: 12px;
+  background: var(--primary); color: #fff; border: none; border-radius: 6px;
+  font-size: 15px; font-weight: 600; cursor: pointer;
+}
+.login-box button:hover { background: var(--primary-light); }
+.login-error {
+  background: #fdecea; color: var(--danger); padding: 8px;
+  border-radius: 4px; font-size: 12px; margin-bottom: 8px;
+}
+.login-lang-row { display: flex; gap: 6px; justify-content: center; margin-top: 16px; }
+.login-lang {
+  width: auto; padding: 5px 14px; background: #f0f3f7; color: var(--text);
+  border: 1px solid var(--border); font-size: 12px; font-weight: 400;
+}
+.login-lang:hover { background: #e1e5ea; }
+.login-lang.active { background: var(--primary); color: #fff; }
+
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.user-info { color: rgba(255,255,255,.9); font-size: 13px; margin-right: 6px; }
+
+/* Admin panel */
+.admin-panel { max-width: 700px; }
+.admin-form { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 10px; margin: 12px 0; align-items: end; }
+.admin-form label { font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 3px; }
+.admin-form input, .admin-form select {
+  width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 13px;
+  box-sizing: border-box;
+}
+.admin-form button {
+  padding: 8px 16px; background: var(--primary); color: #fff; border: none;
+  border-radius: 4px; cursor: pointer; font-size: 13px;
+}
+.role-badge { padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; color: #fff; }
+.role-admin { background: var(--danger); }
+.role-viewer { background: var(--gray); }
+.danger-btn { background: var(--danger) !important; padding: 4px 10px !important; font-size: 11px !important; }
+.change-pw-row { display: flex; gap: 8px; align-items: center; margin-top: 6px; }

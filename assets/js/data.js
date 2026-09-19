@@ -167,8 +167,10 @@ window.BPIV_DATA = {
       status: "dormant",
       statusKey: "statusDormant",
       ownership: [
-        { holder: "bpiv", pct: 1.0 }
+        { holder: "bpiv", pct: 0.70, noteKey: "mvpInitial" },
+        { holder: "other", pct: 0.30, noteKey: "mvpOther" }
       ],
+      ownershipNoteKey: "mvpOwnershipNote",
       shareCapital: 3126700000,
       investsIn: [
         { co: "rajapremi", pct: 0.9999, amount: 1999900000 }
