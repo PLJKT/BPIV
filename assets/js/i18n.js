@@ -53,7 +53,22 @@ window.BPIV_I18N = {
         holding: "Holding"
       },
       intercoTitle: "BPIV Intercompany Receivables (31 Oct-25)",
-      intercoNote: "Receivables from portfolio companies; Wellgrow already written off in Dec-25."
+      intercoNote: "Receivables from portfolio companies; Wellgrow already written off in Dec-25.",
+      riskTitle: "Risk Assessment",
+      riskDesc: "BPIV is balance-sheet insolvent. Total external debt is Rp15.84bn (principal Rp15.74bn + accrued interest Rp3.79bn) against equity of negative Rp11.04bn. Cash on hand is only Rp3.6m. The company cannot service its debt from operations; all operating revenue comes from BVI (Rp115-426m/yr), insufficient to cover even accrued interest of Rp3.64bn to MTPL. The Rp3.38bn write-off in 2025 reflects deteriorated recoverability of intercompany loans.",
+      debtBreakdownTitle: "Debt Structure: Principal vs Accrued Interest",
+      solvencyTitle: "Solvency Metrics",
+      equityInvTitle: "Equity Investments (BPIV → Portfolio)",
+      receivablesDetailTitle: "Loans Receivable by Company",
+      payablesDetailTitle: "Debts Payable to Lenders",
+      dateCol: "Year",
+      principalCol: "Principal",
+      interestCol: "Accrued Interest",
+      totalCol: "Total",
+      amountCol: "Amount",
+      nodeMtpl: "LP · direct lender to BPIV",
+      nodeYsx: "Co-founder · 50%",
+      nodePsi: "50% · main funder · interest-free"
     },
 
     company: {
@@ -111,7 +126,19 @@ window.BPIV_I18N = {
       mcashNote: "BPIV holds a convertible note (CB), not shares. Equity is held by original shareholders, with unpaid share capital outstanding.",
       mvpInitial: "Initial ownership (paid-up shares)",
       mvpOther: "Other shareholders",
-      mvpOwnershipNote: "Economic ownership is 64.71% after valuation increase; the 70% corresponds to paid-up share capital."
+      mvpOwnershipNote: "Economic ownership is 64.71% after valuation increase; the 70% corresponds to paid-up share capital.",
+      mvpInvNote: "Initial investment; 70% paid-up basis, diluted to 64.71% post-valuation.",
+      tmnInvNote: "70% equity; TSN holds 30%.",
+      primtekInvNote: "Seri A shares, 100%.",
+      bviInvNote: "99.9% equity (0.1% nominee).",
+      rajapremiLoanNote: "On-lent working capital; no accrued interest.",
+      bviLoanNote: "Working capital loan with accrued interest.",
+      mcashLoanNote: "Includes USD 61,818 from former NST channel (settled 2024).",
+      tmnLoanNote: "On-lent capital with accrued interest.",
+      wellgrowNote: "Offshore receivable; written off in Dec-2025.",
+      primtekLoanNote: "Trade / working capital loan.",
+      mtplLoanNote: "LP-style direct funding; interest-bearing.",
+      wintekLoanNote: "On-lent by Prosindo group; interest-bearing."
     },
 
     desc: {
@@ -213,7 +240,22 @@ window.BPIV_I18N = {
         holding: "控股平台"
       },
       intercoTitle: "BPIV 关联应收（2025年10月31日）",
-      intercoNote: "对投资组合公司的应收；Wellgrow 已于 2025 年 12 月核销。"
+      intercoNote: "对投资组合公司的应收；Wellgrow 已于 2025 年 12 月核销。",
+      riskTitle: "风险评估",
+      riskDesc: "BPIV 已资不抵债。对外总负债 158.4 亿盾（本金 157.4 亿 + 应计利息 37.9 亿），净资产为负 110.4 亿盾。手头现金仅 360 万盾。公司无法通过经营偿还债务；唯一产生收入的 BVI 年管理费仅 1.15–4.26 亿盾，远不足以支付对 MTPL 的应计利息 36.4 亿盾。2025 年 33.8 亿盾应收核销反映关联贷款回收能力恶化。",
+      debtBreakdownTitle: "债务结构：本金与应计利息",
+      solvencyTitle: "偿债能力指标",
+      equityInvTitle: "股权投资（BPIV → 投资组合）",
+      receivablesDetailTitle: "各公司贷款应收明细",
+      payablesDetailTitle: "贷款方应付明细",
+      dateCol: "年份",
+      principalCol: "本金",
+      interestCol: "应计利息",
+      totalCol: "合计",
+      amountCol: "金额",
+      nodeMtpl: "资方 · 直接向 BPIV 放贷",
+      nodeYsx: "联合创始人 · 50%",
+      nodePsi: "50% · 主要出资方 · 无息"
     },
 
     company: {
@@ -271,7 +313,19 @@ window.BPIV_I18N = {
       mcashNote: "BPIV 持有可转债（CB），非直接股东；股权由原始股东持有，其股本尚未缴足。",
       mvpInitial: "初始持股（对应实缴股份）",
       mvpOther: "其他股东",
-      mvpOwnershipNote: "估值上升后经济持股为 64.71%；70% 为对应实缴股本的初始持股。"
+      mvpOwnershipNote: "估值上升后经济持股为 64.71%；70% 为对应实缴股本的初始持股。",
+      mvpInvNote: "初始投资；实缴口径 70%，估值后稀释至 64.71%。",
+      tmnInvNote: "70% 股权；TSN 持 30%。",
+      primtekInvNote: "A 类股，100%。",
+      bviInvNote: "99.9% 股权（0.1% 代持）。",
+      rajapremiLoanNote: "转贷营运资金；无应计利息。",
+      bviLoanNote: "营运资金贷款，有应计利息。",
+      mcashLoanNote: "含原 NST 通道转入 61,818 美元（2024 年结清）。",
+      tmnLoanNote: "转贷资金，有应计利息。",
+      wellgrowNote: "海外应收；2025 年 12 月已核销。",
+      primtekLoanNote: "贸易/营运资金贷款。",
+      mtplLoanNote: "LP 式直接出资；计息。",
+      wintekLoanNote: "由 Prosinido 集团转贷；计息。"
     },
 
     desc: {
@@ -373,7 +427,22 @@ window.BPIV_I18N = {
         holding: "Holding"
       },
       intercoTitle: "Piutang Antar Perusahaan BPIV (31 Okt-25)",
-      intercoNote: "Piutang dari perusahaan portofolio; Wellgrow sudah dihapusbukukan Des-25."
+      intercoNote: "Piutang dari perusahaan portofolio; Wellgrow sudah dihapusbukukan Des-25.",
+      riskTitle: "Penilaian Risiko",
+      riskDesc: "BPIV sudah insolvent. Total utang eksternal Rp15,84 miliar (pokok Rp15,74 miliar + bunga akrual Rp3,79 miliar) terhadap ekuitas negatif Rp11,04 miliar. Kas di tangan hanya Rp3,6 juta. Perusahaan tidak dapat membayar utang dari operasi; pendapatan operasional seluruhnya dari BVI (Rp115–426 juta/tahun), tidak cukup menutup bunga akrual Rp3,64 miliar ke MTPL. Penghapusbukuan Rp3,38 miliar pada 2025 mencerminkan memburuknya kelayakan piutang antar perusahaan.",
+      debtBreakdownTitle: "Struktur Utang: Pokok vs Bunga Akrual",
+      solvencyTitle: "Metrik Solvabilitas",
+      equityInvTitle: "Investasi Ekuitas (BPIV → Portofolio)",
+      receivablesDetailTitle: "Piutang Pinjaman per Perusahaan",
+      payablesDetailTitle: "Hutang kepada Pemberi Pinjaman",
+      dateCol: "Tahun",
+      principalCol: "Pokok",
+      interestCol: "Bunga Akrual",
+      totalCol: "Total",
+      amountCol: "Jumlah",
+      nodeMtpl: "LP · pemberi pinjaman langsung ke BPIV",
+      nodeYsx: "Co-founder · 50%",
+      nodePsi: "50% · pendana utama · tanpa bunga"
     },
 
     company: {
@@ -431,7 +500,19 @@ window.BPIV_I18N = {
       mcashNote: "BPIV memegang convertible note (CB), bukan saham. Ekuitas dimilih oleh pemegang saham lama dengan modal belum disetor penuh.",
       mvpInitial: "Kepemilikan awal (saham disetor)",
       mvpOther: "Pemegang saham lain",
-      mvpOwnershipNote: "Kepemilikan ekonomis menjadi 64,71% setelah kenaikan valuasi; 70% sesuai modal disetor."
+      mvpOwnershipNote: "Kepemilikan ekonomis menjadi 64,71% setelah kenaikan valuasi; 70% sesuai modal disetor.",
+      mvpInvNote: "Investasi awal; basis disetor 70%, terdilusi jadi 64,71% pasca-valuasi.",
+      tmnInvNote: "Ekuitas 70%; TSN memegang 30%.",
+      primtekInvNote: "Saham Seri A, 100%.",
+      bviInvNote: "Ekuitas 99,9% (0,1% nominee).",
+      rajapremiLoanNote: "Modal kerja yang disalurkan ulang; tanpa bunga akrual.",
+      bviLoanNote: "Pinjaman modal kerja dengan bunga akrual.",
+      mcashLoanNote: "Termasuk USD 61.818 dari saluran NST sebelumnya (diselesaikan 2024).",
+      tmnLoanNote: "Modal yang disalurkan ulang dengan bunga akrual.",
+      wellgrowNote: "Piutang luar negeri; dihapusbukukan Des-2025.",
+      primtekLoanNote: "Pinjaman perdagangan / modal kerja.",
+      mtplLoanNote: "Pendanaan langsung model LP; berbunga.",
+      wintekLoanNote: "Disalurkan ulang oleh grup Prosindo; berbunga."
     },
 
     desc: {

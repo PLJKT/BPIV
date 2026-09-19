@@ -21,14 +21,13 @@
     if (v == null || isNaN(v)) return "—";
     var sign = v < 0 ? "-" : "";
     v = Math.abs(v);
-    if (v >= 1e9) return sign + (v / 1e9).toFixed(2) + " bn";
-    if (v >= 1e6) return sign + (v / 1e6).toFixed(1) + " m";
+    if (v >= 1e9) return sign + (v / 1e9).toFixed(2) + " " + t("dashboard.kpiUnit.bn");
+    if (v >= 1e6) return sign + (v / 1e6).toFixed(1) + " " + t("dashboard.kpiUnit.m");
     return sign + v.toLocaleString();
   }
   function fmtPct(p) {
     if (p == null) return "—";
-    if (p >= 0.01) return (p * 100).toFixed(1).replace(/\.0$/, "") + "%";
-    return (p * 100).toFixed(2).replace(/\.?0+$/, "") + "%";
+    return (p * 100).toFixed(1).replace(/\.0$/, "") + "%";
   }
   function tName(slug) {
     if (slug === "yn_nominee") return "YN";
@@ -38,8 +37,8 @@
     if (slug === "tsn") return "TSN";
     if (slug === "bf") return "BF";
     if (slug === "greenland") return "Greenland";
-    if (slug === "other") return (currentLang === "zh") ? "其他股东" : (currentLang === "id" ? "Pemegang lain" : "Other");
-    if (slug === "originalShareholders") return (currentLang === "zh") ? "原始股东" : (currentLang === "id" ? "Pemegang saham lama" : "Original shareholders");
+    if (slug === "other") return t("notes.mvpOther");
+    if (slug === "originalShareholders") return t("notes.mcashNote").split(".")[0];
     if (D.companies[slug] && D.companies[slug].legalNames) return D.companies[slug].legalNames[currentLang] || slug;
     return slug;
   }
@@ -58,7 +57,6 @@
     render();
   }
 
-  // ---- auth gate ----
   function showLogin() {
     document.getElementById("login-screen").style.display = "flex";
     document.getElementById("app").style.display = "none";
@@ -109,24 +107,71 @@
   }
 
   function renderDashboard(main) {
+    var bpiv = D.companies.bpiv;
+    var debtTotal = bpiv.payables[0].principal + bpiv.payables[0].interest + bpiv.payables[1].principal + bpiv.payables[1].interest;
+    var invTotal = bpiv.equityInvestments.reduce(function (s, x) { return s + x.amount; }, 0);
+    var activeRec = bpiv.receivables.filter(function (r) { return !r.writtenOff; });
+
     main.innerHTML =
       '<div class="page-title">' + t("dashboard.title") + '</div>' +
       '<div class="page-sub">' + t("asOf") + " " + D.meta.asOf + " · " + t("currencyNote") + '</div>' +
-      renderKPIs() +
+      renderKPIs(bpiv, debtTotal, invTotal) +
       '<div class="panel"><h3>' + t("dashboard.revenueChart.title") + '</h3><div id="rev-chart" class="chart-box"></div><div class="panel-note">' + t("dashboard.revenueChart.subtext") + '</div></div>' +
       '<div class="panel"><h3>' + t("dashboard.structureTitle") + '</h3><div id="struct-box"></div><div class="panel-note">' + t("dashboard.structureNote") + '</div><div class="panel-note" style="color:#c05e12">' + t("dashboard.offshoreNote") + '</div></div>' +
+      '<div class="panel"><h3>' + t("dashboard.riskTitle") + '</h3>' +
+      '<p class="risk-desc">' + t("dashboard.riskDesc") + '</p>' +
+      '<div class="two-col">' +
+        '<div><h4 class="sub-h">' + t("dashboard.debtBreakdownTitle") + '</h4><div id="debt-chart" class="chart-box" style="height:280px"></div></div>' +
+        '<div><h4 class="sub-h">' + t("dashboard.solvencyTitle") + '</h4>' + solvencyTable(bpiv) + '</div>' +
+      '</div></div>' +
+      '<div class="panel"><h3>' + t("dashboard.equityInvTitle") + '</h3>' + eqInvTable(bpiv) + '</div>' +
+      '<div class="panel"><h3>' + t("dashboard.receivablesDetailTitle") + '</h3>' + intercoDetailTable(activeRec) +
+      '<div class="panel-note">' + t("dashboard.intercoNote") + '</div></div>' +
+      '<div class="panel"><h3>' + t("dashboard.payablesDetailTitle") + '</h3>' + intercoDetailTable(bpiv.payables) + '</div>' +
       '<div class="panel"><h3>' + t("dashboard.intercoTitle") + '</h3><div id="interco-chart" class="chart-box"></div><div class="panel-note">' + t("dashboard.intercoNote") + '</div></div>' +
       '<div class="panel"><h3>' + t("dashboard.statusTitle") + '</h3><div id="company-grid"></div></div>';
+
     renderRevChart();
     renderStructure();
+    renderDebtChart(bpiv);
     renderIntercoChart();
     renderCompanyGrid();
   }
 
-  function renderKPIs() {
-    var bpiv = D.companies.bpiv;
-    var debtTotal = bpiv.payables[0].principal + bpiv.payables[0].interest;
-    var invTotal = bpiv.investments.reduce(function (s, x) { return s + x.amount; }, 0);
+  function solvencyTable(bpiv) {
+    var rows =
+      solRow(t("company.equity"), fmtIDR(bpiv.bs.equity), bpiv.bs.equity < 0) +
+      solRow(t("dashboard.kpi.totalDebt"), fmtIDR(bpiv.payables[0].principal + bpiv.payables[0].interest + bpiv.payables[1].principal + bpiv.payables[1].interest), true) +
+      solRow(t("company.assets"), fmtIDR(bpiv.bs.assets), false) +
+      solRow(t("company.liabilities"), fmtIDR(bpiv.bs.liabilities), true) +
+      solRow(t("dashboard.kpi.workingCapital"), fmtIDR(bpiv.workingCapital), bpiv.workingCapital < 0) +
+      solRow(t("company.netIncome"), fmtIDR(bpiv.bs.netIncome), bpiv.bs.netIncome < 0);
+    return '<table class="data compact"><tbody>' + rows + '</tbody></table>';
+  }
+  function solRow(label, val, neg) {
+    return '<tr><td>' + label + '</td><td class="num' + (neg ? ' neg-val' : '') + '">' + val + '</td></tr>';
+  }
+
+  function eqInvTable(bpiv) {
+    var rows = '<thead><tr><th></th><th class="num">' + t("dashboard.amountCol") + '</th><th>' + t("dashboard.dateCol") + '</th><th></th></tr></thead><tbody>';
+    bpiv.equityInvestments.forEach(function (inv) {
+      rows += '<tr><td>' + tName(inv.co) + '</td><td class="num">' + fmtIDR(inv.amount) + '</td><td>' + inv.date + '</td><td style="font-size:11px;color:var(--text-muted)">' + t("notes." + inv.noteKey) + '</td></tr>';
+    });
+    return '<table class="data">' + rows + '</tbody></table>';
+  }
+
+  function intercoDetailTable(list) {
+    var rows = '<thead><tr><th></th><th class="num">' + t("dashboard.principalCol") + '</th><th class="num">' + t("dashboard.interestCol") + '</th><th class="num">' + t("dashboard.totalCol") + '</th><th>' + t("dashboard.dateCol") + '</th><th></th></tr></thead><tbody>';
+    list.forEach(function (r) {
+      var total = r.principal + (r.interest || 0);
+      var usd = r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ')</span>' : '';
+      var wo = r.writtenOff ? ' <span class="danger">(' + t("company.writtenOff") + ')</span>' : '';
+      rows += '<tr><td>' + tName(r.co) + wo + usd + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num"><strong>' + fmtIDR(total) + '</strong></td><td>' + (r.date || "—") + '</td><td class="muted" style="font-size:11px">' + (r.noteKey ? t("notes." + r.noteKey) : "") + '</td></tr>';
+    });
+    return '<table class="data">' + rows + '</tbody></table>';
+  }
+
+  function renderKPIs(bpiv, debtTotal, invTotal) {
     var cards = [
       { label: t("dashboard.kpi.netEquity"), val: fmtIDR(bpiv.bs.equity), cls: "danger", neg: bpiv.bs.equity < 0 },
       { label: t("dashboard.kpi.totalDebt"), val: fmtIDR(debtTotal), cls: "danger" },
@@ -162,6 +207,24 @@
       xAxis: { type: "category", data: years, boundaryGap: false },
       yAxis: { type: "value", name: "Rp m" },
       series: series
+    });
+  }
+
+  function renderDebtChart(bpiv) {
+    var el = document.getElementById("debt-chart");
+    if (!el) return;
+    var chart = echarts.init(el);
+    chartInstances.push(chart);
+    chart.setOption({
+      tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return "Rp " + v + " m"; } },
+      legend: { top: 0 },
+      grid: { left: 12, right: 20, top: 30, bottom: 20, containLabel: true },
+      xAxis: { type: "category", data: bpiv.payables.map(function (r) { return tName(r.co); }) },
+      yAxis: { type: "value", name: "Rp m" },
+      series: [
+        { name: t("dashboard.principalCol"), type: "bar", stack: "debt", data: bpiv.payables.map(function (r) { return Math.round(r.principal / 1e6); }) },
+        { name: t("dashboard.interestCol"), type: "bar", stack: "debt", data: bpiv.payables.map(function (r) { return Math.round((r.interest || 0) / 1e6); }) }
+      ]
     });
   }
 
@@ -209,9 +272,9 @@
 
   function structureSVG() {
     var nodes = {
-      mtpl: { x: 30, y: 10, w: 280, h: 78, label: "MTPL", sub: "LP · direct lender to BPIV", color: "#FDF2E9", stroke: "#D35400" },
-      ysx: { x: 870, y: 10, w: 280, h: 78, label: "YSX", sub: "Co-founder · 50% of Prosindo", color: "#EAF2FB", stroke: "#2E6DA4" },
-      psi: { x: 450, y: 10, w: 280, h: 78, label: "PSI (BVI)", sub: "50% · main funder · interest-free", color: "#FDEBD0", stroke: "#E67E22" },
+      mtpl: { x: 30, y: 10, w: 280, h: 78, label: "MTPL", sub: t("dashboard.nodeMtpl"), color: "#FDF2E9", stroke: "#D35400" },
+      ysx: { x: 870, y: 10, w: 280, h: 78, label: "YSX", sub: t("dashboard.nodeYsx"), color: "#EAF2FB", stroke: "#2E6DA4" },
+      psi: { x: 450, y: 10, w: 280, h: 78, label: "PSI (BVI)", sub: t("dashboard.nodePsi"), color: "#FDEBD0", stroke: "#E67E22" },
       prosho: { x: 390, y: 118, w: 400, h: 58, label: "Prosindo", sub: "Rp 2.5 bn · 50/50", color: "#EAF2FB", stroke: "#2E6DA4" },
       wintek: { x: 390, y: 200, w: 400, h: 58, label: "Wintek (Rajapay)", sub: "99.9% → BPIV · Rp0.98bn loan", color: "#EAF2FB", stroke: "#2E6DA4" },
       bpiv: { x: 290, y: 290, w: 600, h: 80, label: "BPIV", sub: "Net equity −11.0bn (Dec-25)", color: "#FDF2E9", stroke: "#D35400" },
@@ -252,21 +315,20 @@
 
   function renderCompany(main, slug) {
     var c = D.companies[slug];
-    if (!c) { main.innerHTML = '<p>Not found</p>'; return; }
+    if (!c) { main.innerHTML = "<p>Not found</p>"; return; }
     var legal = c.legalNames[currentLang] || c.legalNames.en;
-    var html =
-      '<a class="back-link" id="back-btn">' + t("company.backToDashboard") + '</a>' +
-      '<div class="detail-header"><div><h2>' + c.shortName + '</h2><div style="color:#555;font-size:13px">' + legal + '</div></div>' +
-      '<div><span class="status-badge st-' + c.status + '">' + t("dashboard.status." + c.status) + '</span></div></div>' +
-      '<div class="panel"><h3>' + t("company.description") + '</h3><p style="font-size:14px;line-height:1.7">' + t("desc." + c.descriptionKey) + '</p></div>' +
-      financialsPanel(c) + ownershipPanel(c) + intercoPanel(c) + revenuePanel(c);
-    main.innerHTML = html;
+    main.innerHTML =
+      '<a class="back-link" id="back-btn">' + t("company.backToDashboard") + "</a>" +
+      '<div class="detail-header"><div><h2>' + c.shortName + '</h2><div class="muted">' + legal + "</div></div>" +
+      '<div><span class="status-badge st-' + c.status + '">' + t("dashboard.status." + c.status) + "</span></div></div>" +
+      '<div class="panel"><h3>' + t("company.description") + '</h3><p class="risk-desc">' + t("desc." + c.descriptionKey) + "</p></div>" +
+      '<div class="two-col">' + financialsPanel(c) + ownershipPanel(c) + "</div>" +
+      intercoPanel(c) + revenuePanel(c);
     document.getElementById("back-btn").addEventListener("click", function () { location.hash = "#/"; });
     renderCompanyCharts(c);
   }
 
   function financialsPanel(c) {
-    if (!c.bs && !c.shareCapital) return "";
     var rows = "";
     if (c.shareCapital) rows += row(t("company.shareCapital"), fmtIDR(c.shareCapital));
     if (c.bs) {
@@ -278,48 +340,49 @@
     if (c.keyItems) c.keyItems.forEach(function (k) {
       rows += row(k.note || k.labelKey, fmtIDR(k.amount));
     });
-    return '<div class="panel"><h3>' + t("company.financials") + '</h3><table class="data"><tbody>' + rows + '</tbody></table><div class="panel-note">' + t("annualAsOf") + '</div></div>';
+    if (!rows) return '<div class="panel"></div>';
+    return '<div class="panel"><h3>' + t("company.financials") + '</h3><table class="data"><tbody>' + rows + '</tbody></table><div class="panel-note">' + t("annualAsOf") + "</div></div>";
   }
-  function row(label, val) { return '<tr><td>' + label + '</td><td class="num">' + val + '</td></tr>'; }
+  function row(label, val) { return '<tr><td>' + label + '</td><td class="num">' + val + "</td></tr>"; }
 
   function ownershipPanel(c) {
-    if (!c.ownership) return "";
+    if (!c.ownership) return '<div class="panel"></div>';
     var rows = "";
     c.ownership.forEach(function (o) {
-      rows += '<tr><td>' + tName(o.holder) + '</td><td class="num">' + fmtPct(o.pct) + '</td>' +
-        '<td style="font-size:11px;color:#888">' + (o.noteKey ? t("notes." + o.noteKey) : "") + '</td></tr>';
+      rows += "<tr><td>" + tName(o.holder) + '</td><td class="num">' + fmtPct(o.pct) + '</td><td class="muted" style="font-size:11px">' + (o.noteKey ? t("notes." + o.noteKey) : "") + "</td></tr>";
     });
-    var noteHtml = c.ownershipNoteKey ? '<div class="panel-note" style="margin-top:8px;color:#c05e12">' + t("notes." + c.ownershipNoteKey) + '</div>' : '';
-    return '<div class="panel"><h3>' + t("company.ownership") + '</h3><table class="data"><thead><tr><th>' + t("company.legalName") + '</th><th>' + t("company.pctHeld") + '</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>' + noteHtml + '</div>';
+    var noteHtml = c.ownershipNoteKey ? '<div class="panel-note note-warn">' + t("notes." + c.ownershipNoteKey) + "</div>" : "";
+    return '<div class="panel"><h3>' + t("company.ownership") + '</h3><table class="data"><thead><tr><th>' + t("company.legalName") + '</th><th>' + t("company.pctHeld") + "</th><th></th></tr></thead><tbody>" + rows + "</tbody></table>" + noteHtml + "</div>";
   }
 
   function intercoPanel(c) {
-    var html = '<div class="panel"><h3>' + t("company.interco") + '</h3>';
+    var html = '<div class="panel"><h3>' + t("company.interco") + "</h3>";
     var any = false;
+    var hdr = '<thead><tr><th></th><th class="num">' + t("dashboard.principalCol") + '</th><th class="num">' + t("dashboard.interestCol") + '</th><th class="num">' + t("dashboard.totalCol") + "</th><th>" + t("dashboard.dateCol") + "</th></tr></thead>";
     if (c.receivables && c.receivables.length) {
       any = true;
-      html += '<h4 style="font-size:13px;margin:8px 0 4px;color:#2e6da4">' + t("company.receivablesFrom") + '</h4><table class="data"><thead><tr><th></th><th class="num">' + t("company.principal") + '</th><th class="num">' + t("company.interest") + '</th><th class="num">' + t("company.total") + '</th></tr></thead><tbody>';
+      html += '<h4 class="sub-h" style="color:var(--primary-light)">' + t("company.receivablesFrom") + '</h4><table class="data">' + hdr + "<tbody>";
       c.receivables.forEach(function (r) {
-        html += '<tr><td>' + tName(r.co) + (r.writtenOff ? ' <span style="color:#c0392b;font-size:11px">(' + t("company.writtenOff") + ')</span>' : '') + (r.usd ? ' <span style="font-size:11px;color:#888">(USD ' + r.usd.toLocaleString() + ')</span>' : '') + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num">' + fmtIDR(r.principal + (r.interest || 0)) + '</td></tr>';
+        html += "<tr><td>" + tName(r.co) + (r.writtenOff ? ' <span class="danger">(' + t("company.writtenOff") + ")</span>" : "") + (r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ")</span>" : "") + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num">' + fmtIDR(r.principal + (r.interest || 0)) + "</td><td>" + (r.date || "—") + "</td></tr>";
       });
-      html += '</tbody></table>';
+      html += "</tbody></table>";
     }
     if (c.payables && c.payables.length) {
       any = true;
-      html += '<h4 style="font-size:13px;margin:12px 0 4px;color:#c0392b">' + t("company.payablesTo") + '</h4><table class="data"><thead><tr><th></th><th class="num">' + t("company.principal") + '</th><th class="num">' + t("company.interest") + '</th><th class="num">' + t("company.total") + '</th></tr></thead><tbody>';
+      html += '<h4 class="sub-h" style="color:var(--danger)">' + t("company.payablesTo") + '</h4><table class="data">' + hdr + "<tbody>";
       c.payables.forEach(function (r) {
-        html += '<tr><td>' + tName(r.co) + (r.usd ? ' <span style="font-size:11px;color:#888">(USD ' + r.usd.toLocaleString() + ')</span>' : '') + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num">' + fmtIDR(r.principal + (r.interest || 0)) + '</td></tr>';
+        html += "<tr><td>" + tName(r.co) + (r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ")</span>" : "") + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num">' + fmtIDR(r.principal + (r.interest || 0)) + "</td><td>" + (r.date || "—") + "</td></tr>";
       });
-      html += '</tbody></table>';
+      html += "</tbody></table>";
     }
-    if (!any) html += '<p style="color:#888;font-size:13px">' + t("company.noHistory") + '</p>';
-    return html + '</div>';
+    if (!any) html += '<p class="muted">' + t("company.noHistory") + "</p>";
+    return html + "</div>";
   }
 
   function revenuePanel(c) {
     var has = D.revenue.series[c.slug];
     if (!has || !has.some(function (v) { return v > 0; }))
-      return '<div class="panel"><h3>' + t("company.history") + '</h3><p style="color:#888">' + t("company.noHistory") + '</p></div>';
+      return '<div class="panel"><h3>' + t("company.history") + '</h3><p class="muted">' + t("company.noHistory") + "</p></div>";
     return '<div class="panel"><h3>' + t("company.history") + '</h3><div id="co-rev-chart" class="chart-box"></div></div>';
   }
 
@@ -337,28 +400,24 @@
     });
   }
 
-  // ---- Admin panel ----
   function renderAdmin(main) {
     var users = Auth.listUsers();
     var rows = "";
     users.forEach(function (u) {
-      var badge = '<span class="role-badge role-' + u.role + '">' + t("auth." + u.role) + '</span>';
-      rows += '<tr><td>' + u.name + '</td><td>' + u.user + '</td><td>' + badge + '</td>' +
-        '<td><div class="change-pw-row"><input type="password" placeholder="' + t("auth.newPw") + '" id="pw-' + u.user + '" style="padding:4px 8px;border:1px solid #ddd;border-radius:4px;font-size:12px;">' +
-        '<button class="danger-btn" onclick="window.__bpivCp(\'' + u.user + '\')">' + t("auth.updateBtn") + '</button></div></td>' +
-        '<td>' + (u.user === "admin" ? "—" : '<button class="danger-btn" onclick="window.__bpivDel(\'' + u.user + '\')">' + t("auth.delete") + '</button>') + '</td></tr>';
+      var badge = '<span class="role-badge role-' + u.role + '">' + t("auth." + u.role) + "</span>";
+      rows += "<tr><td>" + u.name + "</td><td>" + u.user + "</td><td>" + badge + '</td><td><div class="change-pw-row"><input type="password" placeholder="' + t("auth.newPw") + '" id="pw-' + u.user + '" style="padding:4px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;"><button class="danger-btn" onclick="window.__bpivCp(\'' + u.user + "')\">" + t("auth.updateBtn") + '</button></div></td><td>' + (u.user === "admin" ? "—" : '<button class="danger-btn" onclick="window.__bpivDel(\'' + u.user + "')\">" + t("auth.delete") + "</button>") + "</td></tr>";
     });
     main.innerHTML =
-      '<div class="page-title">' + t("auth.userMgmt") + '</div>' +
-      '<div class="panel admin-panel"><h3>' + t("auth.createUser") + '</h3>' +
+      '<div class="page-title">' + t("auth.userMgmt") + "</div>" +
+      '<div class="panel admin-panel"><h3>' + t("auth.createUser") + "</h3>" +
       '<div class="admin-form">' +
-      '<div><label>' + t("auth.usernameLabel") + '</label><input id="nu-user"></div>' +
-      '<div><label>' + t("auth.nameLabel") + '</label><input id="nu-name"></div>' +
-      '<div><label>' + t("auth.passLabel") + '</label><input id="nu-pass" type="password"></div>' +
-      '<div><label>' + t("auth.roleLabel") + '</label><select id="nu-role"><option value="viewer">' + t("auth.viewer") + '</option><option value="admin">' + t("auth.admin") + '</option></select></div>' +
-      '<button onclick="window.__bpivCreate()">' + t("auth.createBtn") + '</button></div>' +
-      '<div id="admin-msg" style="font-size:12px;margin-top:8px;"></div></div>' +
-      '<div class="panel"><h3>' + t("auth.userList") + '</h3><table class="data"><thead><tr><th>' + t("auth.nameLabel") + '</th><th>' + t("auth.usernameLabel") + '</th><th>' + t("auth.roleLabel") + '</th><th>' + t("auth.changePw") + '</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+      "<div><label>" + t("auth.usernameLabel") + '</label><input id="nu-user"></div>' +
+      "<div><label>" + t("auth.nameLabel") + '</label><input id="nu-name"></div>' +
+      "<div><label>" + t("auth.passLabel") + '</label><input id="nu-pass" type="password"></div>' +
+      '<div><label>' + t("auth.roleLabel") + '</label><select id="nu-role"><option value="viewer">' + t("auth.viewer") + '</option><option value="admin">' + t("auth.admin") + "</option></select></div>" +
+      '<button onclick="window.__bpivCreate()">' + t("auth.createBtn") + "</button></div>" +
+      '<div id="admin-msg" class="admin-msg"></div></div>' +
+      '<div class="panel"><h3>' + t("auth.userList") + '</h3><table class="data"><thead><tr><th>' + t("auth.nameLabel") + '</th><th>' + t("auth.usernameLabel") + '</th><th>' + t("auth.roleLabel") + '</th><th>' + t("auth.changePw") + "</th><th></th></tr></thead><tbody>" + rows + "</tbody></table></div>";
   }
 
   window.__bpivCreate = function () {
@@ -368,8 +427,8 @@
     var r = document.getElementById("nu-role").value;
     var res = Auth.createUser(u, p, r, n);
     var msg = document.getElementById("admin-msg");
-    if (res.ok) { msg.style.color = "#27ae60"; msg.textContent = t("auth.userCreated"); render(); }
-    else { msg.style.color = "#c0392b"; msg.textContent = t("auth.userExists"); }
+    if (res.ok) { msg.style.color = "var(--success)"; msg.textContent = t("auth.userCreated"); render(); }
+    else { msg.style.color = "var(--danger)"; msg.textContent = t("auth.userExists"); }
   };
   window.__bpivCp = function (user) {
     var p = document.getElementById("pw-" + user).value;

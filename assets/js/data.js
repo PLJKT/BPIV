@@ -8,40 +8,6 @@ window.BPIV_DATA = {
     projectionUntil: "2026-12-31"
   },
 
-  // Ownership chain (legal structure)
-  structure: {
-    top: [
-      { id: "ysx", name: "YSX", type: "person", noteKey: "ysxNote" },
-      { id: "psi", name: "PSI", type: "offshore", noteKey: "psiNote" }
-    ],
-    // edges: [fromId, toId, pct, kind]  kind: equity | loan
-    edges: [
-      ["ysx", "prosho", 0.50, "equity"],
-      ["psi", "prosho", 0.50, "equity"],
-      ["prosho", "wintek", 0.999, "equity"],
-      ["yn_nominee", "wintek", 0.001, "equity_nominee"],
-      ["wintek", "bpiv", 0.99, "equity"],
-      ["yn_nominee", "bpiv", 0.01, "equity_nominee"],
-      ["mtpl", "bpiv", null, "loan"],
-      ["wintek", "bpiv", null, "loan"],
-      ["bpiv", "mvp", null, "equity"],
-      ["bpiv", "bvi", 0.999, "equity"],
-      ["yn_nominee", "bvi", 0.001, "equity_nominee"],
-      ["bpiv", "tmn", 0.70, "equity"],
-      ["tsn", "tmn", 0.30, "equity"],
-      ["bpiv", "primtek", null, "equity"],
-      ["bf", "primtek", 0.49, "equity_inkind"],
-      ["mvp", "rajapremi", 0.9999, "equity"],
-      ["yn_nominee", "rajapremi", 0.0001, "equity_nominee"]
-    ],
-    external: [
-      { id: "mtpl", name: "MTPL", roleKey: "mtplRole" },
-      { id: "yn_nominee", name: "YN", roleKey: "ynRole" },
-      { id: "tsn", name: "TSN", roleKey: "tsnRole" },
-      { id: "bf", name: "BF", roleKey: "bfRole" }
-    ]
-  },
-
   companies: {
     bpiv: {
       slug: "bpiv",
@@ -53,40 +19,44 @@ window.BPIV_DATA = {
       shortName: "BPIV",
       typeKey: "investmentCo",
       status: "distressed",
-      statusKey: "statusDistressed",
       ownership: [
         { holder: "wintek", pct: 0.99 },
         { holder: "yn_nominee", pct: 0.01, noteKey: "nomineeStake" }
       ],
       shareCapital: 100000000,
       bs: {
-        // Dec 2025 annual report
         assets: 8544795000,
         liabilities: 19583987825,
         equity: -11039192825,
         netIncome: -3740827661
       },
-      investments: [
-        { co: "mvp", amount: 2800000000 },
-        { co: "tmn", amount: 1050000000 },
-        { co: "primtek", amount: 900000000 },
-        { co: "bvi", amount: 99900000 }
+      cash: 3637731,
+      workingCapital: -7714694632,
+      writeOff2025: 3376656774,
+      equityInvestments: [
+        { co: "mvp", amount: 2800000000, date: "2015", noteKey: "mvpInvNote" },
+        { co: "tmn", amount: 1050000000, date: "2016", noteKey: "tmnInvNote" },
+        { co: "primtek", amount: 900000000, date: "2016", noteKey: "primtekInvNote" },
+        { co: "bvi", amount: 99900000, date: "2015", noteKey: "bviInvNote" }
       ],
       receivables: [
-        { co: "rajapremi", principal: 1833706306, interest: 0 },
-        { co: "bvi", principal: 1505194160, interest: 574555788 },
-        { co: "mcash", principal: 1463011566, interest: 0, usd: 61818 },
-        { co: "tmn", principal: 970500000, interest: 250781055 },
-        { co: "wellgrow", principal: 974919660, writtenOff: true },
-        { co: "primtek", principal: 342442014, interest: 0 }
+        { co: "rajapremi", principal: 1833706306, interest: 0, date: "2017", noteKey: "rajapremiLoanNote" },
+        { co: "bvi", principal: 1505194160, interest: 574555788, date: "2017", noteKey: "bviLoanNote" },
+        { co: "mcash", principal: 1463011566, interest: 0, usd: 61818, date: "2017", noteKey: "mcashLoanNote" },
+        { co: "tmn", principal: 970500000, interest: 250781055, date: "2016", noteKey: "tmnLoanNote" },
+        { co: "wellgrow", principal: 974919660, interest: 0, date: "2015", writtenOff: true, noteKey: "wellgrowNote" },
+        { co: "primtek", principal: 342442014, interest: 0, date: "2017", noteKey: "primtekLoanNote" }
       ],
       payables: [
-        { co: "mtpl", principal: 14763000000, interest: 3637273993 },
-        { co: "wintek", principal: 980677392, interest: 149030232 }
+        { co: "mtpl", principal: 14763000000, interest: 3637273993, date: "2015", noteKey: "mtplLoanNote" },
+        { co: "wintek", principal: 980677392, interest: 149030232, date: "2016", noteKey: "wintekLoanNote" }
       ],
-      workingCapital: -7714694632,
-      cash: 3637731,
-      writeOff2025: 3376656774,
+      risk: {
+        debtToEquity: -1.77,
+        currentRatio: 0.30,
+        netDebt: 15842907392,
+        interestBurden: 3637273993
+      },
       descriptionKey: "bpivDesc"
     },
 
@@ -101,7 +71,6 @@ window.BPIV_DATA = {
       shortNameOrig: "Prosindo",
       typeKey: "managementCo",
       status: "holding",
-      statusKey: "statusHolding",
       ownership: [
         { holder: "ysx", pct: 0.50 },
         { holder: "psi", pct: 0.50 }
@@ -134,7 +103,6 @@ window.BPIV_DATA = {
       shortName: "Wintek",
       typeKey: "holdingCo",
       status: "holding",
-      statusKey: "statusHolding",
       ownership: [
         { holder: "prosho", pct: 0.999 },
         { holder: "yn_nominee", pct: 0.001, noteKey: "nomineeStake" }
@@ -150,7 +118,7 @@ window.BPIV_DATA = {
         { co: "bpiv", pct: 0.99, amount: 99000000 }
       ],
       receivables: [
-        { co: "bpiv", principal: 995747391, interest: 152107107 }
+        { co: "bpiv", principal: 995747391, interest: 152107107, date: "2016" }
       ],
       descriptionKey: "wintekDesc"
     },
@@ -165,7 +133,6 @@ window.BPIV_DATA = {
       shortName: "MVP",
       typeKey: "investmentVehicle",
       status: "dormant",
-      statusKey: "statusDormant",
       ownership: [
         { holder: "bpiv", pct: 0.70, noteKey: "mvpInitial" },
         { holder: "other", pct: 0.30, noteKey: "mvpOther" }
@@ -176,7 +143,7 @@ window.BPIV_DATA = {
         { co: "rajapremi", pct: 0.9999, amount: 1999900000 }
       ],
       receivables: [
-        { co: "rajapremi", principal: 11070349, interest: 0 }
+        { co: "rajapremi", principal: 11070349, interest: 0, date: "2018" }
       ],
       descriptionKey: "mvpDesc"
     },
@@ -191,18 +158,17 @@ window.BPIV_DATA = {
       shortName: "BVI",
       typeKey: "operatingCo",
       status: "active",
-      statusKey: "statusActive",
       ownership: [
         { holder: "bpiv", pct: 0.999 },
         { holder: "yn_nominee", pct: 0.001, noteKey: "nomineeStake" }
       ],
       shareCapital: 100000000,
       receivables: [
-        { co: "rajapremi", principal: 764000000, interest: 0 },
-        { co: "greenland", principal: 29400000, interest: 0 }
+        { co: "rajapremi", principal: 764000000, interest: 0, date: "2019" },
+        { co: "greenland", principal: 29400000, interest: 0, date: "2020" }
       ],
       payables: [
-        { co: "bpiv", principal: 1505194160, interest: 574555788 }
+        { co: "bpiv", principal: 1505194160, interest: 574555788, date: "2017" }
       ],
       descriptionKey: "bviDesc"
     },
@@ -217,16 +183,15 @@ window.BPIV_DATA = {
       shortName: "Rajapremi",
       typeKey: "operatingCo",
       status: "shrinking",
-      statusKey: "statusShrinking",
       ownership: [
         { holder: "mvp", pct: 0.9999 },
         { holder: "yn_nominee", pct: 0.0001, noteKey: "nomineeStake" }
       ],
       shareCapital: 2000000000,
       payables: [
-        { co: "bpiv", principal: 1833706306, interest: 0 },
-        { co: "bvi", principal: 764000000, interest: 0 },
-        { co: "mvp", principal: 11070349, interest: 0 }
+        { co: "bpiv", principal: 1833706306, interest: 0, date: "2017" },
+        { co: "bvi", principal: 764000000, interest: 0, date: "2019" },
+        { co: "mvp", principal: 11070349, interest: 0, date: "2018" }
       ],
       descriptionKey: "rajapremiDesc"
     },
@@ -241,17 +206,16 @@ window.BPIV_DATA = {
       shortName: "TMN",
       typeKey: "operatingCo",
       status: "dormant",
-      statusKey: "statusDormant",
       ownership: [
         { holder: "bpiv", pct: 0.70 },
         { holder: "tsn", pct: 0.30 }
       ],
       shareCapital: 1500000000,
       receivables: [
-        { co: "tsn", principal: 190000000, interest: 30822222 }
+        { co: "tsn", principal: 190000000, interest: 30822222, date: "2017" }
       ],
       payables: [
-        { co: "bpiv", principal: 970500000, interest: 250781055 }
+        { co: "bpiv", principal: 970500000, interest: 250781055, date: "2016" }
       ],
       descriptionKey: "tmnDesc"
     },
@@ -266,14 +230,13 @@ window.BPIV_DATA = {
       shortName: "Primtek",
       typeKey: "operatingCo",
       status: "dormant",
-      statusKey: "statusDormant",
       ownership: [
         { holder: "bpiv", pct: 1.0, noteKey: "primtekSeriA" },
         { holder: "bf", pct: 0.49, noteKey: "primtekSeriB" }
       ],
       shareCapital: 900000000,
       payables: [
-        { co: "bpiv", principal: 342442014, interest: 0 }
+        { co: "bpiv", principal: 342442014, interest: 0, date: "2017" }
       ],
       descriptionKey: "primtekDesc"
     },
@@ -288,19 +251,17 @@ window.BPIV_DATA = {
       shortName: "Mcash",
       typeKey: "cbInvestment",
       status: "dormant",
-      statusKey: "statusDormant",
       ownership: [
         { holder: "originalShareholders", pct: 1.0, noteKey: "mcashNote" }
       ],
       shareCapital: 903656630,
       payables: [
-        { co: "bpiv", principal: 1463011566, interest: 0, usd: 61818 }
+        { co: "bpiv", principal: 1463011566, interest: 0, usd: 61818, date: "2017" }
       ],
       descriptionKey: "mcashDesc"
     }
   },
 
-  // Group revenue by year (IDR). years: 2013..2025(Oct YTD)
   revenue: {
     years: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, "2025*"],
     series: {
@@ -313,10 +274,9 @@ window.BPIV_DATA = {
     }
   },
 
-  // Offshore shell tools (deactivated, excluded from structure)
   retiredEntities: {
-    en: "Wellgrow, NST, EVF — offshore shell vehicles, deactivated; funds have been moved to BPIV books (NST↔Mcash USD channel settled in 2024, reclassified as receivable from BPIV; Wellgrow receivable written off in 2025).",
-    zh: "Wellgrow、NST、EVF —— 已失效的海外壳工具，资金已转入 BPIV 账上（NST↔Mcash 的 USD 通道 2024 年结清并转为对 BPIV 应收；Wellgrow 应收 2025 年核销）。",
-    id: "Wellgrow, NST, EVF — kendaraan shell luar negeri yang sudah nonaktif; dana sudah dipindah ke pembukuan BPIV (kanaI USD NST↔Mcash diselesaikan 2024, direklasifikasi sebagai piutang ke BPIV; piutang Wellgrow dihapusbukukan 2025)."
+    en: "Wellgrow, NST, EVF — offshore shell vehicles, deactivated; funds have been moved to BPIV books.",
+    zh: "Wellgrow、NST、EVF —— 已失效的海外壳工具，资金已转入 BPIV 账上。",
+    id: "Wellgrow, NST, EVF — kendaraan shell luar negeri yang sudah nonaktif; dana sudah dipindah ke pembukuan BPIV."
   }
 };

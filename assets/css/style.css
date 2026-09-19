@@ -249,3 +249,12 @@ footer.foot {
 .role-viewer { background: var(--gray); }
 .danger-btn { background: var(--danger) !important; padding: 4px 10px !important; font-size: 11px !important; }
 .change-pw-row { display: flex; gap: 8px; align-items: center; margin-top: 6px; }
+/* v3 additions */
+.sub-h { font-size: 13px; color: var(--primary); margin: 0 0 8px 0; font-weight: 600; }
+.risk-desc { font-size: 14px; line-height: 1.7; margin-bottom: 16px; color: var(--text); }
+.muted { color: var(--text-muted); }
+.danger { color: var(--danger); }
+.note-warn { margin-top: 8px; color: #c05e12; }
+.admin-msg { font-size: 12px; margin-top: 8px; }
+table.data.compact td, table.data.compact th { padding: 5px 10px; font-size: 13px; }
+table.data td.neg-val { color: var(--danger); font-weight: 600; }
