@@ -121,11 +121,12 @@
     var debtTotal = bpiv.payables[0].principal + bpiv.payables[0].interest + bpiv.payables[1].principal + bpiv.payables[1].interest;
     var invTotal = bpiv.equityInvestments.reduce(function (s, x) { return s + x.amount; }, 0);
     var activeRec = bpiv.receivables.filter(function (r) { return !r.writtenOff; });
+    var pwoTotal = (bpiv.potentialWriteOffs || []).reduce(function (s2, x) { return s2 + x.principal + (x.interest || 0); }, 0);
 
     main.innerHTML =
       '<div class="page-title">' + t("dashboard.title") + '</div>' +
       '<div class="page-sub">' + t("asOf") + " " + D.meta.asOf + " · " + t("currencyNote") + '</div>' +
-      renderKPIs(bpiv, debtTotal, invTotal) +
+      renderKPIs(bpiv, debtTotal, invTotal, pwoTotal) +
       '<div class="panel"><h3>' + t("dashboard.revenueChart.title") + '</h3><div id="rev-chart" class="chart-box"></div><div class="panel-note">' + t("dashboard.revenueChart.subtext") + '</div></div>' +
       '<div class="panel"><h3>' + t("dashboard.structureTitle") + '</h3><div id="struct-box"></div><div class="panel-note">' + t("dashboard.structureNote") + '</div><div class="panel-note" style="color:#c05e12">' + t("dashboard.offshoreNote") + '</div></div>' +
       '<div class="panel"><h3>' + t("dashboard.riskTitle") + '</h3>' +
@@ -134,6 +135,7 @@
         '<div><h4 class="sub-h">' + t("dashboard.debtBreakdownTitle") + '</h4><div id="debt-chart" class="chart-box" style="height:280px"></div></div>' +
         '<div><h4 class="sub-h">' + t("dashboard.solvencyTitle") + '</h4>' + solvencyTable(bpiv) + '</div>' +
       '</div></div>' +
+      '<div class="panel"><h3>' + t("dashboard.pwoTitle") + '</h3>' + pwoTable(bpiv) + '<div class="panel-note" style="color:#c05e12">' + t("dashboard.pwoNote") + '</div></div>' +
       '<div class="panel"><h3>' + t("dashboard.equityInvTitle") + '</h3>' + eqInvTable(bpiv) + '</div>' +
       '<div class="panel"><h3>' + t("dashboard.receivablesDetailTitle") + '</h3>' + intercoDetailTable(activeRec) +
       '<div class="panel-note">' + t("dashboard.intercoNote") + '</div></div>' +
@@ -171,6 +173,8 @@
   }
 
   function intercoDetailTable(list) {
+    var pwoMap = {};
+    (D.companies.bpiv.potentialWriteOffs || []).forEach(function (x) { pwoMap[x.co] = true; });
     var rows = '<thead><tr><th></th><th class="num">' + t("dashboard.principalCol") + '</th><th class="num">' + t("dashboard.interestCol") + '</th><th class="num">' + t("dashboard.totalCol") + '</th><th>' + t("dashboard.dateCol") + '</th><th></th></tr></thead><tbody>';
     var sumP = 0, sumI = 0;
     list.forEach(function (r) {
@@ -178,7 +182,8 @@
       sumP += r.principal; sumI += (r.interest || 0);
       var usd = r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ')</span>' : '';
       var wo = r.writtenOff ? ' <span class="danger">(' + t("company.writtenOff") + ')</span>' : '';
-      rows += '<tr><td>' + tName(r.co) + wo + usd + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num"><strong>' + fmtIDR(total) + '</strong></td><td>' + (r.date || "—") + '</td><td class="muted" style="font-size:11px">' + (r.noteKey ? t("notes." + r.noteKey) : "") + '</td></tr>';
+      var pwo = pwoMap[r.co] ? ' <span class="danger">(' + t("dashboard.pwoTag") + ')</span>' : '';
+      rows += '<tr><td>' + tName(r.co) + wo + pwo + usd + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num"><strong>' + fmtIDR(total) + '</strong></td><td>' + (r.date || "—") + '</td><td class="muted" style="font-size:11px">' + (r.noteKey ? t("notes." + r.noteKey) + '<br>' : "") + loanPiNote(r) + '</td></tr>';
       if (r.drawdowns && r.drawdowns.length) {
         rows += '<tr class="dd-row"><td colspan="6"><div class="dd-block"><div class="dd-title">' + t("dashboard.drawdownTitle") + '</div><table class="data compact"><tbody>';
         r.drawdowns.forEach(function (d) {
@@ -192,13 +197,34 @@
     return '<table class="data">' + rows + '</tbody></table>';
   }
 
-  function renderKPIs(bpiv, debtTotal, invTotal) {
+  function isPwoCo(slug) {
+    return (D.companies.bpiv.potentialWriteOffs || []).some(function (x) { return x.co === slug; });
+  }
+
+  function loanPiNote(r) {
+    return t("dashboard.piTpl").replace("{p}", fmtIDR(r.principal)).replace("{i}", fmtIDR(r.interest || 0));
+  }
+
+  function pwoTable(bpiv) {
+    var list = bpiv.potentialWriteOffs || [];
+    var rows = '<thead><tr><th></th><th>' + t("dashboard.dormantSinceCol") + '</th><th class="num">' + t("dashboard.principalCol") + '</th><th class="num">' + t("dashboard.interestCol") + '</th><th class="num">' + t("dashboard.totalCol") + '</th><th></th></tr></thead><tbody>';
+    var sumP = 0, sumI = 0;
+    list.forEach(function (x) {
+      sumP += x.principal; sumI += (x.interest || 0);
+      rows += '<tr><td>' + tName(x.co) + '</td><td>' + (x.dormantSince || "—") + '</td><td class="num">' + fmtIDR(x.principal) + '</td><td class="num">' + fmtIDR(x.interest || 0) + '</td><td class="num"><strong>' + fmtIDR(x.principal + (x.interest || 0)) + '</strong></td><td class="muted" style="font-size:11px">' + (x.noteKey ? t("notes." + x.noteKey) : "") + '</td></tr>';
+    });
+    rows += '<tr class="grand-total"><td><strong>' + t("dashboard.totalRow") + '</strong></td><td></td><td class="num"><strong>' + fmtIDR(sumP) + '</strong></td><td class="num"><strong>' + fmtIDR(sumI) + '</strong></td><td class="num"><strong>' + fmtIDR(sumP + sumI) + '</strong></td><td></td></tr>';
+    return '<table class="data">' + rows + '</tbody></table>';
+  }
+
+  function renderKPIs(bpiv, debtTotal, invTotal, pwoTotal) {
     var cards = [
       { label: t("dashboard.kpi.netEquity"), val: fmtIDR(bpiv.bs.equity), cls: "danger", neg: bpiv.bs.equity < 0 },
       { label: t("dashboard.kpi.totalDebt"), val: fmtIDR(debtTotal), cls: "danger" },
       { label: t("dashboard.kpi.portfolio"), val: fmtIDR(invTotal), cls: "" },
       { label: t("dashboard.kpi.workingCapital"), val: fmtIDR(bpiv.workingCapital), cls: "warn", neg: bpiv.workingCapital < 0 },
-      { label: t("dashboard.kpi.writeOff"), val: fmtIDR(bpiv.writeOff2025), cls: "warn" }
+      { label: t("dashboard.kpi.writeOff"), val: fmtIDR(bpiv.writeOff2025), cls: "warn" },
+      { label: t("dashboard.kpi.pwo"), val: fmtIDR(pwoTotal), cls: "danger" }
     ];
     var html = '<div class="grid-kpi">';
     cards.forEach(function (c) {
@@ -418,7 +444,8 @@
       any = true;
       html += '<h4 class="sub-h" style="color:var(--primary-light)">' + t("company.receivablesFrom") + '</h4><table class="data">' + hdr + "<tbody>";
       c.receivables.forEach(function (r) {
-        html += "<tr><td>" + tName(r.co) + (r.writtenOff ? ' <span class="danger">(' + t("company.writtenOff") + ")</span>" : "") + (r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ")</span>" : "") + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num">' + fmtIDR(r.principal + (r.interest || 0)) + "</td><td>" + (r.date || "—") + "</td></tr>";
+        var pwo = isPwoCo(r.co) ? ' <span class="danger">(' + t("dashboard.pwoTag") + ")</span>" : "";
+        html += "<tr><td>" + tName(r.co) + (r.writtenOff ? ' <span class="danger">(' + t("company.writtenOff") + ")</span>" : "") + pwo + (r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ")</span>" : "") + '<div class="muted" style="font-size:11px">' + loanPiNote(r) + '</div></td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num">' + fmtIDR(r.principal + (r.interest || 0)) + "</td><td>" + (r.date || "—") + "</td></tr>";
       });
       html += "</tbody></table>";
     }
@@ -426,7 +453,8 @@
       any = true;
       html += '<h4 class="sub-h" style="color:var(--danger)">' + t("company.payablesTo") + '</h4><table class="data">' + hdr + "<tbody>";
       c.payables.forEach(function (r) {
-        html += "<tr><td>" + tName(r.co) + (r.writtenOff ? ' <span class="danger">(' + t("company.writtenOff") + ")</span>" : "") + (r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ")</span>" : "") + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num">' + fmtIDR(r.principal + (r.interest || 0)) + "</td><td>" + (r.date || "—") + "</td></tr>";
+        var pwo = isPwoCo(r.co) ? ' <span class="danger">(' + t("dashboard.pwoTag") + ")</span>" : "";
+        html += "<tr><td>" + tName(r.co) + (r.writtenOff ? ' <span class="danger">(' + t("company.writtenOff") + ")</span>" : "") + pwo + (r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ")</span>" : "") + '<div class="muted" style="font-size:11px">' + loanPiNote(r) + '</div></td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num">' + fmtIDR(r.principal + (r.interest || 0)) + "</td><td>" + (r.date || "—") + "</td></tr>";
       });
       html += "</tbody></table>";
     }

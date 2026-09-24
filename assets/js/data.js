@@ -72,6 +72,10 @@ window.BPIV_DATA = {
       cash: 2143993.09,
       workingCapital: -11212575607.4,
       writeOff2025: 3376656774,
+      potentialWriteOffs: [
+        { co: "bvi", principal: 1505194160, interest: 574555788, dormantSince: "2025-07", noteKey: "bviPwoNote" },
+        { co: "primtek", principal: 342442014, interest: 0, dormantSince: "2026", noteKey: "primtekPwoNote" }
+      ],
       equityInvestments: [
         { co: "mvp", amount: 2800000000, date: "2015", noteKey: "mvpInvNote" },
         { co: "tmn", amount: 1050000000, date: "2016", noteKey: "tmnInvNote" },
@@ -307,7 +311,7 @@ window.BPIV_DATA = {
       },
       shortName: "BVI",
       typeKey: "operatingCo",
-      status: "active",
+      status: "dormant",
       ownership: [
         { holder: "bpiv", pct: 0.999 },
         { holder: "yn_nominee", pct: 0.001, noteKey: "nomineeStake" }

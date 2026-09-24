@@ -28,7 +28,8 @@ window.BPIV_I18N = {
         portfolio: "Equity Investment Portfolio",
         workingCapital: "Working Capital (31 Jul-26)",
         operatingRevenue: "Group Revenue 2025 (full year)",
-        writeOff: "Receivables Written Off (2025)"
+        writeOff: "Receivables Written Off (2025)",
+        pwo: "Potential Write-off (Dormant)"
       },
       kpiUnit: { bn: "bn", m: "m" },
       revenueChart: {
@@ -45,6 +46,11 @@ window.BPIV_I18N = {
       structureNote: "Solid = equity holding; orange dashed = intercompany loan. YSX and PSI have no relationship with MTPL. MTPL only lends directly to BPIV. YN is a nominee holder (Dana Talangan).",
       offshoreNote: "Offshore shell tools (Wellgrow, NST, EVF) have been deactivated and excluded from the structure; their funds are already on BPIV's books.",
       statusTitle: "Portfolio Status",
+      pwoTitle: "Potential Write-offs — Dormant Companies",
+      pwoTag: "potential write-off",
+      pwoNote: "BVI has been dormant since Jul-2025 (expenses after that are non-operating); Primtek had no activity in 2026. Both companies' receivables are at risk and flagged for potential write-off.",
+      piTpl: "Principal {p} · Interest {i}",
+      dormantSinceCol: "Dormant Since",
       status: {
         active: "Active",
         shrinking: "Shrinking",
@@ -55,7 +61,7 @@ window.BPIV_I18N = {
       intercoTitle: "BPIV Intercompany Receivables (31 Jul-26)",
       intercoNote: "Receivables from portfolio companies; Wellgrow, Mcash and TMN loans were written off in Dec-25.",
       riskTitle: "Risk Assessment",
-      riskDesc: "BPIV remains balance-sheet insolvent. Total liabilities of Rp19.78bn (principal Rp15.77bn + accrued interest Rp4.01bn) against negative equity of Rp11.21bn. Cash on hand is only Rp2.1m. The company cannot service its debt from operations: operating revenue (management fee) is only Rp70m YTD-2026, far below the Rp3.85bn accrued interest to MTPL (Rp167.6m accrued in Jan–Jul 2026 alone). The Rp3.38bn write-off in 2025 reflects deteriorated recoverability of intercompany loans.",
+      riskDesc: "BPIV remains balance-sheet insolvent. Total liabilities of Rp19.78bn (principal Rp15.77bn + accrued interest Rp4.01bn) against negative equity of Rp11.21bn. Cash on hand is only Rp2.1m. The company cannot service its debt from operations: operating revenue (management fee) is only Rp70m YTD-2026, far below the Rp3.85bn accrued interest to MTPL (Rp167.6m accrued in Jan–Jul 2026 alone). The Rp3.38bn write-off in 2025 reflects deteriorated recoverability of intercompany loans. In addition, BVI has been dormant since Jul-2025 (expenses thereafter are non-operating) and Primtek shows no activity in 2026; their receivables of Rp2.42bn (incl. interest) are flagged as potential write-offs.",
       debtBreakdownTitle: "Debt Structure: Principal vs Accrued Interest",
       solvencyTitle: "Solvency Metrics",
       equityInvTitle: "Equity Investments (BPIV → Portfolio)",
@@ -73,7 +79,7 @@ window.BPIV_I18N = {
       nodePsi: "50% · main funder · interest-free",
       nodeBpiv: "Net equity −11.2bn (Jul-26)",
       nodeMvp: "70% (64.71% post-valuation)",
-      nodeBvi: "99.9% · active",
+      nodeBvi: "99.9% · dormant since Jul-25",
       nodePrimtek: "Seri A 100% · Seri B 51/49",
       nodeRajapremi: "via MVP 99.99%",
       nodeMcash: "CB investment",
@@ -154,7 +160,9 @@ window.BPIV_I18N = {
       wellgrowNote: "Offshore receivable; written off in Dec-2025.",
       primtekLoanNote: "Trade / working capital loan.",
       mtplLoanNote: "LP-style direct funding; interest-bearing. Facility extended to Rp15.0bn on 01-Apr-2024 @2% p.a.",
-      wintekLoanNote: "On-lent by Prosindo group; interest-bearing. Includes PSI loan restructure transferred Apr-2024."
+      wintekLoanNote: "On-lent by Prosindo group; interest-bearing. Includes PSI loan restructure transferred Apr-2024.",
+      bviPwoNote: "Dormant since Jul-2025; expenses thereafter are non-operating. Full exposure at risk.",
+      primtekPwoNote: "No operating activity in 2026 (dormant); receivable at risk."
     },
 
     desc: {
@@ -162,7 +170,7 @@ window.BPIV_I18N = {
       proshoDesc: "Prosindo is the top holding company, owned 50/50 by co-founder YSX and BVI offshore company PSI. It holds 99.9% of Wintek. Funding beyond paid-up capital comes from interest-free loans from PSI.",
       wintekDesc: "Wintek Investama Indonesia (brand Rajapay) is the intermediate holding company, 99.9% owned by Prosindo. It holds 99% of BPIV and has on-lent funds to BPIV (principal Rp1.01bn + accrued interest Rp0.16bn as of 31-Jul-2026).",
       mvpDesc: "MVP (PT Mega Value Prosperindo) is an investment vehicle. BPIV initially held 70% (on paid-up capital basis), diluted to 64.71% after valuation increase. Its only investment is 99.99% of Rajapremi (Rp2.0bn). In 2026 an intangible asset of Rp1.2bn was contributed, matched by a share capital increase. Dormant since 2018.",
-      bviDesc: "BVI (PT Batavia Visi Inovasi) operates under the brand B-Startup, providing office-building management and incubation services — the group's only stable cash-generating operating company (management fees of Rp115–426m per year). It owes BPIV Rp1.51bn principal + Rp0.57bn accrued interest (per group Loan Summary 31-Jul-2026).",
+      bviDesc: "BVI (PT Batavia Visi Inovasi), the group's former operating company under the B-Startup brand (office-building management and incubation), has been dormant since July 2025; expenses incurred after that date are non-operating in nature. It still owes BPIV Rp1.51bn principal + Rp0.57bn accrued interest (per group Loan Summary 31-Jul-2026) — flagged as a potential write-off.",
       rajapremiDesc: "Rajapremi (PT Rajapremi Dot Com) runs an online commission business, 99.99% owned by MVP. Revenue declined from a peak of Rp342m (2017) to Rp27m (2025) and Rp26.8m YTD-2026. It owes BPIV Rp1.87bn (cash advance), BVI Rp0.76bn (management fee) and MVP Rp11m.",
       tmnDesc: "TMN (PT Teknomedia Mitra Nusantara) is 70% owned by BPIV and 30% by TSN; dormant. TSN, as 30% shareholder, also borrowed Rp190m from TMN (plus Rp30.8m interest). TMN's debt to BPIV (Rp970.5m + Rp250.8m interest) was written off in Dec-2025.",
       primtekDesc: "Primtek (PT Primatama Teknologi Solusindo) is an IT services company. Seri A shares (Rp900m) are 100% held by BPIV; Seri B is split BPIV 51% / BF 49% (technology in-kind, no cash). The original 10% treasury stock has been cancelled. Revenue collapsed after 2021 and has been zero since 2022. As of 31-Jul-2026 equity is negative Rp340.4m.",
@@ -315,7 +323,8 @@ window.BPIV_I18N = {
         portfolio: "股权投资组合",
         workingCapital: "营运资金（2026年7月31日）",
         operatingRevenue: "集团 2025 年收入（全年）",
-        writeOff: "2025 年应收核销"
+        writeOff: "2025 年应收核销",
+        pwo: "潜在核销（休眠公司）"
       },
       kpiUnit: { bn: "十亿", m: "百万" },
       revenueChart: {
@@ -332,6 +341,11 @@ window.BPIV_I18N = {
       structureNote: "实线 = 持股；橙色虚线 = 关联贷款。YSX、PSI 与 MTPL 无任何关系；MTPL 仅直接向 BPIV 放贷。YN 为代持人（Dana Talangan）。",
       offshoreNote: "海外壳工具（Wellgrow、NST、EVF）已失效并从结构中移除，其资金已并入 BPIV 账上。",
       statusTitle: "投资组合状态",
+      pwoTitle: "潜在核销 —— 休眠公司",
+      pwoTag: "潜在核销",
+      pwoNote: "BVI 自 2025 年 7 月起休眠（此后费用为非运营性质）；Primtek 2026 年无运营活动。两家的应收均存在回收风险，已标记为潜在核销。",
+      piTpl: "本金 {p} · 利息 {i}",
+      dormantSinceCol: "休眠起始",
       status: {
         active: "运营中",
         shrinking: "萎缩中",
@@ -342,7 +356,7 @@ window.BPIV_I18N = {
       intercoTitle: "BPIV 关联应收（2026年7月31日）",
       intercoNote: "对投资组合公司的应收；Wellgrow、Mcash 与 TMN 贷款已于 2025 年 12 月核销。",
       riskTitle: "风险评估",
-      riskDesc: "BPIV 仍处于资不抵债状态。总负债 197.8 亿盾（本金 157.7 亿 + 应计利息 40.1 亿），净资产为负 112.1 亿盾。手头现金仅 210 万盾。公司无法通过经营偿还债务：2026 年至今管理费收入仅 7000 万盾，远不足以覆盖对 MTPL 的应计利息 38.5 亿盾（仅 2026 年 1–7 月就新增 1.68 亿盾）。2025 年 33.8 亿盾应收核销反映关联贷款回收能力恶化。",
+      riskDesc: "BPIV 仍处于资不抵债状态。总负债 197.8 亿盾（本金 157.7 亿 + 应计利息 40.1 亿），净资产为负 112.1 亿盾。手头现金仅 210 万盾。公司无法通过经营偿还债务：2026 年至今管理费收入仅 7000 万盾，远不足以覆盖对 MTPL 的应计利息 38.5 亿盾（仅 2026 年 1–7 月就新增 1.68 亿盾）。此外，BVI 自 2025 年 7 月起休眠（其后费用为非运营性质），Primtek 2026 年无运营活动；两者应收合计 24.2 亿盾（含利息）已列为潜在核销。",
       debtBreakdownTitle: "债务结构：本金与应计利息",
       solvencyTitle: "偿债能力指标",
       equityInvTitle: "股权投资（BPIV → 投资组合）",
@@ -360,7 +374,7 @@ window.BPIV_I18N = {
       nodePsi: "50% · 主要出资方 · 无息",
       nodeBpiv: "净资产 −11.2 十亿（2026年7月）",
       nodeMvp: "70%（估值后 64.71%）",
-      nodeBvi: "99.9% · 运营中",
+      nodeBvi: "99.9% · 2025年7月起休眠",
       nodePrimtek: "A 类股 100% · B 类股 51/49",
       nodeRajapremi: "经 MVP 持股 99.99%",
       nodeMcash: "可转债（CB）投资",
@@ -441,7 +455,9 @@ window.BPIV_I18N = {
       wellgrowNote: "海外应收；2025 年 12 月已核销。",
       primtekLoanNote: "贸易/营运资金贷款。",
       mtplLoanNote: "LP 式直接出资；计息。2024-04-01 额度扩展至 150 亿盾，年利率 2%。",
-      wintekLoanNote: "由 Prosindo 集团转贷；计息。含 2024 年 4 月并入的 PSI 贷款重组额。"
+      wintekLoanNote: "由 Prosindo 集团转贷；计息。含 2024 年 4 月并入的 PSI 贷款重组额。",
+      bviPwoNote: "自 2025 年 7 月起休眠；此后费用为非运营性质。全部敞口存在核销风险。",
+      primtekPwoNote: "2026 年无运营活动（休眠）；应收存在核销风险。"
     },
 
     desc: {
@@ -449,7 +465,7 @@ window.BPIV_I18N = {
       proshoDesc: "Prosindo 是顶层控股公司，由联合创始人 YSX 与 BVI 离岸公司 PSI 各持 50%。它持有 Wintek 99.9% 的股权。超出实缴股本的资金由 PSI 以无息贷款提供。",
       wintekDesc: "Wintek Investama Indonesia（品牌 Rajapay）是中间控股公司，由 Prosindo 持股 99.9%。它持有 BPIV 99% 的股权，并已转贷给 BPIV（截至 2026 年 7 月 31 日本金 10.1 亿盾 + 应计利息 1.6 亿盾）。",
       mvpDesc: "MVP（PT Mega Value Prosperindo）是投资载体。BPIV 初始持股 70%（对应实缴股本），估值上升后稀释至 64.71%。唯一投资为 Rajapremi 99.99%（20 亿盾）。2026 年新增 12 亿盾无形资产出资，对应股本增加。自 2018 年起休眠。",
-      bviDesc: "BVI（PT Batavia Visi Inovasi）以 B-Startup 为运营品牌，提供写字楼管理与孵化服务，是集团唯一稳定产生现金流的运营公司，每年管理费收入 1.15–4.26 亿盾。它欠 BPIV 本金 15.1 亿盾 + 应计利息 5.7 亿盾（按集团 Loan Summary 2026-07-31）。",
+      bviDesc: "BVI（PT Batavia Visi Inovasi）原以 B-Startup 为运营品牌提供写字楼管理与孵化服务，自 2025 年 7 月起已休眠，其后产生的费用不再视为常规运营费用。它欠 BPIV 本金 15.1 亿盾 + 应计利息 5.7 亿盾（按集团 Loan Summary 2026-07-31），已列为潜在核销。",
       rajapremiDesc: "Rajapremi（PT Rajapremi Dot Com）经营线上佣金业务，由 MVP 持股 99.99%。收入从 2017 年峰值 3.42 亿盾降至 2025 年 0.27 亿盾、今年至今 0.27 亿盾。它欠 BPIV 18.7 亿盾（现金垫款）、欠 BVI 管理费 7.6 亿盾、欠 MVP 1100 万盾。",
       tmnDesc: "TMN（PT Teknomedia Mitra Nusantara）由 BPIV 持股 70%、TSN 持股 30%，已休眠。TSN 作为 30% 股东同时向 TMN 借款 1.9 亿盾（含利息 0.31 亿盾）。TMN 对 BPIV 的债务（9.7 亿盾 + 利息 2.5 亿盾）已于 2025 年 12 月核销。",
       primtekDesc: "Primtek（PT Primatama Teknologi Solusindo）是 IT 服务公司。A 类股（9 亿盾）由 BPIV 100% 持有；B 类股由 BPIV 51% / BF 49% 分持，BF 以技术入股（未缴现金）。原 10% 库存股已注销。2021 年后收入骤降，2022 年起为零。截至 2026 年 7 月 31 日净资产为负 3.4 亿盾。",
@@ -602,7 +618,8 @@ window.BPIV_I18N = {
         portfolio: "Portofolio Investasi Ekuitas",
         workingCapital: "Modal Kerja (31 Jul-26)",
         operatingRevenue: "Pendapatan Grup 2025 (tahun penuh)",
-        writeOff: "Piutang Dihapusbukukan (2025)"
+        writeOff: "Piutang Dihapusbukukan (2025)",
+        pwo: "Potensi Penghapusbukuan (Dorman)"
       },
       kpiUnit: { bn: "miliar", m: "juta" },
       revenueChart: {
@@ -619,6 +636,11 @@ window.BPIV_I18N = {
       structureNote: "Garis penuh = kepemilikan saham; garis putus oranye = pinjaman antar perusahaan. YSX dan PSI tidak memiliki hubungan dengan MTPL. MTPL hanya meminjamkan langsung ke BPIV. YN adalah nominee (Dana Talangan).",
       offshoreNote: "Kendaraan shell luar negeri (Wellgrow, NST, EVF) sudah nonaktif dan dikeluarkan dari struktur; dananya sudah ada di pembukuan BPIV.",
       statusTitle: "Status Portofolio",
+      pwoTitle: "Potensi Penghapusbukuan — Perusahaan Dorman",
+      pwoTag: "potensi hapus buku",
+      pwoNote: "BVI sudah dorman sejak Jul-2025 (beban setelahnya non-operasional); Primtek tanpa aktivitas pada 2026. Piutang kedua perusahaan berisiko dan ditandai sebagai potensi penghapusbukuan.",
+      piTpl: "Pokok {p} · Bunga {i}",
+      dormantSinceCol: "Dorman Sejak",
       status: {
         active: "Aktif",
         shrinking: "Menurun",
@@ -629,7 +651,7 @@ window.BPIV_I18N = {
       intercoTitle: "Piutang Antar Perusahaan BPIV (31 Jul-26)",
       intercoNote: "Piutang dari perusahaan portofolio; pinjaman Wellgrow, Mcash dan TMN telah dihapusbukukan Des-25.",
       riskTitle: "Penilaian Risiko",
-      riskDesc: "BPIV tetap insolvable. Total kewajiban Rp19,78 miliar (pokok Rp15,77 miliar + bunga akrual Rp4,01 miliar) melawan ekuitas negatif Rp11,21 miliar. Kas di tangan hanya Rp2,1 juta. Perusahaan tidak dapat membayar utang dari operasi: pendapatan operasional (management fee) hanya Rp70 juta YTD-2026, jauh di bawah bunga akrual Rp3,85 miliar ke MTPL (Rp167,6 juta baru pada Jan–Jul 2026). Penghapusbukuan Rp3,38 miliar pada 2025 mencerminkan memburuknya kelayakan piutang antar perusahaan.",
+      riskDesc: "BPIV tetap insolvable. Total kewajiban Rp19,78 miliar (pokok Rp15,77 miliar + bunga akrual Rp4,01 miliar) melawan ekuitas negatif Rp11,21 miliar. Kas di tangan hanya Rp2,1 juta. Perusahaan tidak dapat membayar utang dari operasi: pendapatan operasional (management fee) hanya Rp70 juta YTD-2026, jauh di bawah bunga akrual Rp3,85 miliar ke MTPL (Rp167,6 juta baru pada Jan–Jul 2026). Penghapusbukuan Rp3,38 miliar pada 2025 mencerminkan memburuknya kelayakan piutang antar perusahaan. Selain itu, BVI sudah dorman sejak Jul-2025 (beban setelahnya non-operasional) dan Primtek tanpa aktivitas pada 2026; piutang keduanya Rp2,42 miliar (termasuk bunga) ditandai sebagai potensi penghapusbukuan.",
       debtBreakdownTitle: "Struktur Utang: Pokok vs Bunga Akrual",
       solvencyTitle: "Metrik Solvabilitas",
       equityInvTitle: "Investasi Ekuitas (BPIV → Portofolio)",
@@ -647,7 +669,7 @@ window.BPIV_I18N = {
       nodePsi: "50% · pendana utama · tanpa bunga",
       nodeBpiv: "Ekuitas neto −11,2 M (Jul-26)",
       nodeMvp: "70% (64,71% pasca-penilaian)",
-      nodeBvi: "99,9% · aktif",
+      nodeBvi: "99,9% · dorman sejak Jul-25",
       nodePrimtek: "Seri A 100% · Seri B 51/49",
       nodeRajapremi: "lewat MVP 99,99%",
       nodeMcash: "Investasi CB",
@@ -728,7 +750,9 @@ window.BPIV_I18N = {
       wellgrowNote: "Piutang luar negeri; dihapusbukukan Des-2025.",
       primtekLoanNote: "Pinjaman perdagangan / modal kerja.",
       mtplLoanNote: "Pendanaan langsung model LP; berbunga. Fasilitas diperpanjang menjadi Rp15,0 miliar pada 01-Apr-2024 @2% p.a.",
-      wintekLoanNote: "Disalurkan ulang oleh grup Prosindo; berbunga. Termasuk restrukturisasi pinjaman PSI yang dipindahkan Apr-2024."
+      wintekLoanNote: "Disalurkan ulang oleh grup Prosindo; berbunga. Termasuk restrukturisasi pinjaman PSI yang dipindahkan Apr-2024.",
+      bviPwoNote: "Dorman sejak Jul-2025; beban setelahnya non-operasional. Seluruh eksposur berisiko dihapusbukukan.",
+      primtekPwoNote: "Tanpa aktivitas operasi pada 2026 (dorman); piutang berisiko."
     },
 
     desc: {
@@ -736,7 +760,7 @@ window.BPIV_I18N = {
       proshoDesc: "Prosindo adalah perusahaan holding puncak, dimiliki 50/50 oleh co-founder YSX dan perusahaan lepas pantai BVI PSI. Ia memegang 99,9% Wintek. Dana di luar modal disetor berasal dari pinjaman tanpa bunga dari PSI.",
       wintekDesc: "Wintek Investama Indonesia (merek Rajapay) adalah perusahaan holding perantara, 99,9% dimiliki Prosindo. Ia memegang 99% BPIV dan telah menyalurkan pinjaman ke BPIV (pokok Rp1,01 miliar + bunga akrual Rp0,16 miliar per 31-Jul-2026).",
       mvpDesc: "MVP (PT Mega Value Prosperindo) adalah kendaraan investasi. BPIV awalnya memegang 70% (berdasarkan modal disetor), terdilusi menjadi 64,71% setelah kenaikan valuasi. Satu-satunya investasinya adalah 99,99% Rajapremi (Rp2,0 miliar). Pada 2026 aset tak berwujud Rp1,2 miliar disetorkan, diimbangi kenaikan modal saham. Sudah nonaktif sejak 2018.",
-      bviDesc: "BVI (PT Batavia Visi Inovasi) beroperasi di bawah merek B-Startup, menyediakan jasa manajemen gedung kantor dan inkubasi — satu-satunya perusahaan operasional grup yang tetap menghasilkan kas stabil, dengan pendapatan fee Rp115–426 juta per tahun. Ia berhutang ke BPIV pokok Rp1,51 miliar + bunga akrual Rp0,57 miliar (menurut Loan Summary grup 31-Jul-2026).",
+      bviDesc: "BVI (PT Batavia Visi Inovasi), sebelumnya perusahaan operasional grup dengan merek B-Startup (manajemen gedung kantor & inkubasi), sudah nonaktif (dorman) sejak Juli 2025; beban yang timbul setelah tanggal itu bersifat non-operasional. Ia masih berutang ke BPIV pokok Rp1,51 miliar + bunga akrual Rp0,57 miliar (menurut Loan Summary grup 31-Jul-2026) — ditandai sebagai potensi penghapusbukuan.",
       rajapremiDesc: "Rajapremi (PT Rajapremi Dot Com) menjalankan bisnis komisi online, 99,99% dimiliki MVP. Pendapatan menurun dari puncak Rp342 juta (2017) menjadi Rp27 juta (2025) dan Rp26,8 juta YTD-2026. Ia berhutang ke BPIV Rp1,87 miliar (uang muka kas), ke BVI Rp0,76 miliar (biaya manajemen) dan ke MVP Rp11 juta.",
       tmnDesc: "TMN (PT Teknomedia Mitra Nusantara) 70% dimiliki BPIV dan 30% oleh TSN; sudah nonaktif. TSN sebagai pemegang 30% juga meminjam Rp190 juta dari TMN (plus bunga Rp30,8 juta). Hutang TMN ke BPIV (Rp970,5 juta + bunga Rp250,8 juta) telah dihapusbukukan Des-2025.",
       primtekDesc: "Primtek (PT Primatama Teknologi Solusindo) adalah perusahaan jasa TI. Saham Seri A (Rp900 juta) 100% dimiliki BPIV; Seri B dibagi BPIV 51% / BF 49%, dengan BF menyetor teknologi secara in-kind (tanpa tunai). Treasury stock 10% yang lama telah dibatalkan. Pendapatan jatuh drastis setelah 2021 dan nol sejak 2022. Per 31 Jul 2026 ekuitas negatif Rp340,4 juta.",
