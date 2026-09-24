@@ -29,6 +29,16 @@
     if (p == null) return "—";
     return (p * 100).toFixed(1).replace(/\.0$/, "") + "%";
   }
+  function ddLabel(n) {
+    var b = I[currentLang].dd;
+    return (b && b[n]) || n;
+  }
+
+  function bsLabel(lbl) {
+    var b = I[currentLang].bs;
+    return (b && b[lbl]) || lbl;
+  }
+
   function tName(slug) {
     if (slug === "yn_nominee") return "YN";
     if (slug === "mtpl") return "MTPL";
@@ -172,7 +182,7 @@
       if (r.drawdowns && r.drawdowns.length) {
         rows += '<tr class="dd-row"><td colspan="6"><div class="dd-block"><div class="dd-title">' + t("dashboard.drawdownTitle") + '</div><table class="data compact"><tbody>';
         r.drawdowns.forEach(function (d) {
-          rows += '<tr><td>' + d.year + (d.note ? ' <span class="muted">(' + d.note + ')</span>' : '') + '</td><td class="num">' + fmtIDR(d.amount) + '</td></tr>';
+          rows += '<tr><td>' + d.year + (d.note ? ' <span class="muted">(' + ddLabel(d.note) + ')</span>' : '') + '</td><td class="num">' + fmtIDR(d.amount) + '</td></tr>';
         });
         rows += '<tr class="dd-total"><td><strong>' + t("dashboard.totalRow") + '</strong></td><td class="num"><strong>' + fmtIDR(r.principal) + '</strong></td></tr>';
         rows += '</tbody></table></div></td></tr>';
@@ -290,13 +300,13 @@
       mtpl:   { x: 1020, y: 180, w: 150, h: 64, label: "MTPL", sub: t("dashboard.nodeMtpl"), color: "#FDF2E9", stroke: "#D35400" },
       prosho: { x: 440, y: 130, w: 300, h: 56, label: "Prosindo", sub: "Rp 2.5 bn · 50/50", color: "#EAF2FB", stroke: "#2E6DA4" },
       wintek: { x: 440, y: 220, w: 300, h: 56, label: "Wintek (Rajapay)", sub: "99.9% → BPIV", color: "#EAF2FB", stroke: "#2E6DA4" },
-      bpiv:   { x: 340, y: 310, w: 500, h: 76, label: "BPIV", sub: "Net equity −11.0bn (Dec-25)", color: "#FDF2E9", stroke: "#D35400" },
-      mvp:     { x: 30,  y: 460, w: 170, h: 92, label: "MVP", sub: "70% (64.71% post-val)", color: "#EAF2FB", stroke: "#2E6DA4" },
-      bvi:     { x: 220, y: 460, w: 170, h: 92, label: "BVI (B-Startup)", sub: "99.9% · active", color: "#EAF2FB", stroke: "#2E6DA4" },
+      bpiv:   { x: 340, y: 310, w: 500, h: 76, label: "BPIV", sub: t("dashboard.nodeBpiv"), color: "#FDF2E9", stroke: "#D35400" },
+      mvp:     { x: 30,  y: 460, w: 170, h: 92, label: "MVP", sub: t("dashboard.nodeMvp"), color: "#EAF2FB", stroke: "#2E6DA4" },
+      bvi:     { x: 220, y: 460, w: 170, h: 92, label: "BVI (B-Startup)", sub: t("dashboard.nodeBvi"), color: "#EAF2FB", stroke: "#2E6DA4" },
       tmn:     { x: 410, y: 460, w: 170, h: 92, label: "TMN", sub: "70% (TSN 30%)", color: "#EAF2FB", stroke: "#2E6DA4" },
-      primtek: { x: 600, y: 460, w: 170, h: 92, label: "Primtek", sub: "Seri A 100% · Seri B 51/49", color: "#EAF2FB", stroke: "#2E6DA4" },
-      rajapremi:{ x: 790, y: 460, w: 170, h: 92, label: "Rajapremi", sub: "via MVP 99.99%", color: "#EAF2FB", stroke: "#2E6DA4" },
-      mcash:   { x: 980, y: 460, w: 170, h: 92, label: "Mcash", sub: "CB investment", color: "#EAF2FB", stroke: "#2E6DA4" }
+      primtek: { x: 600, y: 460, w: 170, h: 92, label: "Primtek", sub: t("dashboard.nodePrimtek"), color: "#EAF2FB", stroke: "#2E6DA4" },
+      rajapremi:{ x: 790, y: 460, w: 170, h: 92, label: "Rajapremi", sub: t("dashboard.nodeRajapremi"), color: "#EAF2FB", stroke: "#2E6DA4" },
+      mcash:   { x: 980, y: 460, w: 170, h: 92, label: "Mcash", sub: t("dashboard.nodeMcash"), color: "#EAF2FB", stroke: "#2E6DA4" }
     };
     var s = '<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#666"/></marker></defs>';
     Object.keys(nodes).forEach(function (k) {
@@ -318,12 +328,12 @@
     line(cx(nodes.prosho), nodes.prosho.y + nodes.prosho.h, cx(nodes.wintek), nodes.wintek.y, false, "99.9%", cx(nodes.prosho) + 6, 206);
     line(cx(nodes.wintek), nodes.wintek.y + nodes.wintek.h, cx(nodes.bpiv), nodes.bpiv.y, false, "99%", cx(nodes.wintek) + 6, 296);
     // MTPL -> BPIV (dashed loan)
-    line(nodes.mtpl.x, nodes.mtpl.y + 20, nodes.bpiv.x + nodes.bpiv.w, nodes.bpiv.y + 30, true, "loan Rp14.76bn", 950, 250);
+    line(nodes.mtpl.x, nodes.mtpl.y + 20, nodes.bpiv.x + nodes.bpiv.w, nodes.bpiv.y + 30, true, t("dashboard.lineLoan"), 950, 250);
     // Wintek on-lent loan to BPIV (dashed, short)
-    line(nodes.wintek.x + nodes.wintek.w, nodes.wintek.y + 28, nodes.bpiv.x + nodes.bpiv.w - 20, nodes.bpiv.y + 20, true, "Rp0.98bn", 760, 275);
+    line(nodes.wintek.x + nodes.wintek.w, nodes.wintek.y + 28, nodes.bpiv.x + nodes.bpiv.w - 20, nodes.bpiv.y + 20, true, "Rp1.01bn", 760, 275);
     // BPIV -> portfolio
     var portKeys = ["mvp", "bvi", "tmn", "primtek", "rajapremi", "mcash"];
-    var labels = { mvp: "2.8bn", bvi: "0.1bn", tmn: "1.05bn", primtek: "0.9bn", rajapremi: "loan", mcash: "CB" };
+    var labels = { mvp: "2.8bn", bvi: "0.1bn", tmn: "1.05bn", primtek: "0.9bn", rajapremi: t("dashboard.lineRajapremi"), mcash: "CB" };
     portKeys.forEach(function (k) {
       var n = nodes[k];
       line(cx(n), nodes.bpiv.y + nodes.bpiv.h, cx(n), n.y, k === "rajapremi" || k === "mcash", labels[k], cx(n) - 18, (nodes.bpiv.y + nodes.bpiv.h + n.y) / 2 + 4);
@@ -371,7 +381,7 @@
         h += '<tr class="section-row"><td colspan="2"><strong>' + t("company.bsSection." + item.section) + '</strong></td></tr>';
       } else {
         var cls = item.total ? ' class="total-row"' : (item.subtotal ? ' class="subtotal-row"' : '');
-        h += '<tr' + cls + '><td>' + item.label + '</td><td class="num">' + fmtIDR(item.amount) + '</td></tr>';
+        h += '<tr' + cls + '><td>' + bsLabel(item.label) + '</td><td class="num">' + fmtIDR(item.amount) + '</td></tr>';
       }
     });
     h += '</tbody></table></div>';
@@ -382,7 +392,7 @@
           h += '<tr class="section-row"><td colspan="2"><strong>' + t("company.isSection." + item.section) + '</strong></td></tr>';
         } else {
           var cls = item.total ? ' class="total-row"' : (item.subtotal ? ' class="subtotal-row"' : '');
-          h += '<tr' + cls + '><td>' + item.label + '</td><td class="num">' + fmtIDR(item.amount) + '</td></tr>';
+          h += '<tr' + cls + '><td>' + bsLabel(item.label) + '</td><td class="num">' + fmtIDR(item.amount) + '</td></tr>';
         }
       });
       h += '</tbody></table></div>';
@@ -416,7 +426,7 @@
       any = true;
       html += '<h4 class="sub-h" style="color:var(--danger)">' + t("company.payablesTo") + '</h4><table class="data">' + hdr + "<tbody>";
       c.payables.forEach(function (r) {
-        html += "<tr><td>" + tName(r.co) + (r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ")</span>" : "") + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num">' + fmtIDR(r.principal + (r.interest || 0)) + "</td><td>" + (r.date || "—") + "</td></tr>";
+        html += "<tr><td>" + tName(r.co) + (r.writtenOff ? ' <span class="danger">(' + t("company.writtenOff") + ")</span>" : "") + (r.usd ? ' <span class="muted">(USD ' + r.usd.toLocaleString() + ")</span>" : "") + '</td><td class="num">' + fmtIDR(r.principal) + '</td><td class="num">' + fmtIDR(r.interest || 0) + '</td><td class="num">' + fmtIDR(r.principal + (r.interest || 0)) + "</td><td>" + (r.date || "—") + "</td></tr>";
       });
       html += "</tbody></table>";
     }
