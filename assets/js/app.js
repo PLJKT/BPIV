@@ -377,7 +377,7 @@
       '<div><span class="status-badge st-' + c.status + '">' + t("dashboard.status." + c.status) + "</span></div></div>" +
       '<div class="panel"><h3>' + t("company.description") + '</h3><p class="risk-desc">' + t("desc." + c.descriptionKey) + "</p></div>" +
       '<div class="two-col">' + financialsPanel(c) + ownershipPanel(c) + "</div>" +
-      intercoPanel(c) + bsPanel(c) + revenuePanel(c);
+      intercoPanel(c) + bsPanel(c) + revenuePanel(c) + expensePanel(c) + rajAnalysisPanel(c);
     document.getElementById("back-btn").addEventListener("click", function () { location.hash = "#/"; });
     renderCompanyCharts(c);
   }
@@ -465,8 +465,66 @@
   function revenuePanel(c) {
     var has = D.revenue.series[c.slug];
     if (!has || !has.some(function (v) { return v > 0; }))
-      return '<div class="panel"><h3>' + t("company.history") + '</h3><p class="muted">' + t("company.noHistory") + "</p></div>";
+      return '<div class="panel"><h3>' + t("company.history") + '</h3><p class="muted">' + t("company.noRev") + "</p></div>";
     return '<div class="panel"><h3>' + t("company.history") + '</h3><div id="co-rev-chart" class="chart-box"></div></div>';
+  }
+
+  function expensePanel(c) {
+    var h = D.expenseHistory && D.expenseHistory[c.slug];
+    if (!h) return "";
+    var rows = "";
+    for (var i = 0; i < h.years.length; i++) {
+      rows += "<tr><td>" + h.years[i] + '</td><td class="num">' + fmtIDR(h.amounts[i]) + "</td></tr>";
+    }
+    return '<div class="panel"><h3>' + t("company.expenseTitle") + '</h3><table class="data"><thead><tr><th>' + t("company.year") + '</th><th class="num">Rp</th></tr></thead><tbody>' + rows + '</tbody></table><div class="panel-note">' + t("company.expenseNote") + "</div></div>";
+  }
+
+  function rajAnalysisPanel(c) {
+    if (c.slug !== "rajapremi" || !D.rajapremiAnalysis) return "";
+    var a = D.rajapremiAnalysis;
+    function mRow(lbl, val, neg) {
+      return '<div class="kpi-card' + (neg ? " danger" : "") + '"><div class="kpi-label">' + lbl + '</div><div class="kpi-value' + (neg ? " neg" : "") + '">' + val + "</div></div>";
+    }
+    var metrics =
+      mRow(t("company.cumRev"), fmtIDR(a.cumulativeRevenue)) +
+      mRow(t("company.cumExp"), fmtIDR(a.cumulativeExpense)) +
+      mRow(t("company.cumNet"), fmtIDR(a.cumulativeNet), true) +
+      mRow(t("company.ytdRev"), fmtIDR(a.ytdRevenue)) +
+      mRow(t("company.ytdExp"), fmtIDR(a.ytdExpense)) +
+      mRow(t("company.ytdNet"), fmtIDR(a.ytdNet), true) +
+      mRow(t("company.peakRev"), a.peakYear + " \u00b7 " + fmtIDR(a.peakRevenue)) +
+      mRow(t("company.cash"), fmtIDR(a.cash)) +
+      mRow(t("company.moCost"), fmtIDR(a.monthlyCost)) +
+      mRow(t("company.cashM"), (a.cash / a.monthlyCost).toFixed(1) + t("company.mo"));
+    return '<div class="panel"><h3>' + t("company.rajTitle") + '</h3>' +
+      '<h4 class="sub-h">' + t("company.rajModelTitle") + '</h4><p class="risk-desc">' + t("company.rajModel") + "</p>" +
+      '<h4 class="sub-h">' + t("company.rajMetricsTitle") + '</h4><div class="grid-kpi">' + metrics + "</div>" +
+      '<h4 class="sub-h">' + t("company.rajChartTitle") + '</h4><div id="raj-rev-cost" class="chart-box"></div>' +
+      "</div>";
+  }
+
+  function renderRajChart() {
+    var el = document.getElementById("raj-rev-cost");
+    if (!el) return;
+    var chart = echarts.init(el);
+    chartInstances.push(chart);
+    var eh = D.expenseHistory && D.expenseHistory.rajapremi;
+    if (!eh) return;
+    var exp = D.revenue.years.map(function (y) {
+      var i = eh.years.indexOf(y);
+      return i >= 0 ? eh.amounts[i] : 0;
+    });
+    chart.setOption({
+      tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return "Rp " + v + " m"; } },
+      legend: { top: 0, data: [t("company.rajLegendRev"), t("company.rajLegendCost")] },
+      grid: { left: 12, right: 20, top: 34, bottom: 30, containLabel: true },
+      xAxis: { type: "category", data: D.revenue.years.map(String) },
+      yAxis: { type: "value", name: "Rp m" },
+      series: [
+        { name: t("company.rajLegendRev"), type: "bar", data: D.revenue.series.rajapremi.map(function (v) { return Math.round(v / 1e6); }), itemStyle: { color: "#4f8cff" } },
+        { name: t("company.rajLegendCost"), type: "bar", data: exp.map(function (v) { return Math.round(v / 1e6); }), itemStyle: { color: "#ff6b6b" } }
+      ]
+    });
   }
 
   function renderCompanyCharts(c) {
@@ -481,6 +539,7 @@
       yAxis: { type: "value", name: "Rp m" },
       series: [{ type: "bar", data: D.revenue.series[c.slug].map(function (v) { return Math.round(v / 1e6); }) }]
     });
+    if (c.slug === "rajapremi") renderRajChart();
   }
 
   function renderAdmin(main) {

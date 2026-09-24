@@ -34,7 +34,7 @@ window.BPIV_I18N = {
       kpiUnit: { bn: "bn", m: "m" },
       revenueChart: {
         title: "Group Revenue by Company (IDR)",
-        subtext: "*2026 = Jan–Jul YTD. 2025 includes non-operating income from intercompany write-offs (Mcash Rp1.43bn, TMN Rp0.97bn).",
+        subtext: "*2026 = Jan–Jul YTD. Operating-revenue basis: dormant companies show zero after dormancy (MVP has no operating revenue); non-operating write-off income in 2025 excluded.",
         primtek: "Primtek",
         bvi: "BVI (B-Startup)",
         rajapremi: "Rajapremi",
@@ -119,7 +119,29 @@ window.BPIV_I18N = {
       bsSection: { assets: "ASSETS", liabilities: "LIABILITIES", equity: "EQUITY" },
       isSection: { revenue: "REVENUE", expenses: "EXPENSES", other: "OTHER INCOME/(EXPENSES)", note: "NOTE" },
       backToDashboard: "← Back to Dashboard",
-      legalName: "Legal Name"
+      legalName: "Legal Name",
+      year: "Year",
+      noRev: "No operating revenue (dormant / investment vehicle)",
+      expenseTitle: "Operating-Period Expenses (Annual)",
+      expenseNote: "Per group ledger 'Expense' rows (2013\u20132025); years after a company turns dormant are excluded (non-operating). Item-level detail is only available from the 2026 monthly reports (see Income Statement).",
+      rajTitle: "Deep Dive \u2014 Business Analysis",
+      rajModelTitle: "Business Model",
+      rajMetricsTitle: "Key Metrics",
+      rajChartTitle: "Revenue vs Operating Costs (Rp m)",
+      rajLegendRev: "Revenue",
+      rajLegendCost: "Operating cost",
+      cumRev: "Cumulative revenue 2015\u20132025",
+      cumExp: "Cumulative expenses 2015\u20132025",
+      cumNet: "Cumulative net result 2015\u20132025",
+      ytdRev: "Revenue YTD-2026 (7 mo)",
+      ytdExp: "Expenses YTD-2026",
+      ytdNet: "Net loss YTD-2026",
+      peakRev: "Peak revenue year",
+      cash: "Cash on hand (31 Jul-26)",
+      moCost: "Avg monthly cost YTD-2026",
+      cashM: "Cash buffer (months of cost)",
+      mo: "mo",
+      rajModel: "RajaPremi is Indonesia's first online general-insurance marketplace (aggregator) \u2014 brand 'Your Way, We Protect'. Customers compare and buy motor, property, personal-accident and health policies online from carriers such as ACA, MNC Insurance and Zurich; income is carrier-paid commission (Fee Income), so RajaPremi does not underwrite risk. Founded 2013 in Jakarta (11\u201350 staff); per public records later acquired by Singapore-listed Fatfish Internet Group (ASX: FFG). Products span auto/motorcycle, accident, travel, health, home, life and Haji/Umrah lines. Customer satisfaction 4.6/5."
     },
 
     types: {
@@ -169,12 +191,12 @@ window.BPIV_I18N = {
       bpivDesc: "BPIV is the group's central investment company, funded directly by MTPL as lender (LP-style). It holds equity in MVP, TMN, Primtek and BVI, and provides intercompany loans to Rajapremi, BVI and Primtek. As of 31-Jul-2026 it remains balance-sheet insolvent: negative equity of Rp11.21bn, driven by the Rp3.38bn write-off of receivables in 2025 and cumulative interest owed to MTPL.",
       proshoDesc: "Prosindo is the top holding company, owned 50/50 by co-founder YSX and BVI offshore company PSI. It holds 99.9% of Wintek. Funding beyond paid-up capital comes from interest-free loans from PSI.",
       wintekDesc: "Wintek Investama Indonesia (brand Rajapay) is the intermediate holding company, 99.9% owned by Prosindo. It holds 99% of BPIV and has on-lent funds to BPIV (principal Rp1.01bn + accrued interest Rp0.16bn as of 31-Jul-2026).",
-      mvpDesc: "MVP (PT Mega Value Prosperindo) is an investment vehicle. BPIV initially held 70% (on paid-up capital basis), diluted to 64.71% after valuation increase. Its only investment is 99.99% of Rajapremi (Rp2.0bn). In 2026 an intangible asset of Rp1.2bn was contributed, matched by a share capital increase. Dormant since 2018.",
+      mvpDesc: "MVP (PT Mega Value Prosperindo) is an investment vehicle with no operating revenue. BPIV initially held 70% (on paid-up capital basis), diluted to 64.71% after valuation increase. Its only investment is 99.99% of Rajapremi (Rp2.0bn). In 2026 an intangible asset of Rp1.2bn was contributed, matched by a share capital increase. Dormant since 2018.",
       bviDesc: "BVI (PT Batavia Visi Inovasi), the group's former operating company under the B-Startup brand (office-building management and incubation), has been dormant since July 2025; expenses incurred after that date are non-operating in nature. It still owes BPIV Rp1.51bn principal + Rp0.57bn accrued interest (per group Loan Summary 31-Jul-2026) — flagged as a potential write-off.",
-      rajapremiDesc: "Rajapremi (PT Rajapremi Dot Com) runs an online commission business, 99.99% owned by MVP. Revenue declined from a peak of Rp342m (2017) to Rp27m (2025) and Rp26.8m YTD-2026. It owes BPIV Rp1.87bn (cash advance), BVI Rp0.76bn (management fee) and MVP Rp11m.",
-      tmnDesc: "TMN (PT Teknomedia Mitra Nusantara) is 70% owned by BPIV and 30% by TSN; dormant. TSN, as 30% shareholder, also borrowed Rp190m from TMN (plus Rp30.8m interest). TMN's debt to BPIV (Rp970.5m + Rp250.8m interest) was written off in Dec-2025.",
-      primtekDesc: "Primtek (PT Primatama Teknologi Solusindo) is an IT services company. Seri A shares (Rp900m) are 100% held by BPIV; Seri B is split BPIV 51% / BF 49% (technology in-kind, no cash). The original 10% treasury stock has been cancelled. Revenue collapsed after 2021 and has been zero since 2022. As of 31-Jul-2026 equity is negative Rp340.4m.",
-      mcashDesc: "Mcash (PT Mobile Cash Indonesia) is held by BPIV via a convertible note (CB), not as a direct shareholder. Equity remains with the original shareholders, whose share capital is not fully paid. Mcash's debt to BPIV (Rp1.43bn) was written off in Dec-2025. Remaining assets are a small user receivable (Rp17.1m) from the MainDulu business."
+      rajapremiDesc: "Rajapremi (PT Rajapremi Dot Com) operates RajaPremi, Indonesia's first online general-insurance marketplace / aggregator ('Your Way, We Protect'): customers compare and buy motor, property, personal-accident and health policies online from carriers such as ACA, MNC Insurance and Zurich; income is carrier-paid commission (Fee Income) — it does not underwrite risk. Founded 2013 in Jakarta; per public records later acquired by Singapore-listed Fatfish Internet Group (ASX: FFG). 99.99% owned by MVP. Fee income fell from a peak of Rp342m (2017) to Rp27m (2025) and Rp26.8m YTD-2026; cumulative 2015–2025 losses of Rp5.3bn. It owes BPIV Rp1.87bn (cash advance), BVI Rp0.76bn (management fee) and MVP Rp11m.",
+      tmnDesc: "TMN (PT Teknomedia Mitra Nusantara) is 70% owned by BPIV and 30% by TSN; dormant (no operating revenue since 2018; the Rp970.5m booked in 2025 is a write-off gain, excluded from the revenue recap). TSN, as 30% shareholder, also borrowed Rp190m from TMN (plus Rp30.8m interest). TMN's debt to BPIV (Rp970.5m + Rp250.8m interest) was written off in Dec-2025.",
+      primtekDesc: "Primtek (PT Primatama Teknologi Solusindo) is an IT services company. Seri A shares (Rp900m) are 100% held by BPIV; Seri B is split BPIV 51% / BF 49% (technology in-kind, no cash). The original 10% treasury stock has been cancelled. Revenue peaked at Rp1.64bn (2018); operations wound down after 2020 — effectively dormant since 2021, so revenue is recorded as zero from 2021. As of 31-Jul-2026 equity is negative Rp340.4m.",
+      mcashDesc: "Mcash (PT Mobile Cash Indonesia) is held by BPIV via a convertible note (CB), not as a direct shareholder. Equity remains with the original shareholders, whose share capital is not fully paid. The MainDulu business has been dormant since 2020; the Rp110m booked in 2024 and the Rp1.43bn write-off gain in 2025 are non-operating and excluded from the revenue recap. Mcash's debt to BPIV (Rp1.43bn) was written off in Dec-2025. Remaining assets are a small user receivable (Rp17.1m)."
     },
 
     auth: {
@@ -329,7 +351,7 @@ window.BPIV_I18N = {
       kpiUnit: { bn: "十亿", m: "百万" },
       revenueChart: {
         title: "集团各公司收入（印尼盾）",
-        subtext: "*2026 为 1–7 月累计。2025 含关联债务核销产生的非经营收入（Mcash 14.3 亿盾、TMN 9.7 亿盾）。",
+        subtext: "*2026 为 1–7 月累计。口径为运营收入：休眠公司休眠后收入记 0（MVP 无运营收入）；2025 年核销产生的非经营收入不计入。",
         primtek: "Primtek",
         bvi: "BVI（B-Startup）",
         rajapremi: "Rajapremi",
@@ -414,7 +436,29 @@ window.BPIV_I18N = {
       bsSection: { assets: "资产", liabilities: "负债", equity: "权益" },
       isSection: { revenue: "收入", expenses: "费用", other: "其他收入/(费用)", note: "说明" },
       backToDashboard: "← 返回仪表盘",
-      legalName: "法定名称"
+      legalName: "法定名称",
+      year: "年份",
+      noRev: "无运营收入（休眠 / 投资载体）",
+      expenseTitle: "运营期费用（年度）",
+      expenseNote: "按集团台账 Expense 行（2013–2025）；公司休眠后的年份不计入（非运营性质）。明细分类仅 2026 年月报可得（见利润表）。",
+      rajTitle: "深度分析 —— 业务解析",
+      rajModelTitle: "业务模式",
+      rajMetricsTitle: "关键指标",
+      rajChartTitle: "收入 vs 运营费用（百万盾）",
+      rajLegendRev: "收入",
+      rajLegendCost: "运营费用",
+      cumRev: "2015–2025 累计收入",
+      cumExp: "2015–2025 累计费用",
+      cumNet: "2015–2025 累计净结果",
+      ytdRev: "2026 年至今收入（7 个月）",
+      ytdExp: "2026 年至今费用",
+      ytdNet: "2026 年至今净亏损",
+      peakRev: "收入峰值年份",
+      cash: "现金（2026-07-31）",
+      moCost: "2026 年至今月均费用",
+      cashM: "现金缓冲（月费用覆盖）",
+      mo: "个月",
+      rajModel: "RajaPremi 是印尼首家线上一般保险市场（聚合平台），品牌口号“Your Way, We Protect”。客户可在线上比较并购买来自 ACA、MNC Insurance、Zurich 等保险公司的车险、财产险、意外险与健康险保单；收入为保险公司支付的佣金（Fee Income），因此 RajaPremi 不承担承保风险。2013 年成立于雅加达（员工 11–50 人）；据公开资料，后被新加坡上市公司 Fatfish Internet Group（ASX: FFG）收购。产品覆盖车险/摩托车险、意外险、旅行险、健康险、家财险、人寿险及朝觐险。客户满意度 4.6/5。"
     },
 
     types: {
@@ -464,12 +508,12 @@ window.BPIV_I18N = {
       bpivDesc: "BPIV 是集团的核心投资公司，资金由 MTPL 以贷款方式直接提供（LP 模式）。它持有 MVP、TMN、Primtek、BVI 的股权，并向 Rajapremi、BVI、Primtek 提供关联贷款。截至 2026 年 7 月 31 日仍资不抵债：净资产为负 112.1 亿盾，主要来自 2025 年 33.8 亿盾应收核销及对 MTPL 的累计利息。",
       proshoDesc: "Prosindo 是顶层控股公司，由联合创始人 YSX 与 BVI 离岸公司 PSI 各持 50%。它持有 Wintek 99.9% 的股权。超出实缴股本的资金由 PSI 以无息贷款提供。",
       wintekDesc: "Wintek Investama Indonesia（品牌 Rajapay）是中间控股公司，由 Prosindo 持股 99.9%。它持有 BPIV 99% 的股权，并已转贷给 BPIV（截至 2026 年 7 月 31 日本金 10.1 亿盾 + 应计利息 1.6 亿盾）。",
-      mvpDesc: "MVP（PT Mega Value Prosperindo）是投资载体。BPIV 初始持股 70%（对应实缴股本），估值上升后稀释至 64.71%。唯一投资为 Rajapremi 99.99%（20 亿盾）。2026 年新增 12 亿盾无形资产出资，对应股本增加。自 2018 年起休眠。",
+      mvpDesc: "MVP（PT Mega Value Prosperindo）是投资载体，无运营收入。BPIV 初始持股 70%（对应实缴股本），估值上升后稀释至 64.71%。唯一投资为 Rajapremi 99.99%（20 亿盾）。2026 年新增 12 亿盾无形资产出资，对应股本增加。自 2018 年起休眠。",
       bviDesc: "BVI（PT Batavia Visi Inovasi）原以 B-Startup 为运营品牌提供写字楼管理与孵化服务，自 2025 年 7 月起已休眠，其后产生的费用不再视为常规运营费用。它欠 BPIV 本金 15.1 亿盾 + 应计利息 5.7 亿盾（按集团 Loan Summary 2026-07-31），已列为潜在核销。",
-      rajapremiDesc: "Rajapremi（PT Rajapremi Dot Com）经营线上佣金业务，由 MVP 持股 99.99%。收入从 2017 年峰值 3.42 亿盾降至 2025 年 0.27 亿盾、今年至今 0.27 亿盾。它欠 BPIV 18.7 亿盾（现金垫款）、欠 BVI 管理费 7.6 亿盾、欠 MVP 1100 万盾。",
-      tmnDesc: "TMN（PT Teknomedia Mitra Nusantara）由 BPIV 持股 70%、TSN 持股 30%，已休眠。TSN 作为 30% 股东同时向 TMN 借款 1.9 亿盾（含利息 0.31 亿盾）。TMN 对 BPIV 的债务（9.7 亿盾 + 利息 2.5 亿盾）已于 2025 年 12 月核销。",
-      primtekDesc: "Primtek（PT Primatama Teknologi Solusindo）是 IT 服务公司。A 类股（9 亿盾）由 BPIV 100% 持有；B 类股由 BPIV 51% / BF 49% 分持，BF 以技术入股（未缴现金）。原 10% 库存股已注销。2021 年后收入骤降，2022 年起为零。截至 2026 年 7 月 31 日净资产为负 3.4 亿盾。",
-      mcashDesc: "Mcash（PT Mobile Cash Indonesia）由 BPIV 以可转债（CB）方式投资，非直接股东。股权仍由原始股东持有，其股本尚未缴足。Mcash 对 BPIV 的债务（14.3 亿盾）已于 2025 年 12 月核销。剩余资产为 MainDulu 业务的少量用户应收（1710 万盾）。"
+      rajapremiDesc: "Rajapremi（PT Rajapremi Dot Com）运营 RajaPremi —— 印尼首家线上一般保险市场/聚合平台（口号：Your Way, We Protect）：客户可在线上比较并购买来自 ACA、MNC Insurance、Zurich 等保险公司的车险、财产险、意外险与健康险；收入来自保险公司支付的佣金（Fee Income），自身不承担承保风险。2013 年成立于雅加达；据公开资料，后被新加坡上市公司 Fatfish Internet Group（ASX: FFG）收购。由 MVP 持股 99.99%。佣金收入从 2017 年峰值 3.42 亿盾降至 2025 年 0.27 亿盾、今年至今 0.27 亿盾；2015–2025 年累计亏损 53 亿盾。欠 BPIV 18.7 亿盾（现金垫款）、欠 BVI 管理费 7.6 亿盾、欠 MVP 1100 万盾。",
+      tmnDesc: "TMN（PT Teknomedia Mitra Nusantara）由 BPIV 持股 70%、TSN 持股 30%，已休眠（2018 年起无运营收入；2025 年入账的 9.7 亿盾为核销收益，不计入收入口径）。TSN 作为 30% 股东同时向 TMN 借款 1.9 亿盾（含利息 0.31 亿盾）。TMN 对 BPIV 的债务（9.7 亿盾 + 利息 2.5 亿盾）已于 2025 年 12 月核销。",
+      primtekDesc: "Primtek（PT Primatama Teknologi Solusindo）是 IT 服务公司。A 类股（9 亿盾）由 BPIV 100% 持有；B 类股由 BPIV 51% / BF 49% 分持，BF 以技术入股（未缴现金）。原 10% 库存股已注销。收入 2018 年峰值 16.4 亿盾；2020 年后业务收尾，2021 年起实质休眠，收入自 2021 年起记 0。截至 2026 年 7 月 31 日净资产为负 3.4 亿盾。",
+      mcashDesc: "Mcash（PT Mobile Cash Indonesia）由 BPIV 以可转债（CB）方式投资，非直接股东。股权仍由原始股东持有，其股本尚未缴足。MainDulu 业务自 2020 年起休眠；2024 年入账的 1.1 亿盾与 2025 年核销收益 14.3 亿盾均为非经营项目，不计入收入口径。Mcash 对 BPIV 的债务（14.3 亿盾）已于 2025 年 12 月核销。剩余资产为 MainDulu 业务的少量用户应收（1710 万盾）。"
     },
 
     auth: {
@@ -624,7 +668,7 @@ window.BPIV_I18N = {
       kpiUnit: { bn: "miliar", m: "juta" },
       revenueChart: {
         title: "Pendapatan Grup per Perusahaan (IDR)",
-        subtext: "*2026 = Jan–Jul YTD. 2025 termasuk penghasilan non-operasional dari penghapusbukuan antar perusahaan (Mcash Rp1,43 miliar, TMN Rp0,97 miliar).",
+        subtext: "*2026 = Jan–Jul YTD. Basis pendapatan operasional: perusahaan dorman nol setelah dorman (MVP tanpa pendapatan operasional); penghasilan non-operasional dari penghapusbukuan 2025 tidak dimasukkan.",
         primtek: "Primtek",
         bvi: "BVI (B-Startup)",
         rajapremi: "Rajapremi",
@@ -709,7 +753,29 @@ window.BPIV_I18N = {
       bsSection: { assets: "AKTIVA", liabilities: "KEWAJIBAN", equity: "EKUITAS" },
       isSection: { revenue: "PENDAPATAN", expenses: "BEBAN", other: "PENGHASILAN/(BEBAN) LAIN", note: "CATATAN" },
       backToDashboard: "← Kembali ke Dashboard",
-      legalName: "Nama Hukum"
+      legalName: "Nama Hukum",
+      year: "Tahun",
+      noRev: "Tidak ada pendapatan operasional (dorman / kendaraan investasi)",
+      expenseTitle: "Beban Periode Operasi (Tahunan)",
+      expenseNote: "Berdasarkan baris 'Expense' buku besar grup (2013\u20132025); tahun setelah perusahaan nonaktif tidak dimasukkan (non-operasional). Rincian per item hanya tersedia dari laporan bulanan 2026 (lihat Laporan Laba Rugi).",
+      rajTitle: "Analisis Mendalam \u2014 Bisnis",
+      rajModelTitle: "Model Bisnis",
+      rajMetricsTitle: "Indikator Kunci",
+      rajChartTitle: "Pendapatan vs Beban Operasi (Rp juta)",
+      rajLegendRev: "Pendapatan",
+      rajLegendCost: "Beban operasi",
+      cumRev: "Pendapatan kumulatif 2015\u20132025",
+      cumExp: "Beban kumulatif 2015\u20132025",
+      cumNet: "Hasil neto kumulatif 2015\u20132025",
+      ytdRev: "Pendapatan YTD-2026 (7 bln)",
+      ytdExp: "Beban YTD-2026",
+      ytdNet: "Rugi neto YTD-2026",
+      peakRev: "Tahun pendapatan puncak",
+      cash: "Kas (31 Jul-26)",
+      moCost: "Beban bulanan rata-rata YTD-2026",
+      cashM: "Bantalan kas (bulan beban)",
+      mo: "bln",
+      rajModel: "RajaPremi adalah marketplace asuransi umum online pertama di Indonesia (agregator) \u2014 brand 'Your Way, We Protect'. Pelanggan membandingkan dan membeli polis kendaraan, properti, kecelakaan diri, dan kesehatan secara online dari perusahaan seperti ACA, MNC Insurance dan Zurich; pendapatan berupa komisi dari perusahaan asuransi (Fee Income), sehingga RajaPremi tidak menanggung risiko underwriting. Didirikan 2013 di Jakarta (11\u201350 karyawan); menurut catatan publik kemudian diakuisisi oleh Fatfish Internet Group (ASX: FFG) yang terdaftar di Singapura. Produk mencakup auto/motor, kecelakaan, perjalanan, kesehatan, rumah, jiwa dan Haji/Umrah. Kepuasan pelanggan 4,6/5."
     },
 
     types: {
@@ -759,12 +825,12 @@ window.BPIV_I18N = {
       bpivDesc: "BPIV adalah perusahaan investasi pusat grup, didanai langsung oleh MTPL sebagai pemberi pinjaman (model LP). Ia memegang ekuitas di MVP, TMN, Primtek, dan BVI, serta memberikan pinjaman antar perusahaan kepada Rajapremi, BVI, dan Primtek. Per 31 Jul 2026 tetap insolvable: ekuitas negatif Rp11,21 miliar, akibat penghapusbukuan piutang Rp3,38 miliar pada 2025 dan bunga akumulasi ke MTPL.",
       proshoDesc: "Prosindo adalah perusahaan holding puncak, dimiliki 50/50 oleh co-founder YSX dan perusahaan lepas pantai BVI PSI. Ia memegang 99,9% Wintek. Dana di luar modal disetor berasal dari pinjaman tanpa bunga dari PSI.",
       wintekDesc: "Wintek Investama Indonesia (merek Rajapay) adalah perusahaan holding perantara, 99,9% dimiliki Prosindo. Ia memegang 99% BPIV dan telah menyalurkan pinjaman ke BPIV (pokok Rp1,01 miliar + bunga akrual Rp0,16 miliar per 31-Jul-2026).",
-      mvpDesc: "MVP (PT Mega Value Prosperindo) adalah kendaraan investasi. BPIV awalnya memegang 70% (berdasarkan modal disetor), terdilusi menjadi 64,71% setelah kenaikan valuasi. Satu-satunya investasinya adalah 99,99% Rajapremi (Rp2,0 miliar). Pada 2026 aset tak berwujud Rp1,2 miliar disetorkan, diimbangi kenaikan modal saham. Sudah nonaktif sejak 2018.",
+      mvpDesc: "MVP (PT Mega Value Prosperindo) adalah kendaraan investasi tanpa pendapatan operasional. BPIV awalnya memegang 70% (berdasarkan modal disetor), terdilusi menjadi 64,71% setelah kenaikan valuasi. Satu-satunya investasinya adalah 99,99% Rajapremi (Rp2,0 miliar). Pada 2026 aset tak berwujud Rp1,2 miliar disetorkan, diimbangi kenaikan modal saham. Sudah nonaktif sejak 2018.",
       bviDesc: "BVI (PT Batavia Visi Inovasi), sebelumnya perusahaan operasional grup dengan merek B-Startup (manajemen gedung kantor & inkubasi), sudah nonaktif (dorman) sejak Juli 2025; beban yang timbul setelah tanggal itu bersifat non-operasional. Ia masih berutang ke BPIV pokok Rp1,51 miliar + bunga akrual Rp0,57 miliar (menurut Loan Summary grup 31-Jul-2026) — ditandai sebagai potensi penghapusbukuan.",
-      rajapremiDesc: "Rajapremi (PT Rajapremi Dot Com) menjalankan bisnis komisi online, 99,99% dimiliki MVP. Pendapatan menurun dari puncak Rp342 juta (2017) menjadi Rp27 juta (2025) dan Rp26,8 juta YTD-2026. Ia berhutang ke BPIV Rp1,87 miliar (uang muka kas), ke BVI Rp0,76 miliar (biaya manajemen) dan ke MVP Rp11 juta.",
-      tmnDesc: "TMN (PT Teknomedia Mitra Nusantara) 70% dimiliki BPIV dan 30% oleh TSN; sudah nonaktif. TSN sebagai pemegang 30% juga meminjam Rp190 juta dari TMN (plus bunga Rp30,8 juta). Hutang TMN ke BPIV (Rp970,5 juta + bunga Rp250,8 juta) telah dihapusbukukan Des-2025.",
-      primtekDesc: "Primtek (PT Primatama Teknologi Solusindo) adalah perusahaan jasa TI. Saham Seri A (Rp900 juta) 100% dimiliki BPIV; Seri B dibagi BPIV 51% / BF 49%, dengan BF menyetor teknologi secara in-kind (tanpa tunai). Treasury stock 10% yang lama telah dibatalkan. Pendapatan jatuh drastis setelah 2021 dan nol sejak 2022. Per 31 Jul 2026 ekuitas negatif Rp340,4 juta.",
-      mcashDesc: "Mcash (PT Mobile Cash Indonesia) dimiliki BPIV melalui convertible note (CB), bukan sebagai pemegang saham langsung. Ekuitas tetap di tangan pemegang saham lama dengan modal belum disetor penuh. Hutang Mcash ke BPIV (Rp1,43 miliar) telah dihapusbukukan Des-2025. Aset tersisa berupa piutang kecil dari pengguna MainDulu (Rp17,1 juta)."
+      rajapremiDesc: "Rajapremi (PT Rajapremi Dot Com) mengoperasikan RajaPremi, marketplace/agregator asuransi umum online pertama di Indonesia ('Your Way, We Protect'): pelanggan membandingkan dan membeli polis kendaraan, properti, kecelakaan diri dan kesehatan secara online dari perusahaan seperti ACA, MNC Insurance dan Zurich; pendapatan berupa komisi dari perusahaan asuransi (Fee Income) — tidak menanggung risiko underwriting. Didirikan 2013 di Jakarta; menurut catatan publik kemudian diakuisisi oleh Fatfish Internet Group (ASX: FFG) yang terdaftar di Singapura. 99,99% dimiliki MVP. Fee income turun dari puncak Rp342 juta (2017) menjadi Rp27 juta (2025) dan Rp26,8 juta YTD-2026; akumulasi rugi 2015–2025 Rp5,3 miliar. Berhutang ke BPIV Rp1,87 miliar (uang muka kas), ke BVI Rp0,76 miliar (biaya manajemen) dan ke MVP Rp11 juta.",
+      tmnDesc: "TMN (PT Teknomedia Mitra Nusantara) 70% dimiliki BPIV dan 30% oleh TSN; sudah nonaktif (tanpa pendapatan operasional sejak 2018; Rp970,5 juta yang dibukukan 2025 adalah gain penghapusbukuan, tidak termasuk recap pendapatan). TSN sebagai pemegang 30% juga meminjam Rp190 juta dari TMN (plus bunga Rp30,8 juta). Hutang TMN ke BPIV (Rp970,5 juta + bunga Rp250,8 juta) telah dihapusbukukan Des-2025.",
+      primtekDesc: "Primtek (PT Primatama Teknologi Solusindo) adalah perusahaan jasa TI. Saham Seri A (Rp900 juta) 100% dimiliki BPIV; Seri B dibagi BPIV 51% / BF 49%, dengan BF menyetor teknologi secara in-kind (tanpa tunai). Treasury stock 10% yang lama telah dibatalkan. Pendapatan memuncak Rp1,64 miliar (2018); operasi ditutup setelah 2020 — efektif nonaktif sejak 2021, pendapatan dicatat nol mulai 2021. Per 31 Jul 2026 ekuitas negatif Rp340,4 juta.",
+      mcashDesc: "Mcash (PT Mobile Cash Indonesia) dimiliki BPIV melalui convertible note (CB), bukan sebagai pemegang saham langsung. Ekuitas tetap di tangan pemegang saham lama dengan modal belum disetor penuh. Bisnis MainDulu sudah nonaktif sejak 2020; Rp110 juta yang dibukukan 2024 dan gain penghapusbukuan Rp1,43 miliar pada 2025 bersifat non-operasional dan tidak termasuk recap pendapatan. Hutang Mcash ke BPIV (Rp1,43 miliar) telah dihapusbukukan Des-2025. Aset tersisa berupa piutang kecil dari pengguna MainDulu (Rp17,1 juta)."
     },
 
     auth: {
