@@ -35,6 +35,7 @@ window.BPIV_I18N = {
       revenueChart: {
         title: "Group Revenue by Company (IDR)",
         subtext: "*2026 = Jan–Jul YTD. Operating-revenue basis: dormant companies show zero after dormancy (MVP has no operating revenue); non-operating write-off income in 2025 excluded.",
+        bpiv: "BPIV",
         primtek: "Primtek",
         bvi: "BVI (B-Startup)",
         rajapremi: "Rajapremi",
@@ -352,6 +353,7 @@ window.BPIV_I18N = {
       revenueChart: {
         title: "集团各公司收入（印尼盾）",
         subtext: "*2026 为 1–7 月累计。口径为运营收入：休眠公司休眠后收入记 0（MVP 无运营收入）；2025 年核销产生的非经营收入不计入。",
+        bpiv: "BPIV",
         primtek: "Primtek",
         bvi: "BVI（B-Startup）",
         rajapremi: "Rajapremi",
@@ -669,6 +671,7 @@ window.BPIV_I18N = {
       revenueChart: {
         title: "Pendapatan Grup per Perusahaan (IDR)",
         subtext: "*2026 = Jan–Jul YTD. Basis pendapatan operasional: perusahaan dorman nol setelah dorman (MVP tanpa pendapatan operasional); penghasilan non-operasional dari penghapusbukuan 2025 tidak dimasukkan.",
+        bpiv: "BPIV",
         primtek: "Primtek",
         bvi: "BVI (B-Startup)",
         rajapremi: "Rajapremi",

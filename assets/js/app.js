@@ -127,7 +127,7 @@
       '<div class="page-title">' + t("dashboard.title") + '</div>' +
       '<div class="page-sub">' + t("asOf") + " " + D.meta.asOf + " · " + t("currencyNote") + '</div>' +
       renderKPIs(bpiv, debtTotal, invTotal, pwoTotal) +
-      '<div class="panel"><h3>' + t("dashboard.revenueChart.title") + '</h3><div id="rev-chart" class="chart-box"></div><div class="panel-note">' + t("dashboard.revenueChart.subtext") + '</div></div>' +
+      '<div class="panel"><h3>' + t("dashboard.revenueChart.title") + '</h3><div id="rev-chart" class="chart-box tall"></div><div class="panel-note">' + t("dashboard.revenueChart.subtext") + '</div></div>' +
       '<div class="panel"><h3>' + t("dashboard.structureTitle") + '</h3><div id="struct-box"></div><div class="panel-note">' + t("dashboard.structureNote") + '</div><div class="panel-note" style="color:#c05e12">' + t("dashboard.offshoreNote") + '</div></div>' +
       '<div class="panel"><h3>' + t("dashboard.riskTitle") + '</h3>' +
       '<p class="risk-desc">' + t("dashboard.riskDesc") + '</p>' +
@@ -239,19 +239,22 @@
     var chart = echarts.init(el);
     chartInstances.push(chart);
     var years = D.revenue.years.map(String);
-    var seriesKeys = ["primtek", "bvi", "rajapremi", "mvp", "mcash", "tmn"];
-    var series = seriesKeys.map(function (k) {
+    var seriesKeys = ["primtek", "bvi", "rajapremi", "bpiv", "mvp", "mcash", "tmn"];
+    var palette = ["#e45756", "#4f8cff", "#3aa66f", "#f2b134", "#9b6bd4", "#00b7c3", "#e8890c"];
+    var series = seriesKeys.map(function (k, idx) {
       return {
         name: t("dashboard.revenueChart." + k),
-        type: "line", stack: "total", areaStyle: {}, emphasis: { focus: "series" },
+        type: "bar", stack: "rev", emphasis: { focus: "series" },
+        itemStyle: { color: palette[idx] },
+        barMaxWidth: 46,
         data: D.revenue.series[k].map(function (v) { return Math.round(v / 1e6); })
       };
     });
     chart.setOption({
-      tooltip: { trigger: "axis", axisPointer: { type: "cross" }, valueFormatter: function (v) { return "Rp " + v + " m"; } },
+      tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return "Rp " + v + " m"; } },
       legend: { top: 0, type: "scroll" },
-      grid: { left: 12, right: 20, top: 36, bottom: 30, containLabel: true },
-      xAxis: { type: "category", data: years, boundaryGap: false },
+      grid: { left: 12, right: 20, top: 40, bottom: 44, containLabel: true },
+      xAxis: { type: "category", data: years },
       yAxis: { type: "value", name: "Rp m" },
       series: series
     });
