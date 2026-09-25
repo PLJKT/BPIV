@@ -380,7 +380,7 @@
       '<div><span class="status-badge st-' + c.status + '">' + t("dashboard.status." + c.status) + "</span></div></div>" +
       '<div class="panel"><h3>' + t("company.description") + '</h3><p class="risk-desc">' + t("desc." + c.descriptionKey) + "</p></div>" +
       '<div class="two-col">' + financialsPanel(c) + ownershipPanel(c) + "</div>" +
-      intercoPanel(c) + bsPanel(c) + revenuePanel(c) + expensePanel(c) + rajAnalysisPanel(c);
+      intercoPanel(c) + bsPanel(c) + revenuePanel(c) + expensePanel(c) + bpivExpPanel(c) + rajAnalysisPanel(c);
     document.getElementById("back-btn").addEventListener("click", function () { location.hash = "#/"; });
     renderCompanyCharts(c);
   }
@@ -482,6 +482,37 @@
     return '<div class="panel"><h3>' + t("company.expenseTitle") + '</h3><table class="data"><thead><tr><th>' + t("company.year") + '</th><th class="num">Rp</th></tr></thead><tbody>' + rows + '</tbody></table><div class="panel-note">' + t("company.expenseNote") + "</div></div>";
   }
 
+  function bpivExpPanel(c) {
+    if (c.slug !== "bpiv" || !D.bpivExpense) return "";
+    return '<div class="panel"><h3>' + t("company.bpivExpTitle") + '</h3><div id="bpiv-exp-chart" class="chart-box tall"></div><div class="panel-note">' + t("company.bpivExpSub") + "</div></div>";
+  }
+
+  function renderBpivExpChart() {
+    var el = document.getElementById("bpiv-exp-chart");
+    if (!el || !D.bpivExpense) return;
+    var chart = echarts.init(el);
+    chartInstances.push(chart);
+    var exp = D.bpivExpense;
+    var palette = { salary: "#4f8cff", rent: "#3aa66f", adm: "#f2b134", writeoff: "#e45756", forex: "#9b6bd4" };
+    var series = exp.categories.map(function (cat) {
+      return {
+        name: t("company.exp" + cat.key.charAt(0).toUpperCase() + cat.key.slice(1)),
+        type: "bar", stack: "exp", emphasis: { focus: "series" },
+        itemStyle: { color: palette[cat.key] },
+        barMaxWidth: 46,
+        data: cat.data.map(function (v) { return Math.round(v / 1e6); })
+      };
+    });
+    chart.setOption({
+      tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return "Rp " + v + " m"; } },
+      legend: { top: 0, left: "center", icon: "roundRect", itemWidth: 12, itemHeight: 10, itemGap: 14 },
+      grid: { left: 12, right: 20, top: 62, bottom: 44, containLabel: true },
+      xAxis: { type: "category", data: exp.years.map(String) },
+      yAxis: { type: "value", name: "Rp m" },
+      series: series
+    });
+  }
+
   function rajAnalysisPanel(c) {
     if (c.slug !== "rajapremi" || !D.rajapremiAnalysis) return "";
     var a = D.rajapremiAnalysis;
@@ -543,6 +574,7 @@
       series: [{ type: "bar", data: D.revenue.series[c.slug].map(function (v) { return Math.round(v / 1e6); }) }]
     });
     if (c.slug === "rajapremi") renderRajChart();
+    if (c.slug === "bpiv") renderBpivExpChart();
   }
 
   function renderAdmin(main) {
