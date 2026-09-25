@@ -97,7 +97,6 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px; }
 .kpi-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
 .kpi-value { font-size: 22px; font-weight: 700; }
 .kpi-value.neg { color: var(--danger); }
-.kpi-unit { font-size: 13px; color: var(--text-muted); font-weight: 400; }
 
 .panel {
   background: var(--card-bg);
@@ -138,7 +137,6 @@ table.data th, table.data td {
   border-bottom: 1px solid var(--border);
 }
 table.data th { background: #f0f3f7; font-weight: 600; font-size: 12px; color: var(--text-muted); }
-table.data td.num { text-align: right; font-variant-numeric: tabular-nums; }
 table.data tr:hover td { background: #fafbfc; }
 
 .company-grid {
@@ -259,7 +257,6 @@ footer.foot {
 .note-warn { margin-top: 8px; color: #c05e12; }
 .admin-msg { font-size: 12px; margin-top: 8px; }
 table.data.compact td, table.data.compact th { padding: 5px 10px; font-size: 13px; }
-table.data td.neg-val { color: var(--danger); font-weight: 600; }
 
 /* v4: drawdown sub-tables & totals */
 .dd-row td { background: #f7f9fb !important; padding: 6px 10px !important; }
@@ -269,13 +266,10 @@ table.data td.neg-val { color: var(--danger); font-weight: 600; }
 .dd-block table.data td { padding: 3px 10px !important; font-size: 12px; }
 .dd-total td { border-top: 1px solid var(--border); }
 tr.grand-total td { background: #eef2f7 !important; border-top: 2px solid var(--primary); font-size: 13px; }
-table.data td.neg-val { color: var(--danger); font-weight: 600; }
 
-.bs-row td { border-bottom: 1px solid #e5e9ef; }
 tr.section-row td { background: #f0f4f8; padding: 8px 12px; font-size: 12px; letter-spacing: 0.5px; }
 tr.total-row td { border-top: 2px solid var(--primary); font-weight: 700; background: #f7f9fc; }
 tr.subtotal-row td { border-top: 1px solid var(--border); font-weight: 600; }
-table.data td.num { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* v19: BPIV illustration page */
 .ill-list { padding-left: 20px; margin: 6px 0 4px; }

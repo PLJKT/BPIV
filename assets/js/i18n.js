@@ -59,18 +59,11 @@ window.BPIV_I18N = {
 
     nav: {
       dashboard: "Dashboard",
-      structure: "Group Structure",
       bpiv: "BPIV",
       illustration: "BPIV Illustration",
       companies: "Portfolio Companies",
-      about: "About"
     },
 
-    lang: {
-      en: "English",
-      zh: "中文",
-      id: "Bahasa Indonesia"
-    },
 
     dashboard: {
       title: "Group Dashboard",
@@ -143,7 +136,6 @@ window.BPIV_I18N = {
 
     company: {
       title: "Company Detail",
-      overview: "Overview",
       ownership: "Ownership",
       financials: "Financial Position",
       interco: "Intercompany Balances",
@@ -161,10 +153,8 @@ window.BPIV_I18N = {
       interest: "Accrued Interest",
       principal: "Principal",
       total: "Total",
-      usdPortion: "incl. USD",
       writtenOff: "written off",
       nomineeStake: "nominee (Dana Talangan)",
-      investsIn: "Investment in",
       pctHeld: "Holding",
       description: "Description",
       bsTitle: "Balance Sheet",
@@ -177,13 +167,6 @@ window.BPIV_I18N = {
       noRev: "No operating revenue (dormant / investment vehicle)",
       expenseTitle: "Operating-Period Expenses (Annual)",
       expenseNote: "Per group ledger 'Expense' rows (2013\u20132025); years after a company turns dormant are excluded (non-operating). Item-level detail is only available from the 2026 monthly reports (see Income Statement).",
-      bpivExpTitle: "BPIV Expenses by Category (IDR)",
-      bpivExpSub: "Operating expenses only (Salary & Allowances, Rent & Service Charge, Adm. & General), per group ledger 'c. Biaya Opex' rows (2013\u20132025); 2026* = Jan\u2013Jul YTD per Jul-2026 monthly report. Non-operating items excluded from chart \u2014 note: Receivable write-off 2024 Rp 461.9 m + 2025 Rp 3,376.7 m (total Rp 3,838.6 m); Forex gain/(loss) +Rp 63.7 m (2023) / \u2212Rp 0.2 m (2024).",
-      expSalary: "Salary & Allowances",
-      expRent: "Rent & Service Charge",
-      expAdm: "Adm. & General",
-      expWriteoff: "Receivable write-off (non-op.)",
-      expForex: "Forex gain/(loss) (non-op.)",
       months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
       monthlyTitle: "2026 Monthly P&L (Jan-Jul)",
       monthlySub: "Per Jul-2026 BPIV monthly report; Net income = Revenue - Total expenses (incl. interest to MTPL/Wintek).",
@@ -269,10 +252,6 @@ window.BPIV_I18N = {
     },
 
     auth: {
-      loginTitle: "Sign in to continue",
-      username: "Username",
-      password: "Password",
-      signIn: "Sign In",
       error: "Invalid username or password",
       logout: "Logout",
       userMgmt: "User Management",
@@ -361,18 +340,11 @@ window.BPIV_I18N = {
 
     nav: {
       dashboard: "仪表盘",
-      structure: "集团结构",
       bpiv: "BPIV",
       illustration: "BPIV 回本说明",
       companies: "投资组合公司",
-      about: "关于"
     },
 
-    lang: {
-      en: "English",
-      zh: "中文",
-      id: "Bahasa Indonesia"
-    },
     bs: {
       "Accrued interest (per own books)": "应计利息（自身账载）",
       "Accrued interest \u2013 MTPL": "应计利息 \u2013 MTPL",
@@ -529,7 +501,6 @@ window.BPIV_I18N = {
 
     company: {
       title: "公司详情",
-      overview: "概览",
       ownership: "股权结构",
       financials: "财务状况",
       interco: "关联往来余额",
@@ -547,10 +518,8 @@ window.BPIV_I18N = {
       interest: "应计利息",
       principal: "本金",
       total: "合计",
-      usdPortion: "其中美元",
       writtenOff: "已核销",
       nomineeStake: "代持（Dana Talangan）",
-      investsIn: "对外投资",
       pctHeld: "持股比例",
       description: "公司简介",
       bsTitle: "资产负债表",
@@ -563,13 +532,6 @@ window.BPIV_I18N = {
       noRev: "无运营收入（休眠 / 投资载体）",
       expenseTitle: "运营期费用（年度）",
       expenseNote: "按集团台账 Expense 行（2013–2025）；公司休眠后的年份不计入（非运营性质）。明细分类仅 2026 年月报可得（见利润表）。",
-      bpivExpTitle: "BPIV 费用类别（印尼盾）",
-      bpivExpSub: "图表仅列示运营费用（工资与津贴、租金与服务费、行政管理费），按集团台账“c. Biaya Opex”行（2013–2025）；2026* 为 1–7 月累计（按 2026-07 月报）。非运营项目不计入图表——备注：应收核销 2024 年 4.619 亿盾 + 2025 年 33.766 亿盾（合计 38.386 亿盾）；汇兑损益 2023 年 +6,370 万盾 / 2024 年 −24.3 万盾。",
-      expSalary: "工资与津贴",
-      expRent: "租金与服务费",
-      expAdm: "行政管理费",
-      expWriteoff: "应收核销（非运营）",
-      expForex: "汇兑损益（非运营）",
       months: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"],
       monthlyTitle: "2026 年月度损益（1–7 月）",
       monthlySub: "按 BPIV 2026-07 月报；净利润 = 收入 − 总费用（含对 MTPL/Wintek 利息）。",
@@ -655,10 +617,6 @@ window.BPIV_I18N = {
     },
 
     auth: {
-      loginTitle: "登录以继续",
-      username: "用户名",
-      password: "密码",
-      signIn: "登录",
       error: "用户名或密码错误",
       logout: "退出登录",
       userMgmt: "用户管理",
@@ -747,18 +705,11 @@ window.BPIV_I18N = {
 
     nav: {
       dashboard: "Dashboard",
-      structure: "Struktur Grup",
       bpiv: "BPIV",
       illustration: "Ilustrasi BPIV",
       companies: "Perusahaan Portofolio",
-      about: "Tentang"
     },
 
-    lang: {
-      en: "English",
-      zh: "中文",
-      id: "Bahasa Indonesia"
-    },
     bs: {
       "Accrued interest (per own books)": "Bunga berjalan (per pembukuan)",
       "Accrued interest \u2013 MTPL": "Bunga berjalan \u2013 MTPL",
@@ -915,7 +866,6 @@ window.BPIV_I18N = {
 
     company: {
       title: "Detail Perusahaan",
-      overview: "Ikhtisar",
       ownership: "Kepemilikan",
       financials: "Posisi Keuangan",
       interco: "Saldo Antar Perusahaan",
@@ -933,10 +883,8 @@ window.BPIV_I18N = {
       interest: "Bunga Akrual",
       principal: "Pokok",
       total: "Total",
-      usdPortion: "termasuk USD",
       writtenOff: "dihapusbukukan",
       nomineeStake: "nominee (Dana Talangan)",
-      investsIn: "Investasi pada",
       pctHeld: "Kepemilikan",
       description: "Deskripsi",
       bsTitle: "Neraca",
@@ -949,13 +897,6 @@ window.BPIV_I18N = {
       noRev: "Tidak ada pendapatan operasional (dorman / kendaraan investasi)",
       expenseTitle: "Beban Periode Operasi (Tahunan)",
       expenseNote: "Berdasarkan baris 'Expense' buku besar grup (2013\u20132025); tahun setelah perusahaan nonaktif tidak dimasukkan (non-operasional). Rincian per item hanya tersedia dari laporan bulanan 2026 (lihat Laporan Laba Rugi).",
-      bpivExpTitle: "Beban BPIV per Kategori (IDR)",
-      bpivExpSub: "Grafik hanya beban operasional (Gaji & Tunjangan, Sewa & Service Charge, Adm. & Umum), per baris 'c. Biaya Opex' buku besar grup (2013\u20132025); 2026* = Jan\u2013Jul YTD per laporan bulanan Jul-2026. Pos non-operasional tidak dimasukkan \u2014 catatan: Penghapusbukuan piutang 2024 Rp 461,9 jt + 2025 Rp 3.376,7 jt (total Rp 3.838,6 jt); Selisih kurs +Rp 63,7 jt (2023) / \u2212Rp 0,2 jt (2024).",
-      expSalary: "Gaji & Tunjangan",
-      expRent: "Sewa & Service Charge",
-      expAdm: "Adm. & Umum",
-      expWriteoff: "Penghapusbukuan piutang (non-op.)",
-      expForex: "Selisih kurs (non-op.)",
       months: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul"],
       monthlyTitle: "P&L Bulanan 2026 (Jan-Jul)",
       monthlySub: "Per laporan bulanan BPIV Jul-2026; Laba bersih = Pendapatan - Total beban (termasuk bunga ke MTPL/Wintek).",
@@ -1041,10 +982,6 @@ window.BPIV_I18N = {
     },
 
     auth: {
-      loginTitle: "Masuk untuk melanjutkan",
-      username: "Nama pengguna",
-      password: "Kata sandi",
-      signIn: "Masuk",
       error: "Nama pengguna atau kata sandi salah",
       logout: "Keluar",
       userMgmt: "Manajemen Pengguna",

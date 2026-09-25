@@ -6,7 +6,6 @@ window.BPIV_DATA = {
     asOf: "2026-07-31",
     annualAsOf: "2026-07-31",
     currency: "IDR",
-    projectionUntil: "2026-12-31"
   },
 
   companies: {
@@ -143,12 +142,6 @@ window.BPIV_DATA = {
             { year: "2026-07-31", amount: 2000000 }
           ] }
       ],
-      risk: {
-        debtToEquity: -1.76,
-        currentRatio: 0.30,
-        netDebt: 19780461087.45,
-        interestBurden: 4014434688.54
-      },
       descriptionKey: "bpivDesc"
     },
 
@@ -160,7 +153,6 @@ window.BPIV_DATA = {
         id: "PT Prosindo Manajemen"
       },
       shortName: "Prosindo",
-      shortNameOrig: "Prosindo",
       typeKey: "managementCo",
       status: "holding",
       ownership: [
@@ -590,7 +582,6 @@ window.BPIV_DATA = {
   },
 
   expenseHistory: {
-    bpiv: { years: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], amounts: [10137650, 101403283, 374155596, 444216267, 501930800, 409670483, 328041259, 280195778, 366962115, 282776881, 279522872, 589861584, 3501867916] },
     bvi: { years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], amounts: [128772000, 834051527, 442545496, 336931821, 258240641, 248483829, 182769606, 202833882, 225997728, 223736468, 126286456] },
     mvp: { years: [2015, 2016, 2017, 2018], amounts: [1750700725, 1935590986, 645509495, 4775000] },
     rajapremi: { years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, "2026*"], amounts: [111176500, 1648999878, 1239404993, 767768121, 472953483, 536312627, 424930371, 400105598, 390992165, 296835431, 159673665, 45389131] },
@@ -629,9 +620,4 @@ window.BPIV_DATA = {
     monthlyCost: 6484162
   },
 
-  retiredEntities: {
-    en: "Wellgrow, NST, EVF — offshore shell vehicles, deactivated; funds have been moved to BPIV books.",
-    zh: "Wellgrow、NST、EVF —— 已失效的海外壳工具，资金已转入 BPIV 账上。",
-    id: "Wellgrow, NST, EVF — kendaraan shell luar negeri yang sudah nonaktif; dana sudah dipindah ke pembukuan BPIV."
-  }
 };

@@ -5,13 +5,7 @@
   var SESSION_KEY = "bpiv_session";
 
   function sha256(str) {
-    // simple async hash via SubtleCrypto fallback to sync hash
-    var buf = new TextEncoder().encode(str);
-    var out = [];
-    for (var i = 0; i < buf.length; i++) {
-      out.push(buf[i].toString(16).padStart(2, "0"));
-    }
-    // Fallback: use a simple but non-trivial hash (djb2 + salt)
+    // Simple non-trivial hash (djb2 variant + salt) — client-side only.
     var h1 = 5381, h2 = 52711;
     var salt = "bpiv_salt_2025";
     for (var j = 0; j < salt.length; j++) {

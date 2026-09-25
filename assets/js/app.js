@@ -622,7 +622,6 @@
       series: [{ type: "bar", data: D.revenue.series[c.slug].map(function (v) { return Math.round(v / 1e6); }) }]
     });
     if (c.slug === "rajapremi") renderRajChart();
-    if (c.slug === "bpiv") renderBpivPlCharts();
   }
 
   function renderIllustration(main) {
