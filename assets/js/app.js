@@ -494,7 +494,7 @@
     chartInstances.push(chart);
     var exp = D.bpivExpense;
     var palette = { salary: "#4f8cff", rent: "#3aa66f", adm: "#f2b134", writeoff: "#e45756", forex: "#9b6bd4" };
-    var series = exp.categories.map(function (cat) {
+    var series = exp.categories.filter(function (cat) { return cat.key !== "writeoff" && cat.key !== "forex"; }).map(function (cat) {
       return {
         name: t("company.exp" + cat.key.charAt(0).toUpperCase() + cat.key.slice(1)),
         type: "bar", stack: "exp", emphasis: { focus: "series" },
@@ -506,7 +506,7 @@
     chart.setOption({
       tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return "Rp " + v + " m"; } },
       legend: { top: 0, left: "center", icon: "roundRect", itemWidth: 12, itemHeight: 10, itemGap: 14 },
-      grid: { left: 12, right: 20, top: 62, bottom: 44, containLabel: true },
+      grid: { left: 12, right: 20, top: 40, bottom: 44, containLabel: true },
       xAxis: { type: "category", data: exp.years.map(String) },
       yAxis: { type: "value", name: "Rp m" },
       series: series
