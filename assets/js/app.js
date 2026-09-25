@@ -92,6 +92,10 @@
     renderTopbar();
     var route = parseRoute();
     var main = document.getElementById("main");
+    ["nav-dashboard", "nav-bpiv", "nav-companies", "nav-admin"].forEach(function (id) { document.getElementById(id).classList.remove("active"); });
+    if (route.page === "company") document.getElementById(route.slug === "bpiv" ? "nav-bpiv" : "nav-companies").classList.add("active");
+    else if (route.page === "admin") document.getElementById("nav-admin").classList.add("active");
+    else document.getElementById("nav-dashboard").classList.add("active");
     if (route.page === "company") renderCompany(main, route.slug);
     else if (route.page === "admin" && Auth.isAdmin()) renderAdmin(main);
     else renderDashboard(main);
@@ -102,6 +106,7 @@
     document.getElementById("app-title").textContent = t("appTitle");
     document.getElementById("app-subtitle").textContent = t("appSubtitle");
     document.getElementById("nav-dashboard").textContent = t("nav.dashboard");
+    document.getElementById("nav-bpiv").textContent = t("nav.bpiv");
     document.getElementById("nav-companies").textContent = t("nav.companies");
     document.getElementById("nav-admin").textContent = t("auth.userMgmt");
     document.getElementById("logout-label").textContent = t("auth.logout");
@@ -633,6 +638,7 @@
     document.getElementById("logout-btn").addEventListener("click", function () { Auth.logout(); location.hash = "#/"; render(); });
     document.getElementById("user-mgmt-btn").addEventListener("click", function () { location.hash = "#/admin"; });
     document.getElementById("nav-dashboard").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/"; });
+    document.getElementById("nav-bpiv").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/company/bpiv"; });
     document.getElementById("nav-companies").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/"; });
     document.getElementById("nav-admin").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/admin"; });
     document.querySelector(".brand").addEventListener("click", function () { location.hash = "#/"; });

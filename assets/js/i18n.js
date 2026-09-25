@@ -10,6 +10,7 @@ window.BPIV_I18N = {
     nav: {
       dashboard: "Dashboard",
       structure: "Group Structure",
+      bpiv: "BPIV",
       companies: "Portfolio Companies",
       about: "About"
     },
@@ -251,6 +252,7 @@ window.BPIV_I18N = {
     nav: {
       dashboard: "仪表盘",
       structure: "集团结构",
+      bpiv: "BPIV",
       companies: "投资组合公司",
       about: "关于"
     },
@@ -576,6 +578,7 @@ window.BPIV_I18N = {
     nav: {
       dashboard: "Dashboard",
       structure: "Struktur Grup",
+      bpiv: "BPIV",
       companies: "Perusahaan Portofolio",
       about: "Tentang"
     },
