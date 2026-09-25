@@ -59,6 +59,7 @@
     var parts = h.split("/");
     if (parts[0] === "company" && parts[1]) return { page: "company", slug: parts[1] };
     if (parts[0] === "admin") return { page: "admin" };
+    if (parts[0] === "illustration") return { page: "illustration" };
     return { page: "dashboard" };
   }
 
@@ -83,6 +84,7 @@
     if (u) document.getElementById("user-info").textContent = t("auth.welcome") + ", " + (u.name || u.user);
     document.getElementById("user-mgmt-btn").style.display = Auth.isAdmin() ? "" : "none";
     document.getElementById("nav-admin").style.display = Auth.isAdmin() ? "" : "none";
+    document.getElementById("nav-illustration").style.display = Auth.isAdmin() ? "" : "none";
   }
 
   function render() {
@@ -93,12 +95,14 @@
     renderTopbar();
     var route = parseRoute();
     var main = document.getElementById("main");
-    ["nav-dashboard", "nav-bpiv", "nav-companies", "nav-admin"].forEach(function (id) { document.getElementById(id).classList.remove("active"); });
+    ["nav-dashboard", "nav-bpiv", "nav-illustration", "nav-companies", "nav-admin"].forEach(function (id) { document.getElementById(id).classList.remove("active"); });
     if (route.page === "company") document.getElementById(route.slug === "bpiv" ? "nav-bpiv" : "nav-companies").classList.add("active");
     else if (route.page === "admin") document.getElementById("nav-admin").classList.add("active");
+    else if (route.page === "illustration") document.getElementById("nav-illustration").classList.add("active");
     else document.getElementById("nav-dashboard").classList.add("active");
     if (route.page === "company") renderCompany(main, route.slug);
     else if (route.page === "admin" && Auth.isAdmin()) renderAdmin(main);
+    else if (route.page === "illustration" && Auth.isAdmin()) renderIllustration(main);
     else {
       renderDashboard(main);
       if (scrollToPortfolio) {
@@ -126,6 +130,7 @@
     document.getElementById("nav-bpiv").textContent = t("nav.bpiv");
     document.getElementById("nav-companies").textContent = t("nav.companies");
     document.getElementById("nav-admin").textContent = t("auth.userMgmt");
+    document.getElementById("nav-illustration").textContent = t("nav.illustration");
     document.getElementById("logout-label").textContent = t("auth.logout");
     document.getElementById("user-mgmt-label").textContent = t("auth.userMgmt");
     document.getElementById("lang-en").classList.toggle("active", currentLang === "en");
@@ -602,6 +607,89 @@
     if (c.slug === "bpiv") renderBpivExpChart();
   }
 
+  function renderIllustration(main) {
+    var gap = 11212575607.4;
+    var dormant = 7272091962;
+    var waiver = 3850767247.26;
+    var bviSaved = 2079749948;
+    var netGap = gap + dormant - waiver - bviSaved;
+    var kpis =
+      '<div class="grid-kpi">' +
+      kpiCard(t("ill.kpi1"), fmtIDR(-gap), "danger") +
+      kpiCard(t("ill.kpi2"), fmtIDR(-dormant), "warn") +
+      kpiCard(t("ill.kpi3"), "+" + fmtIDR(waiver), "") +
+      kpiCard(t("ill.kpi4"), fmtIDR(-netGap), "danger") +
+      '</div>';
+    main.innerHTML =
+      '<div class="page-title">' + t("ill.title") + '</div>' +
+      '<div class="page-sub">' + t("ill.sub") + ' · ' + t("asOf") + " " + D.meta.asOf + '</div>' +
+      kpis +
+      '<div class="panel"><h3>' + t("ill.gapChartTitle") + '</h3><div id="ill-gap-chart" class="chart-box"></div><div class="panel-note">' + t("ill.gapChartSub") + '</div></div>' +
+      waiverPanel() + pathPanel() + exitPanel() + caveatPanel();
+    renderIllCharts();
+  }
+
+  function kpiCard(label, val, cls) {
+    return '<div class="kpi-card ' + cls + '"><div class="kpi-label">' + label + '</div><div class="kpi-value">' + val + '</div></div>';
+  }
+
+  function waiverPanel() {
+    return '<div class="panel"><h3>' + t("ill.waiverTitle") + '</h3><ul class="ill-list">' +
+      '<li>' + t("ill.waiver1") + '</li><li>' + t("ill.waiver2") + '</li><li>' + t("ill.waiver3") + '</li></ul>' +
+      '<div class="panel-note note-warn">' + t("ill.waiverNote") + '</div></div>';
+  }
+
+  function pathPanel() {
+    var stages = [["s1t", "s1d", "s1m"], ["s2t", "s2d", "s2m"], ["s3t", "s3d", "s3m"], ["s4t", "s4d", "s4m"]];
+    var h = '<div class="panel"><h3>' + t("ill.pathTitle") + '</h3><div class="panel-note">' + t("ill.pathSub") + '</div>';
+    stages.forEach(function (s2) {
+      h += '<div class="stage-card"><div class="stage-title">' + t("ill." + s2[0]) + '</div><div class="stage-desc">' + t("ill." + s2[1]) + '</div><div class="stage-verify">' + t("ill." + s2[2]) + '</div></div>';
+    });
+    return h + '</div>';
+  }
+
+  function exitPanel() {
+    var rows = [
+      { pe: "8×", val: 16, proc: "8.17", cov: "65%", res: "short" },
+      { pe: "10×", val: 20, proc: "10.76", cov: "86%", res: "short" },
+      { pe: "12×", val: 24, proc: "13.34", cov: "106%", res: "full" },
+      { pe: "15×", val: 30, proc: "17.22", cov: "137%", res: "surplus" },
+      { pe: "20×", val: 40, proc: "23.70", cov: "189%", res: "surplus" }
+    ];
+    var h = '<div class="panel"><h3>' + t("ill.exitTitle") + '</h3><table class="data"><thead><tr><th>' + t("ill.colPe") + '</th><th class="num">' + t("ill.colVal") + '</th><th class="num">' + t("ill.colProc") + '</th><th class="num">' + t("ill.colCov") + '</th><th>' + t("ill.colRes") + '</th></tr></thead><tbody>';
+    rows.forEach(function (r) {
+      var resTxt = r.res === "full" ? t("ill.resFull") : (r.res === "surplus" ? t("ill.resSurplus") : t("ill.resShort"));
+      var cls = r.res === "short" ? "ill-warn" : "ill-ok";
+      h += '<tr><td>' + r.pe + '</td><td class="num">' + r.val + '</td><td class="num"><strong>' + r.proc + '</strong></td><td class="num">' + r.cov + '</td><td class="' + cls + '">' + resTxt + '</td></tr>';
+    });
+    return h + '</tbody></table></div>';
+  }
+
+  function caveatPanel() {
+    var items = ["c1", "c2", "c3", "c4", "c5"].map(function (k) { return '<li>' + t("ill." + k) + '</li>'; }).join("");
+    return '<div class="panel"><h3>' + t("ill.caveatTitle") + '</h3><ul class="ill-list">' + items + '</ul></div>';
+  }
+
+  function renderIllCharts() {
+    var el = document.getElementById("ill-gap-chart");
+    if (!el) return;
+    var chart = echarts.init(el);
+    chartInstances.push(chart);
+    var delta = [-11.21, -7.27, 3.85, 2.08];
+    var aux = [-11.21, -18.48, -18.48, -14.63];
+    chart.setOption({
+      title: { text: t("ill.gapChartTitle"), subtext: t("ill.gapChartSub"), left: 10, top: 6, textStyle: { fontSize: 14 }, subtextStyle: { fontSize: 10 } },
+      tooltip: { trigger: "axis", triggerOn: "click", renderMode: "richText", confine: true, axisPointer: { type: "shadow" } },
+      grid: { left: 10, right: 100, top: 48, bottom: 20, containLabel: true },
+      xAxis: { type: "value", axisLabel: { fontSize: 10, formatter: "{value} bn" } },
+      yAxis: { type: "category", inverse: true, axisLabel: { fontSize: 10 }, data: [t("ill.gap1"), t("ill.gap2"), t("ill.gap3"), t("ill.gap4"), t("ill.gap5")] },
+      series: [
+        { type: "bar", stack: "w", barWidth: 16, itemStyle: { color: "rgba(0,0,0,0)" }, emphasis: { disabled: true }, data: aux.concat([0]), tooltip: { show: false } },
+        { type: "bar", stack: "w", barWidth: 16, label: { show: true, position: "right", fontSize: 10, formatter: function (p) { var v = p.value; if (v === 0) return ""; return (v > 0 ? "+" : "") + v + " bn"; } }, data: delta.concat([0]), markLine: { symbol: "none", lineStyle: { type: "dashed" }, label: { formatter: function () { return t("ill.netGapLabel") + " -12.55 bn"; }, position: "end", fontSize: 10 }, data: [{ xAxis: -12.55 }] } }
+      ]
+    });
+  }
+
   function renderAdmin(main) {
     var users = Auth.listUsers();
     var rows = "";
@@ -661,6 +749,7 @@
     document.getElementById("nav-bpiv").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/company/bpiv"; });
     document.getElementById("nav-companies").addEventListener("click", function (e) { e.preventDefault(); scrollToPortfolio = true; if (location.hash === "#/") render(); else location.hash = "#/"; });
     document.getElementById("nav-admin").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/admin"; });
+    document.getElementById("nav-illustration").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/illustration"; });
     document.querySelector(".brand").addEventListener("click", function () { location.hash = "#/"; });
     window.addEventListener("hashchange", render);
     window.addEventListener("resize", function () {

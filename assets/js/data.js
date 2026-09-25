@@ -259,8 +259,8 @@ window.BPIV_DATA = {
       typeKey: "investmentVehicle",
       status: "dormant",
       ownership: [
-        { holder: "bpiv", pct: 0.70, noteKey: "mvpInitial" },
-        { holder: "other", pct: 0.30, noteKey: "mvpOther" }
+        { holder: "bpiv", pct: 0.6471, noteKey: "mvpInitial" },
+        { holder: "other", pct: 0.3529, noteKey: "mvpOther" }
       ],
       ownershipNoteKey: "mvpOwnershipNote",
       shareCapital: 4326700000,
