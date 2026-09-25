@@ -567,10 +567,10 @@
     var chart = echarts.init(el);
     chartInstances.push(chart);
     chart.setOption({
-      tooltip: { trigger: "axis", valueFormatter: function (v) { return "Rp " + v + " m"; } },
-      grid: { left: 12, right: 20, top: 20, bottom: 30, containLabel: true },
+      tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return "Rp " + v + " m"; } },
+      grid: { left: 12, right: 20, top: 16, bottom: 30, containLabel: true },
       xAxis: { type: "category", data: D.revenue.years.map(String) },
-      yAxis: { type: "value", name: "Rp m" },
+      yAxis: { type: "value", axisLabel: { formatter: function (v) { return Math.round(v); } } },
       series: [{ type: "bar", data: D.revenue.series[c.slug].map(function (v) { return Math.round(v / 1e6); }) }]
     });
     if (c.slug === "rajapremi") renderRajChart();
