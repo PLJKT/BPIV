@@ -6,6 +6,7 @@
   var LANG_KEY = "bpiv_lang";
   var currentLang = "en";
   var chartInstances = [];
+  var scrollToPortfolio = false;
 
   function t(key) {
     var parts = key.split(".");
@@ -98,7 +99,23 @@
     else document.getElementById("nav-dashboard").classList.add("active");
     if (route.page === "company") renderCompany(main, route.slug);
     else if (route.page === "admin" && Auth.isAdmin()) renderAdmin(main);
-    else renderDashboard(main);
+    else {
+      renderDashboard(main);
+      if (scrollToPortfolio) {
+        scrollToPortfolio = false;
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            var el = document.getElementById("portfolio-status");
+            if (!el) return;
+            var hdr = document.querySelector("header.topbar");
+            var nav = document.querySelector("nav.tabs");
+            var offset = (hdr ? hdr.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + 8;
+            var y = el.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo(0, Math.max(y, 0));
+          });
+        });
+      }
+    }
     renderFooter();
   }
 
@@ -114,6 +131,9 @@
     document.getElementById("lang-en").classList.toggle("active", currentLang === "en");
     document.getElementById("lang-zh").classList.toggle("active", currentLang === "zh");
     document.getElementById("lang-id").classList.toggle("active", currentLang === "id");
+    var hdr = document.querySelector("header.topbar");
+    var nav = document.querySelector("nav.tabs");
+    if (hdr && nav) nav.style.top = hdr.offsetHeight + "px";
   }
 
   function renderFooter() {
@@ -146,7 +166,7 @@
       '<div class="panel-note">' + t("dashboard.intercoNote") + '</div></div>' +
       '<div class="panel"><h3>' + t("dashboard.payablesDetailTitle") + '</h3>' + intercoDetailTable(bpiv.payables) + '</div>' +
       '<div class="panel"><h3>' + t("dashboard.intercoTitle") + '</h3><div id="interco-chart" class="chart-box"></div><div class="panel-note">' + t("dashboard.intercoNote") + '</div></div>' +
-      '<div class="panel"><h3>' + t("dashboard.statusTitle") + '</h3><div id="company-grid"></div></div>';
+      '<div class="panel" id="portfolio-status"><h3>' + t("dashboard.statusTitle") + '</h3><div id="company-grid"></div></div>';
 
     renderRevChart();
     renderStructure();
@@ -639,10 +659,15 @@
     document.getElementById("user-mgmt-btn").addEventListener("click", function () { location.hash = "#/admin"; });
     document.getElementById("nav-dashboard").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/"; });
     document.getElementById("nav-bpiv").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/company/bpiv"; });
-    document.getElementById("nav-companies").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/"; });
+    document.getElementById("nav-companies").addEventListener("click", function (e) { e.preventDefault(); scrollToPortfolio = true; if (location.hash === "#/") render(); else location.hash = "#/"; });
     document.getElementById("nav-admin").addEventListener("click", function (e) { e.preventDefault(); location.hash = "#/admin"; });
     document.querySelector(".brand").addEventListener("click", function () { location.hash = "#/"; });
     window.addEventListener("hashchange", render);
+    window.addEventListener("resize", function () {
+      var hdr = document.querySelector("header.topbar");
+      var nav = document.querySelector("nav.tabs");
+      if (hdr && nav) nav.style.top = hdr.offsetHeight + "px";
+    });
     render();
   }
 

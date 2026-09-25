@@ -55,6 +55,8 @@ header.topbar {
 nav.tabs {
   background: #fff;
   border-bottom: 1px solid var(--border);
+  position: sticky;
+  z-index: 99;
   padding: 0 24px;
   display: flex;
   gap: 4px;
