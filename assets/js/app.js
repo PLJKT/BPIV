@@ -410,7 +410,7 @@
       '<div><span class="status-badge st-' + c.status + '">' + t("dashboard.status." + c.status) + "</span></div></div>" +
       '<div class="panel"><h3>' + t("company.description") + '</h3><p class="risk-desc">' + t("desc." + c.descriptionKey) + "</p></div>" +
       '<div class="two-col">' + financialsPanel(c) + ownershipPanel(c) + "</div>" +
-      intercoPanel(c) + bsPanel(c) + revenuePanel(c) + expensePanel(c) + bpivExpPanel(c) + rajAnalysisPanel(c);
+      intercoPanel(c) + bsPanel(c) + (c.slug === "bpiv" ? bpivPlPanel(c) : revenuePanel(c) + expensePanel(c)) + rajAnalysisPanel(c);
     document.getElementById("back-btn").addEventListener("click", function () { location.hash = "#/"; });
     renderCompanyCharts(c);
   }
@@ -512,34 +512,51 @@
     return '<div class="panel"><h3>' + t("company.expenseTitle") + '</h3><table class="data"><thead><tr><th>' + t("company.year") + '</th><th class="num">Rp</th></tr></thead><tbody>' + rows + '</tbody></table><div class="panel-note">' + t("company.expenseNote") + "</div></div>";
   }
 
-  function bpivExpPanel(c) {
-    if (c.slug !== "bpiv" || !D.bpivExpense) return "";
-    return '<div class="panel"><h3>' + t("company.bpivExpTitle") + '</h3><div id="bpiv-exp-chart" class="chart-box tall"></div><div class="panel-note">' + t("company.bpivExpSub") + "</div></div>";
+  function bpivPlPanel(c) {
+    if (c.slug !== "bpiv") return "";
+    return '<div class="panel"><h3>' + t("company.monthlyTitle") + '</h3><div id="bpiv-monthly-chart" class="chart-box"></div><div class="panel-note">' + t("company.monthlySub") + '</div></div>' +
+      '<div class="panel"><h3>' + t("company.combinedTitle") + '</h3><div id="bpiv-combined-chart" class="chart-box tall"></div><div class="panel-note">' + t("company.combinedNote") + "</div></div>";
   }
 
-  function renderBpivExpChart() {
-    var el = document.getElementById("bpiv-exp-chart");
-    if (!el || !D.bpivExpense) return;
+  function renderBpivPlCharts() {
+    var m = D.bpivMonthly;
+    var mel = document.getElementById("bpiv-monthly-chart");
+    if (mel && m) {
+      var mc = echarts.init(mel);
+      chartInstances.push(mc);
+      mc.setOption({
+        tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return "Rp " + v + " m"; } },
+        legend: { top: 0, left: "center", icon: "roundRect", itemWidth: 12, itemHeight: 10, itemGap: 14 },
+        grid: { left: 12, right: 20, top: 40, bottom: 24, containLabel: true },
+        xAxis: { type: "category", data: t("company.months") },
+        yAxis: { type: "value", name: "Rp m", axisLabel: { formatter: function (v) { return Math.round(v); } } },
+        series: [
+          { name: t("company.monthlyRev"), type: "bar", barMaxWidth: 22, itemStyle: { color: "#3aa66f" }, data: m.revenue.map(function (v) { return Math.round(v / 1e6); }) },
+          { name: t("company.monthlyExp"), type: "bar", barMaxWidth: 22, itemStyle: { color: "#e45756" }, data: m.expenses.map(function (v) { return Math.round(v / 1e6); }) },
+          { name: t("company.monthlyNet"), type: "line", symbolSize: 7, lineStyle: { width: 2 }, itemStyle: { color: "#1a3a6b" }, data: m.net.map(function (v) { return Math.round(v / 1e6); }) }
+        ]
+      });
+    }
+    var el = document.getElementById("bpiv-combined-chart");
+    if (!el) return;
+    var rev = D.revenue.series.bpiv;
+    var cats = D.bpivExpense.categories;
+    var years = D.revenue.years.map(String);
+    var exp = cats[0].data.map(function (_, i) { return cats.reduce(function (s2, c) { return s2 + c.data[i]; }, 0); });
+    var net = rev.map(function (v, i) { return v - exp[i]; });
     var chart = echarts.init(el);
     chartInstances.push(chart);
-    var exp = D.bpivExpense;
-    var palette = { salary: "#4f8cff", rent: "#3aa66f", adm: "#f2b134", writeoff: "#e45756", forex: "#9b6bd4" };
-    var series = exp.categories.filter(function (cat) { return cat.key !== "writeoff" && cat.key !== "forex"; }).map(function (cat) {
-      return {
-        name: t("company.exp" + cat.key.charAt(0).toUpperCase() + cat.key.slice(1)),
-        type: "bar", stack: "exp", emphasis: { focus: "series" },
-        itemStyle: { color: palette[cat.key] },
-        barMaxWidth: 46,
-        data: cat.data.map(function (v) { return Math.round(v / 1e6); })
-      };
-    });
     chart.setOption({
       tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return "Rp " + v + " m"; } },
       legend: { top: 0, left: "center", icon: "roundRect", itemWidth: 12, itemHeight: 10, itemGap: 14 },
-      grid: { left: 12, right: 20, top: 40, bottom: 44, containLabel: true },
-      xAxis: { type: "category", data: exp.years.map(String) },
-      yAxis: { type: "value", name: "Rp m" },
-      series: series
+      grid: { left: 12, right: 20, top: 40, bottom: 34, containLabel: true },
+      xAxis: { type: "category", data: years },
+      yAxis: { type: "value", name: "Rp m", axisLabel: { formatter: function (v) { return Math.round(v); } } },
+      series: [
+        { name: t("company.monthlyRev"), type: "bar", barMaxWidth: 22, itemStyle: { color: "#3aa66f" }, data: rev.map(function (v) { return Math.round(v / 1e6); }) },
+        { name: t("company.monthlyExp"), type: "bar", barMaxWidth: 22, itemStyle: { color: "#e45756" }, data: exp.map(function (v) { return Math.round(v / 1e6); }) },
+        { name: t("company.monthlyNet"), type: "line", symbolSize: 6, lineStyle: { width: 2 }, itemStyle: { color: "#1a3a6b" }, data: net.map(function (v) { return Math.round(v / 1e6); }) }
+      ]
     });
   }
 
@@ -592,6 +609,7 @@
   }
 
   function renderCompanyCharts(c) {
+    if (c.slug === "bpiv") { renderBpivPlCharts(); return; }
     var el = document.getElementById("co-rev-chart");
     if (!el || !D.revenue.series[c.slug]) return;
     var chart = echarts.init(el);
@@ -604,7 +622,7 @@
       series: [{ type: "bar", data: D.revenue.series[c.slug].map(function (v) { return Math.round(v / 1e6); }) }]
     });
     if (c.slug === "rajapremi") renderRajChart();
-    if (c.slug === "bpiv") renderBpivExpChart();
+    if (c.slug === "bpiv") renderBpivPlCharts();
   }
 
   function renderIllustration(main) {
