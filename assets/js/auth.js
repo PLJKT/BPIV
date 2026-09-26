@@ -21,16 +21,21 @@
   }
 
   function loadUsers() {
+    var users = {};
     try {
       var raw = localStorage.getItem(USERS_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) users = JSON.parse(raw);
     } catch (e) {}
-    // seed default admin
+    // Built-in seed accounts (available on every device, since user data
+    // lives in each browser's localStorage and does not sync across devices).
     var defaults = {
-      "admin": { pass: sha256("admin@123"), role: "admin", name: "Administrator" }
+      "admin": { pass: sha256("admin@123"), role: "admin", name: "Administrator" },
+      "finance": { pass: sha256("finance@1234"), role: "viewer", name: "Finance" }
     };
-    localStorage.setItem(USERS_KEY, JSON.stringify(defaults));
-    return defaults;
+    for (var k in defaults) {
+      if (!users[k]) users[k] = defaults[k];
+    }
+    return users;
   }
   function saveUsers(u) { localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
 
