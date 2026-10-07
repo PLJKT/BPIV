@@ -237,7 +237,32 @@ window.BPIV_DATA = {
       receivables: [
         { co: "bpiv", principal: 1005177392, interest: 163667442, date: "2016" }
       ],
-      descriptionKey: "wintekDesc"
+      descriptionKey: "wintekDesc",
+      // Admin-only: Wintek 2026 detail (actuals Jan-Sep per Financial Report Sept 2026; Oct-Dec projection
+      // per Financial Report Desember 2026 - Projection). Rendered only when Auth.isAdmin().
+      d2026: {
+        monthly: {
+          revenue: [0, 21000000, 56244898, 28726666, 82146666, 79141667, 64705000, 40400000, 40400000, 48340000, 29610000, 23610000],
+          netProfit: [-4239169, 16204909, 46875551.66, 12500010.1, 62597721.38, 63051108.83, 37870540.38, 7866394.99, 26068019, 34008019, 15278019, 9278019],
+          totalAssets: [1513476042.55, 1519783061.55, 1545970725.21, 1523348552.31, 1540393104.69, 1555174046.52, 1566216016.9, 1527469164.89, 1539513430.89, 1540101949.89, 1531101468.89, 1519100987.89],
+          cashBank: [12283200.55, 22549700.55, 38196335.21, 18775055.31, 38380288.69, 52515911.52, 44080362.9, 26701991.89, 40745738.89, 45180738.89, 40109738.89, 32098738.89]
+        },
+        keyFigures: [
+          { key: "rev9m", value: 412764897 },
+          { key: "revFy", value: 514324897 },
+          { key: "np9m", value: 268795086.34 },
+          { key: "npFy", value: 327359143.34 },
+          { key: "margin9m", value: 268795086.34 / 412764897, pct: true },
+          { key: "marginFy", value: 327359143.34 / 514324897, pct: true },
+          { key: "cashSep", value: 40745738.89 },
+          { key: "cashDec", value: 32098738.89 },
+          { key: "taSep", value: 1539513430.89 },
+          { key: "taDec", value: 1519100987.89 },
+          { key: "rpAssets", value: 1257784498 },
+          { key: "withdrawals", value: 304000000 },
+          { key: "dueProsindo", value: 266283813 }
+        ]
+      }
     },
 
     mvp: {
