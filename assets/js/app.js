@@ -461,7 +461,7 @@
       mrow(t("company.ta"), d.monthly.totalAssets, true) +
       mrow(t("company.cashBank"), d.monthly.cashBank, true) +
       "</tbody></table>" +
-      '<div id="wintek-2026-chart" class="chart-box tall"></div>' +
+      '<div id="wintek-2026-chart" class="chart-box tall wintek-chart"></div>' +
       '<div class="panel-note">' + t("company.wintekDetailSub") + "</div></div>";
 
     var kf = d.keyFigures.map(function (f) {
@@ -696,11 +696,11 @@
       tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return v == null ? "-" : "Rp " + v + " m"; } },
       legend: { top: 0, left: "center", icon: "roundRect", itemWidth: 12, itemHeight: 10, itemGap: 14,
         data: [t("company.rev"), t("company.np"), t("company.cashBank"), t("company.ta")] },
-      grid: { left: 12, right: 16, top: 40, bottom: 26, containLabel: true },
+      grid: { left: 20, right: 20, top: 48, bottom: 28, containLabel: true },
       xAxis: { type: "category", data: cats },
       yAxis: [
-        { type: "value", name: "Rp m (P&L / cash)", axisLabel: { formatter: function (v) { return Math.round(v); } } },
-        { type: "value", name: "Rp m (total assets)", axisLabel: { formatter: function (v) { return Math.round(v); } }, splitLine: { show: false } }
+        { type: "value", name: "Rp m — P&L & cash", nameGap: 18, nameTextStyle: { align: "left", fontSize: 11, color: "#666" }, axisLabel: { formatter: function (v) { return Math.round(v); } } },
+        { type: "value", name: "Rp m — total assets", nameGap: 18, nameTextStyle: { align: "right", fontSize: 11, color: "#666" }, axisLabel: { formatter: function (v) { return Math.round(v); } }, splitLine: { show: false } }
       ],
       series: [
         { name: t("company.rev"), type: "bar", barMaxWidth: 20, itemStyle: { color: "#3aa66f" }, data: rev.act },
@@ -712,11 +712,12 @@
         { name: t("company.cashBank"), type: "line", symbolSize: 6, lineStyle: { width: 2 }, itemStyle: { color: "#e08a2e" }, data: cash.act },
         Object.assign({}, estBase, { name: t("company.cashBank"), itemStyle: { color: "#e08a2e" }, data: cash.est, lineStyle: { type: "dashed", width: 2, color: "#e08a2e" } }),
         { name: t("company.ta"), type: "line", yAxisIndex: 1, symbolSize: 6, lineStyle: { width: 2 }, itemStyle: { color: "#2c7a7b" }, data: ta.act,
-          markLine: { silent: true, symbol: "none", label: { formatter: t("company.wintekChartDivider"), position: "insideEndTop", fontSize: 11, color: "#888" },
+          markLine: { silent: true, symbol: "none", label: { formatter: t("company.wintekChartDivider"), position: "insideEndTop", rotate: 0, fontSize: 11, color: "#777", backgroundColor: "#ffffff", padding: [2, 5], borderRadius: 3 },
             lineStyle: { type: "dashed", color: "#9aa5b1" }, data: [{ xAxis: 8.5 }] } },
         Object.assign({}, estBase, { name: t("company.ta"), yAxisIndex: 1, itemStyle: { color: "#2c7a7b" }, data: ta.est, lineStyle: { type: "dashed", width: 2, color: "#2c7a7b" } })
       ]
     });
+    setTimeout(function () { try { chart.resize(); } catch (e) {} }, 60);
   }
 
   function renderCompanyCharts(c) {
