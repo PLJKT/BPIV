@@ -209,33 +209,41 @@ window.BPIV_DATA = {
         { holder: "yn_nominee", pct: 0.001, noteKey: "nomineeStake" }
       ],
       shareCapital: 100000000,
+      asOfKey: "wintekAsOf",
       bs: {
-        assets: 1259549167,
-        liabilities: 559623411,
-        equity: 699925756,
-        netIncome: -67473740
+        assets: 1539513430.89,
+        liabilities: 390314814,
+        equity: 1149198616.89,
+        netIncome: 268795086.34
       },
       bsDetail: [
         { section: "assets" },
-        { label: "Cash and cash equivalents", amount: 12694668 },
-        { label: "Related party receivables (principal)", amount: 995747391 },
-        { label: "Interest receivable from BPIV", amount: 152107107 },
+        { label: "Cash and cash equivalents", amount: 40745738.89 },
         { label: "Investment in subsidiary (BPIV)", amount: 99000000 },
-        { label: "TOTAL ASSETS", amount: 1259549167, total: true },
+        { label: "Prepaid tax (PPh 23)", amount: 9930698 },
+        { label: "Receivables — BPIV (principal)", amount: 1006677392 },
+        { label: "Receivables — DIN", amount: 10070000 },
+        { label: "Interest receivable from BPIV", amount: 152107106 },
+        { label: "Motor vehicles, net", amount: 220982496 },
+        { label: "TOTAL ASSETS", amount: 1539513430.89, total: true },
         { section: "liabilities" },
-        { label: "Related party payables", amount: 559623411 },
-        { label: "TOTAL LIABILITIES", amount: 559623411, total: true },
+        { label: "Vehicle (fixed asset) payable", amount: 40011000 },
+        { label: "Unearned revenue", amount: 83770001 },
+        { label: "Payable tax (PPh 21)", amount: 250000 },
+        { label: "Due to Prosindo", amount: 266283813 },
+        { label: "TOTAL LIABILITIES", amount: 390314814, total: true },
         { section: "equity" },
         { label: "Share capital", amount: 100000000 },
-        { label: "Retained earnings", amount: 599925756 },
-        { label: "TOTAL EQUITY", amount: 699925756, total: true }
+        { label: "Retained earnings", amount: 780403530.55 },
+        { label: "Current year earnings", amount: 268795086.34 },
+        { label: "TOTAL EQUITY", amount: 1149198616.89, total: true }
       ],
       isDetail: null,
       investsIn: [
         { co: "bpiv", pct: 0.99, amount: 99000000 }
       ],
       receivables: [
-        { co: "bpiv", principal: 1005177392, interest: 163667442, date: "2016" }
+        { co: "bpiv", principal: 1006677392, interest: 152107106, date: "2016" }
       ],
       descriptionKey: "wintekDesc",
       // Admin-only: Wintek 2026 detail (actuals Jan-Sep per Financial Report Sept 2026; Oct-Dec projection

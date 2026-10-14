@@ -332,7 +332,7 @@
     var html = '<div class="company-grid">';
     Object.keys(D.companies).forEach(function (slug) {
       var c = D.companies[slug];
-      if (slug === "wintek" && !Auth.isAdmin()) return; // Wintek detail is admin-only
+      // TEMPORARILY OPEN: Wintek detail visible to all accounts (was admin-only)
       html +=
         '<div class="company-card" data-slug="' + slug + '">' +
         '<div class="name">' + c.shortName + ' <span class="status-badge st-' + c.status + '">' + t("dashboard.status." + c.status) + '</span></div>' +
@@ -402,15 +402,7 @@
   }
 
   function renderCompany(main, slug) {
-    // Wintek detail is admin-only; other accounts see a restricted notice (and the card is hidden on the dashboard)
-    if (slug === "wintek" && !Auth.isAdmin()) {
-      main.innerHTML =
-        '<a class="back-link" id="back-btn">' + t("company.backToDashboard") + "</a>" +
-        '<div class="panel"><h3>' + t("company.restrictedTitle") + '</h3><p class="risk-desc">' + t("company.restrictedMsg") + "</p></div>";
-      var bb = document.getElementById("back-btn");
-      if (bb) bb.addEventListener("click", function () { location.hash = "#/"; });
-      return;
-    }
+    // TEMPORARILY OPEN: Wintek detail is visible to all accounts (was admin-only)
     var c = D.companies[slug];
     if (!c) { main.innerHTML = "<p>Not found</p>"; return; }
     var legal = c.legalNames[currentLang] || c.legalNames.en;
@@ -421,7 +413,7 @@
       '<div class="panel"><h3>' + t("company.description") + '</h3><p class="risk-desc">' + t("desc." + c.descriptionKey) + "</p></div>" +
       '<div class="two-col">' + financialsPanel(c) + ownershipPanel(c) + "</div>" +
       intercoPanel(c) + bsPanel(c) + (c.slug === "bpiv" ? bpivPlPanel(c) : revenuePanel(c) + expensePanel(c)) + rajAnalysisPanel(c) +
-      (slug === "wintek" && Auth.isAdmin() ? wintekDetailPanel(c) : "");
+      (slug === "wintek" ? wintekDetailPanel(c) : "");
     document.getElementById("back-btn").addEventListener("click", function () { location.hash = "#/"; });
     renderCompanyCharts(c);
   }
@@ -492,7 +484,7 @@
       rows += row(k.note || k.labelKey, fmtIDR(k.amount));
     });
     if (!rows) return '<div class="panel"></div>';
-    return '<div class="panel"><h3>' + t("company.financials") + '</h3><table class="data"><tbody>' + rows + '</tbody></table><div class="panel-note">' + t("annualAsOf") + "</div></div>";
+    return '<div class="panel"><h3>' + t("company.financials") + '</h3><table class="data"><tbody>' + rows + '</tbody></table><div class="panel-note">' + (c.asOfKey ? t(c.asOfKey) : t("annualAsOf")) + "</div></div>";
   }
   function row(label, val) { return '<tr><td>' + label + '</td><td class="num">' + val + "</td></tr>"; }
 

@@ -56,6 +56,7 @@ window.BPIV_I18N = {
     asOf: "As of",
     currencyNote: "All amounts in IDR unless stated otherwise",
     annualAsOf: "Balance sheet as of 31 Jul 2026",
+    wintekAsOf: "Balance sheet as of 30 Sep 2026",
 
     nav: {
       dashboard: "Dashboard",
@@ -165,7 +166,7 @@ window.BPIV_I18N = {
       legalName: "Legal Name",
       restrictedTitle: "Restricted",
       restrictedMsg: "This company's detailed information is only visible to the system administrator. If you need access, contact the administrator.",
-      wintekDetailTitle: "Wintek 2026 Detail — Monthly (Admin Only)",
+      wintekDetailTitle: "Wintek 2026 Detail — Monthly",
       wintekDetailSub: "Green columns (Jan–Sep) = actuals per Financial Report September 2026; amber columns (Oct–Dec) = projection per Financial Report Desember 2026 – Projection. Total YTD = sum of Jan–Sep for flow items (revenue, net profit), or the Sep ending balance for stock items (total assets, cash & bank). Total Annual = sum of Jan–Dec / Dec ending balance, respectively. Values in full IDR. Source: PT WINTEK INVESTAMA INDONESIA LK 2026 (Detail).xlsx, verified against BCA e-statements (Jan–Sep, Rp 0 difference).",
       wintekYtd: "Total YTD (Jan–Sep)",
       wintekAnnual: "Total Annual (Jan–Dec)",
@@ -274,7 +275,7 @@ window.BPIV_I18N = {
     desc: {
       bpivDesc: "BPIV is the group's central investment company, funded directly by MTPL as lender (LP-style). It holds equity in MVP, TMN, Primtek and BVI, and provides intercompany loans to Rajapremi, BVI and Primtek. As of 31-Jul-2026 it remains balance-sheet insolvent: negative equity of Rp11.21bn, driven by the Rp3.38bn write-off of receivables in 2025 and cumulative interest owed to MTPL.",
       proshoDesc: "Prosindo is the top holding company, owned 50/50 by co-founder YSX and BVI offshore company PSI. It holds 99.9% of Wintek. Funding beyond paid-up capital comes from interest-free loans from PSI.",
-      wintekDesc: "Wintek Investama Indonesia (brand Rajapay) is the intermediate holding company, 99.9% owned by Prosindo. It holds 99% of BPIV and has on-lent funds to BPIV (principal Rp1.01bn + accrued interest Rp0.16bn as of 31-Jul-2026).",
+      wintekDesc: "Wintek Investama Indonesia (brand Rajapay) is the intermediate holding company, 99.9% owned by Prosindo. It holds 99% of BPIV and has on-lent funds to BPIV (principal Rp1.01bn + accrued interest Rp0.15bn as of 30-Sep-2026).",
       mvpDesc: "MVP (PT Mega Value Prosperindo) is an investment vehicle with no operating revenue. BPIV initially held 70% (on paid-up capital basis), diluted to 64.71% after valuation increase. Its only investment is 99.99% of Rajapremi (Rp2.0bn). In 2026 an intangible asset of Rp1.2bn was contributed, matched by a share capital increase. Dormant since 2018.",
       bviDesc: "BVI (PT Batavia Visi Inovasi), the group's former operating company under the B-Startup brand (office-building management and incubation), has been dormant since July 2025; expenses incurred after that date are non-operating in nature. It still owes BPIV Rp1.51bn principal + Rp0.57bn accrued interest (per group Loan Summary 31-Jul-2026) — flagged as a potential write-off.",
       rajapremiDesc: "Rajapremi (PT Rajapremi Dot Com) operates RajaPremi, Indonesia's first online general-insurance marketplace / aggregator ('Your Way, We Protect'): customers compare and buy motor, property, personal-accident and health policies online from carriers such as ACA, MNC Insurance and Zurich; income is carrier-paid commission (Fee Income) — it does not underwrite risk. Founded 2013 in Jakarta; per public records later acquired by Singapore-listed Fatfish Internet Group (ASX: FFG). 99.99% owned by MVP. Fee income fell from a peak of Rp342m (2017) to Rp27m (2025) and Rp26.8m YTD-2026; cumulative 2015–2025 losses of Rp5.3bn. It owes BPIV Rp1.87bn (cash advance), BVI Rp0.76bn (management fee) and MVP Rp11m.",
@@ -369,6 +370,7 @@ window.BPIV_I18N = {
     asOf: "截至",
     currencyNote: "除特别注明外，金额单位均为印尼盾（IDR）",
     annualAsOf: "资产负债表截至 2026 年 7 月 31 日",
+    wintekAsOf: "资产负债表截至 2026 年 9 月 30 日",
 
     nav: {
       dashboard: "仪表盘",
@@ -562,7 +564,7 @@ window.BPIV_I18N = {
       legalName: "法定名称",
       restrictedTitle: "受限内容",
       restrictedMsg: "该公司的详细信息仅对系统管理员可见。如需访问，请联系管理员。",
-      wintekDetailTitle: "Wintek 2026 明细 — 月度（仅管理员）",
+      wintekDetailTitle: "Wintek 2026 明细 — 月度",
       wintekDetailSub: "绿色列（1–9月）= 2026年9月财务报告实际数；琥珀色列（10–12月）= 2026年12月财务报告预测数。YTD合计：流量项（收入、净利润）为1–9月之和；存量项（总资产、现金及银行存款）为9月末余额。全年合计：流量项为1–12月之和；存量项为12月末余额。单位：印尼盾全额。来源：PT WINTEK INVESTAMA INDONESIA LK 2026 (Detail).xlsx，已与BCA电子对账单核对（1–9月差异为0）。",
       wintekYtd: "YTD合计（1–9月）",
       wintekAnnual: "全年合计（1–12月）",
@@ -671,7 +673,7 @@ window.BPIV_I18N = {
     desc: {
       bpivDesc: "BPIV 是集团的核心投资公司，资金由 MTPL 以贷款方式直接提供（LP 模式）。它持有 MVP、TMN、Primtek、BVI 的股权，并向 Rajapremi、BVI、Primtek 提供关联贷款。截至 2026 年 7 月 31 日仍资不抵债：净资产为负 112.1 亿盾，主要来自 2025 年 33.8 亿盾应收核销及对 MTPL 的累计利息。",
       proshoDesc: "Prosindo 是顶层控股公司，由联合创始人 YSX 与 BVI 离岸公司 PSI 各持 50%。它持有 Wintek 99.9% 的股权。超出实缴股本的资金由 PSI 以无息贷款提供。",
-      wintekDesc: "Wintek Investama Indonesia（品牌 Rajapay）是中间控股公司，由 Prosindo 持股 99.9%。它持有 BPIV 99% 的股权，并已转贷给 BPIV（截至 2026 年 7 月 31 日本金 10.1 亿盾 + 应计利息 1.6 亿盾）。",
+      wintekDesc: "Wintek Investama Indonesia（品牌 Rajapay）是中间控股公司，由 Prosindo 持股 99.9%。它持有 BPIV 99% 的股权，并已转贷给 BPIV（截至 2026 年 9 月 30 日本金 10.1 亿盾 + 应计利息 1.5 亿盾）。",
       mvpDesc: "MVP（PT Mega Value Prosperindo）是投资载体，无运营收入。BPIV 初始持股 70%（对应实缴股本），估值上升后稀释至 64.71%。唯一投资为 Rajapremi 99.99%（20 亿盾）。2026 年新增 12 亿盾无形资产出资，对应股本增加。自 2018 年起休眠。",
       bviDesc: "BVI（PT Batavia Visi Inovasi）原以 B-Startup 为运营品牌提供写字楼管理与孵化服务，自 2025 年 7 月起已休眠，其后产生的费用不再视为常规运营费用。它欠 BPIV 本金 15.1 亿盾 + 应计利息 5.7 亿盾（按集团 Loan Summary 2026-07-31），已列为潜在核销。",
       rajapremiDesc: "Rajapremi（PT Rajapremi Dot Com）运营 RajaPremi —— 印尼首家线上一般保险市场/聚合平台（口号：Your Way, We Protect）：客户可在线上比较并购买来自 ACA、MNC Insurance、Zurich 等保险公司的车险、财产险、意外险与健康险；收入来自保险公司支付的佣金（Fee Income），自身不承担承保风险。2013 年成立于雅加达；据公开资料，后被新加坡上市公司 Fatfish Internet Group（ASX: FFG）收购。由 MVP 持股 99.99%。佣金收入从 2017 年峰值 3.42 亿盾降至 2025 年 0.27 亿盾、今年至今 0.27 亿盾；2015–2025 年累计亏损 53 亿盾。欠 BPIV 18.7 亿盾（现金垫款）、欠 BVI 管理费 7.6 亿盾、欠 MVP 1100 万盾。",
@@ -766,6 +768,7 @@ window.BPIV_I18N = {
     asOf: "Per",
     currencyNote: "Semua jumlah dalam IDR kecuali disebutkan lain",
     annualAsOf: "Neraca per 31 Jul 2026",
+    wintekAsOf: "Neraca per 30 Sep 2026",
 
     nav: {
       dashboard: "Dashboard",
@@ -959,7 +962,7 @@ window.BPIV_I18N = {
       legalName: "Nama Hukum",
       restrictedTitle: "Dibatasi",
       restrictedMsg: "Informasi detail perusahaan ini hanya dapat dilihat oleh administrator sistem. Jika membutuhkan akses, hubungi administrator.",
-      wintekDetailTitle: "Wintek 2026 Detail — Bulanan (Khusus Admin)",
+      wintekDetailTitle: "Wintek 2026 Detail — Bulanan",
       wintekDetailSub: "Kolom hijau (Jan–Sep) = aktual per Laporan Keuangan September 2026; kolom amber (Okt–Des) = proyeksi per Laporan Keuangan Desember 2026 – Proyeksi. Total YTD = jumlah Jan–Sep untuk posisi aliran (pendapatan, laba bersih), atau saldo akhir September untuk posisi stok (total aset, kas & bank). Total Annual = jumlah Jan–Des / saldo akhir Desember. Nilai dalam IDR penuh. Sumber: PT WINTEK INVESTAMA INDONESIA LK 2026 (Detail).xlsx, direkonsiliasi dengan e-statement BCA (Jan–Sep, selisih Rp 0).",
       wintekYtd: "Total YTD (Jan–Sep)",
       wintekAnnual: "Total Annual (Jan–Des)",
@@ -1068,7 +1071,7 @@ window.BPIV_I18N = {
     desc: {
       bpivDesc: "BPIV adalah perusahaan investasi pusat grup, didanai langsung oleh MTPL sebagai pemberi pinjaman (model LP). Ia memegang ekuitas di MVP, TMN, Primtek, dan BVI, serta memberikan pinjaman antar perusahaan kepada Rajapremi, BVI, dan Primtek. Per 31 Jul 2026 tetap insolvable: ekuitas negatif Rp11,21 miliar, akibat penghapusbukuan piutang Rp3,38 miliar pada 2025 dan bunga akumulasi ke MTPL.",
       proshoDesc: "Prosindo adalah perusahaan holding puncak, dimiliki 50/50 oleh co-founder YSX dan perusahaan lepas pantai BVI PSI. Ia memegang 99,9% Wintek. Dana di luar modal disetor berasal dari pinjaman tanpa bunga dari PSI.",
-      wintekDesc: "Wintek Investama Indonesia (merek Rajapay) adalah perusahaan holding perantara, 99,9% dimiliki Prosindo. Ia memegang 99% BPIV dan telah menyalurkan pinjaman ke BPIV (pokok Rp1,01 miliar + bunga akrual Rp0,16 miliar per 31-Jul-2026).",
+      wintekDesc: "Wintek Investama Indonesia (merek Rajapay) adalah perusahaan holding perantara, 99,9% dimiliki Prosindo. Ia memegang 99% BPIV dan telah menyalurkan pinjaman ke BPIV (pokok Rp1,01 miliar + bunga akrual Rp0,15 miliar per 30-Sep-2026).",
       mvpDesc: "MVP (PT Mega Value Prosperindo) adalah kendaraan investasi tanpa pendapatan operasional. BPIV awalnya memegang 70% (berdasarkan modal disetor), terdilusi menjadi 64,71% setelah kenaikan valuasi. Satu-satunya investasinya adalah 99,99% Rajapremi (Rp2,0 miliar). Pada 2026 aset tak berwujud Rp1,2 miliar disetorkan, diimbangi kenaikan modal saham. Sudah nonaktif sejak 2018.",
       bviDesc: "BVI (PT Batavia Visi Inovasi), sebelumnya perusahaan operasional grup dengan merek B-Startup (manajemen gedung kantor & inkubasi), sudah nonaktif (dorman) sejak Juli 2025; beban yang timbul setelah tanggal itu bersifat non-operasional. Ia masih berutang ke BPIV pokok Rp1,51 miliar + bunga akrual Rp0,57 miliar (menurut Loan Summary grup 31-Jul-2026) — ditandai sebagai potensi penghapusbukuan.",
       rajapremiDesc: "Rajapremi (PT Rajapremi Dot Com) mengoperasikan RajaPremi, marketplace/agregator asuransi umum online pertama di Indonesia ('Your Way, We Protect'): pelanggan membandingkan dan membeli polis kendaraan, properti, kecelakaan diri dan kesehatan secara online dari perusahaan seperti ACA, MNC Insurance dan Zurich; pendapatan berupa komisi dari perusahaan asuransi (Fee Income) — tidak menanggung risiko underwriting. Didirikan 2013 di Jakarta; menurut catatan publik kemudian diakuisisi oleh Fatfish Internet Group (ASX: FFG) yang terdaftar di Singapura. 99,99% dimiliki MVP. Fee income turun dari puncak Rp342 juta (2017) menjadi Rp27 juta (2025) dan Rp26,8 juta YTD-2026; akumulasi rugi 2015–2025 Rp5,3 miliar. Berhutang ke BPIV Rp1,87 miliar (uang muka kas), ke BVI Rp0,76 miliar (biaya manajemen) dan ke MVP Rp11 juta.",
