@@ -139,6 +139,14 @@ table.data th, table.data td {
 table.data th { background: #f0f3f7; font-weight: 600; font-size: 12px; color: var(--text-muted); }
 table.data tr:hover td { background: #fafbfc; }
 
+/* Wintek detail: actual (green) vs estimate (amber) column tinting + totals */
+table.data th.act-col { background: #cdeeda; }
+table.data td.act-col { background: #eaf6ef; }
+table.data th.est-col { background: #f6e2bd; }
+table.data td.est-col { background: #fdf3e3; }
+table.data th.tot-col { background: #dfe7f0; }
+table.data td.tot-col { background: #eef2f7; font-weight: 700; }
+
 .company-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));

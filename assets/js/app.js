@@ -432,23 +432,36 @@
     var d = c.d2026;
     if (!d) return "";
     var MONTHS = ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12"];
+    var ACTUAL_N = 9; // Jan..Sep = actual; Oct..Dec = estimate
     var monthLabels = MONTHS.map(function (m) { return t("company." + m); });
-    function mrow(label, arr) {
-      var cells = arr.map(function (v) {
-        return '<td class="num' + (v < 0 ? ' neg-val' : '') + '">' + fmtIDR(v) + "</td>";
+    function sum(arr, from, to) { var s = 0; for (var i = from; i < to; i++) s += arr[i]; return s; }
+    function mrow(label, arr, isStock) {
+      var cells = arr.map(function (v, i) {
+        var col = i < ACTUAL_N ? "act-col" : "est-col";
+        var neg = v < 0 ? " neg-val" : "";
+        return '<td class="num ' + col + neg + '">' + fmtIDR(v) + "</td>";
       }).join("");
-      return "<tr><td>" + label + "</td>" + cells + "</tr>";
+      var ytd = isStock ? arr[ACTUAL_N - 1] : sum(arr, 0, ACTUAL_N);
+      var ann = isStock ? arr[arr.length - 1] : sum(arr, 0, arr.length);
+      function tot(v) { var neg = v < 0 ? " neg-val" : ""; return '<td class="num tot-col' + neg + '">' + fmtIDR(v) + "</td>"; }
+      return "<tr><td>" + label + "</td>" + cells + tot(ytd) + tot(ann) + "</tr>";
     }
-    var hdr = "<tr><th>" + t("company.account") + "</th>" +
-      monthLabels.map(function (m) { return '<th class="num">' + m + "</th>"; }).join("") + "</tr>";
+    var hdrCells = monthLabels.map(function (m, i) {
+      var col = i < ACTUAL_N ? "act-col" : "est-col";
+      return '<th class="num ' + col + '">' + m + "</th>";
+    }).join("");
+    var hdr = "<tr><th>" + t("company.account") + "</th>" + hdrCells +
+      '<th class="num tot-col">' + t("company.wintekYtd") + "</th>" +
+      '<th class="num tot-col">' + t("company.wintekAnnual") + "</th></tr>";
     var monthlyHtml =
       '<div class="panel"><h3>' + t("company.wintekDetailTitle") + '</h3>' +
       '<table class="data"><thead>' + hdr + "</thead><tbody>" +
-      mrow(t("company.rev"), d.monthly.revenue) +
-      mrow(t("company.np"), d.monthly.netProfit) +
-      mrow(t("company.ta"), d.monthly.totalAssets) +
-      mrow(t("company.cashBank"), d.monthly.cashBank) +
+      mrow(t("company.rev"), d.monthly.revenue, false) +
+      mrow(t("company.np"), d.monthly.netProfit, false) +
+      mrow(t("company.ta"), d.monthly.totalAssets, true) +
+      mrow(t("company.cashBank"), d.monthly.cashBank, true) +
       "</tbody></table>" +
+      '<div id="wintek-2026-chart" class="chart-box tall"></div>' +
       '<div class="panel-note">' + t("company.wintekDetailSub") + "</div></div>";
 
     var kf = d.keyFigures.map(function (f) {
@@ -659,8 +672,56 @@
     });
   }
 
+  // Admin-only Wintek 2026 monthly chart: flows (revenue, net profit, cash) on the left axis,
+  // total assets on the right axis; solid = actual Jan-Sep, dashed = estimate Oct-Dec.
+  function renderWintekChart(c) {
+    var el = document.getElementById("wintek-2026-chart");
+    if (!el || !c.d2026) return;
+    var m = c.d2026.monthly;
+    var ACTUAL_N = 9;
+    var cats = ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12"]
+      .map(function (k) { return t("company." + k).replace(/\s*[\(（].*?[\)）]/g, ""); });
+    var toM = function (v) { return Math.round(v / 1e6); };
+    function split(arr) {
+      return {
+        act: arr.map(function (v, i) { return i < ACTUAL_N ? toM(v) : null; }),
+        est: arr.map(function (v, i) { return i >= ACTUAL_N - 1 ? toM(v) : null; })
+      };
+    }
+    var rev = split(m.revenue), np = split(m.netProfit), cash = split(m.cashBank), ta = split(m.totalAssets);
+    var chart = echarts.init(el);
+    chartInstances.push(chart);
+    var estBase = { type: "line", showInLegend: false, silent: true, tooltip: { show: false }, symbolSize: 5, lineStyle: { type: "dashed", width: 2 } };
+    chart.setOption({
+      tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, valueFormatter: function (v) { return v == null ? "-" : "Rp " + v + " m"; } },
+      legend: { top: 0, left: "center", icon: "roundRect", itemWidth: 12, itemHeight: 10, itemGap: 14,
+        data: [t("company.rev"), t("company.np"), t("company.cashBank"), t("company.ta")] },
+      grid: { left: 12, right: 16, top: 40, bottom: 26, containLabel: true },
+      xAxis: { type: "category", data: cats },
+      yAxis: [
+        { type: "value", name: "Rp m (P&L / cash)", axisLabel: { formatter: function (v) { return Math.round(v); } } },
+        { type: "value", name: "Rp m (total assets)", axisLabel: { formatter: function (v) { return Math.round(v); } }, splitLine: { show: false } }
+      ],
+      series: [
+        { name: t("company.rev"), type: "bar", barMaxWidth: 20, itemStyle: { color: "#3aa66f" }, data: rev.act },
+        { name: t("company.rev"), type: "bar", barMaxWidth: 20, data: rev.est,
+          itemStyle: { color: "rgba(58,166,111,0.35)", borderColor: "#3aa66f", borderWidth: 1, borderType: "dashed" },
+          showInLegend: false, silent: true, tooltip: { show: false } },
+        { name: t("company.np"), type: "line", symbolSize: 6, lineStyle: { width: 2 }, itemStyle: { color: "#1a3a6b" }, data: np.act },
+        Object.assign({}, estBase, { name: t("company.np"), itemStyle: { color: "#1a3a6b" }, data: np.est, lineStyle: { type: "dashed", width: 2, color: "#1a3a6b" } }),
+        { name: t("company.cashBank"), type: "line", symbolSize: 6, lineStyle: { width: 2 }, itemStyle: { color: "#e08a2e" }, data: cash.act },
+        Object.assign({}, estBase, { name: t("company.cashBank"), itemStyle: { color: "#e08a2e" }, data: cash.est, lineStyle: { type: "dashed", width: 2, color: "#e08a2e" } }),
+        { name: t("company.ta"), type: "line", yAxisIndex: 1, symbolSize: 6, lineStyle: { width: 2 }, itemStyle: { color: "#2c7a7b" }, data: ta.act,
+          markLine: { silent: true, symbol: "none", label: { formatter: t("company.wintekChartDivider"), position: "insideEndTop", fontSize: 11, color: "#888" },
+            lineStyle: { type: "dashed", color: "#9aa5b1" }, data: [{ xAxis: 8.5 }] } },
+        Object.assign({}, estBase, { name: t("company.ta"), yAxisIndex: 1, itemStyle: { color: "#2c7a7b" }, data: ta.est, lineStyle: { type: "dashed", width: 2, color: "#2c7a7b" } })
+      ]
+    });
+  }
+
   function renderCompanyCharts(c) {
     if (c.slug === "bpiv") { renderBpivPlCharts(); return; }
+    if (c.slug === "wintek") renderWintekChart(c);
     var el = document.getElementById("co-rev-chart");
     if (!el || !D.revenue.series[c.slug]) return;
     var chart = echarts.init(el);
