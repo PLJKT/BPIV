@@ -211,10 +211,10 @@ window.BPIV_DATA = {
       shareCapital: 250000000,
       asOfKey: "wintekAsOf",
       bs: {
-        assets: 1748763430.89,
-        liabilities: 306544813,
-        equity: 1442218617.65,
-        netIncome: 411815087.10
+        assets: 1771728419.89,
+        liabilities: 486650362,
+        equity: 1285078057.89,
+        netIncome: 254674527.34
       },
       bsDetail: [
         { section: "assets" },
@@ -225,19 +225,20 @@ window.BPIV_DATA = {
         { label: "Receivables — DIN", amount: 10070000 },
         { label: "Interest receivable from BPIV", amount: 152107106 },
         { label: "Shareholder receivables", amount: 150000000 },
-        { label: "Accounts receivable — Dora", amount: 59250000 },
+        { label: "Office equipment, net", amount: 82214989 },
         { label: "Motor vehicles, net", amount: 220982496 },
-        { label: "TOTAL ASSETS", amount: 1748763430.89, total: true },
+        { label: "TOTAL ASSETS", amount: 1771728419.89, total: true },
         { section: "liabilities" },
         { label: "Vehicle (fixed asset) payable", amount: 40011000 },
+        { label: "Unearned revenue", amount: 64270001 },
         { label: "Payable tax (PPh 21)", amount: 250000 },
-        { label: "Due to Prosindo", amount: 266283813 },
-        { label: "TOTAL LIABILITIES", amount: 306544813, total: true },
+        { label: "Due to Prosindo", amount: 382119361 },
+        { label: "TOTAL LIABILITIES", amount: 486650362, total: true },
         { section: "equity" },
         { label: "Share capital", amount: 250000000 },
         { label: "Retained earnings", amount: 780403530.55 },
-        { label: "Current year earnings", amount: 411815087.10 },
-        { label: "TOTAL EQUITY", amount: 1442218617.65, total: true }
+        { label: "Current year earnings", amount: 254674527.34 },
+        { label: "TOTAL EQUITY", amount: 1285078057.89, total: true }
       ],
       isDetail: null,
       investsIn: [
@@ -247,29 +248,30 @@ window.BPIV_DATA = {
         { co: "bpiv", principal: 1006677392, interest: 152107106, date: "2016" }
       ],
       descriptionKey: "wintekDesc",
-      // Wintek 2026 detail: Jan-Sep actuals per "Financial Report Wintek Sep 2026 - Revisi Sales";
-      // Oct-Dec carried over from the Des 2026 projection. Rendered only when Auth.isAdmin().
+      // Wintek 2026 detail: Jan-Sep actuals per "12. Financial Report Wintek Sep 2026";
+      // Oct-Dec sales estimates per "Rekap Sales FAT" (MYOB), Q4 net profit estimated at the 9M actual
+      // net margin (58.92%). Rendered only when Auth.isAdmin().
       d2026: {
         monthly: {
-          revenue: [0, 21000000, 44275510, 91429387.76, 88630000, 87600000, 207300000, 0, 15550000, 48340000, 29610000, 23610000],
-          netProfit: [-4239169, 16204909, 34906163.66, 75202731.86, 69081055.38, 71509441.83, 180465540.38, -32533605.01, 1218019, 34008019, 15278019, 9278019],
-          totalAssets: [1663476042.55, 1680283061.55, 1715220725.21, 1735598552.31, 1760833104.69, 1797474046.52, 1793416016.9, 1754669164.89, 1748763430.89, 1749351949.89, 1740351468.89, 1728350987.89],
+          revenue: [0, 21000000, 56244898, 28726666, 82146666, 79141667, 64705000, 40400000, 59900000, 33950000, 25700000, 36050000],
+          netProfit: [-6814844, 12352117, 42844610.66, 15224313.1, 58444076.38, 58804205.83, 33805171.38, 86689.99, 39928187, 33950000 * (254674527.34 / 432264897), 25700000 * (254674527.34 / 432264897), 36050000 * (254674527.34 / 432264897)],
+          totalAssets: [1680076442.55, 1730672184.55, 1755556820.21, 1738094119.31, 1753698143.69, 1767038557.52, 1776639999.9, 1736452619.89, 1771728419.89, 1772316938.89, 1763316457.89, 1751315976.89],
           cashBank: [12283200.55, 22549700.55, 38196335.21, 18775055.31, 38380288.69, 52515911.52, 44080362.9, 26701991.89, 40745738.89, 45180738.89, 40109738.89, 32098738.89]
         },
         keyFigures: [
-          { key: "rev9m", value: 555784897.76 },
-          { key: "revFy", value: 657344897.76 },
-          { key: "np9m", value: 411815087.10 },
-          { key: "npFy", value: 470379144.10 },
-          { key: "margin9m", value: 411815087.10 / 555784897.76, pct: true },
-          { key: "marginFy", value: 470379144.10 / 657344897.76, pct: true },
+          { key: "rev9m", value: 432264897 },
+          { key: "revFy", value: 527964897 },
+          { key: "np9m", value: 254674527.34 },
+          { key: "npFy", value: 254674527.34 + (33950000 + 25700000 + 36050000) * (254674527.34 / 432264897) },
+          { key: "margin9m", value: 254674527.34 / 432264897, pct: true },
+          { key: "marginFy", value: (254674527.34 + (33950000 + 25700000 + 36050000) * (254674527.34 / 432264897)) / 527964897, pct: true },
           { key: "cashSep", value: 40745738.89 },
           { key: "cashDec", value: 32098738.89 },
-          { key: "taSep", value: 1748763430.89 },
-          { key: "taDec", value: 1728350987.89 },
+          { key: "taSep", value: 1771728419.89 },
+          { key: "taDec", value: 1751315976.89 },
           { key: "rpAssets", value: 1257784498 },
           { key: "withdrawals", value: 304000000 },
-          { key: "dueProsindo", value: 266283813 }
+          { key: "dueProsindo", value: 382119361 }
         ]
       }
     },
@@ -612,7 +614,7 @@ window.BPIV_DATA = {
       mvp:       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       mcash:     [0, 0, 0, 0, 3458511, 616932, 1583757, 0, 0, 0, 0, 0, 0, 0],
       tmn:       [0, 0, 0, 615066, 46965, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      wintek:    [0, 0, 2072857, 5663558, 4660, 37159167, 0, 0, 22304495, 624466005, 111589391, 12928254, 18450260, 657344897.76]
+      wintek:    [0, 0, 2072857, 5663558, 4660, 37159167, 0, 0, 22304495, 624466005, 111589391, 12928254, 18450260, 527964897]
     }
   },
 
